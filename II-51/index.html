@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>II-51 Programación Internet</title>
+  <style>
+    :root{
+      --uc-blue:#0b3c4d; --uc-teal:#58b5a6; --uc-ink:#0f172a; --uc-muted:#94a5bd;
+      --uc-bg:#ffffff; --uc-border:#e5e7eb; --table-alt:#f8fafc; --table-alt-2:#f3f4f6;
+      --link:#0f5e76; --link-hover:#58b5a6;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--uc-bg);color:var(--uc-ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,'Noto Sans',sans-serif;line-height:1.55}
+    a{color:var(--link);text-decoration:none} a:hover{color:var(--link-hover)}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    header.hero{border-bottom:4px solid var(--uc-teal);padding:16px 0;margin-bottom:0;background:linear-gradient(135deg,var(--uc-blue),#072b36);color:#fff}
+    .brand{display:flex;gap:14px;align-items:center}
+    .brand img{height:56px;width:auto;display:block}
+    .brand h1{margin:0;font-size:28px;letter-spacing:.2px}
+    .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:6px 16px;margin-top:6px;color:#e6f4f7}
+
+    /* Barra acciones + índice */
+    .actions{position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:saturate(1.2) blur(4px);border-bottom:1px solid var(--uc-border);z-index:60}
+    .actions-inner{display:grid;grid-template-columns:1fr;gap:10px;align-items:center}
+    .btn{appearance:none;border:1px solid var(--uc-blue);background:var(--uc-blue);color:white;border-radius:10px;padding:10px 14px;font-weight:600;font-size:14px;cursor:pointer}
+    nav.toc{overflow:auto;white-space:nowrap}
+    .toc a{display:inline-block;padding:8px 10px;border-radius:999px;border:1px solid var(--uc-border);background:#fff;margin:0 6px 6px 0;font-size:14px}
+
+    /* Tarjetas y tablas */
+    .card{border:1px solid var(--uc-border);border-radius:14px;padding:18px;margin:16px 0;background:white}
+    h2{color:var(--uc-blue);margin:.1em 0 .4em}
+    h3{color:#0f5e76;margin:1em 0 .4em}
+    .small{font-size:13px;color:var(--uc-muted)}
+    table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--uc-border);border-radius:12px;overflow:hidden}
+    thead tr{background:var(--uc-blue);color:#fff}
+    th,td{padding:10px 12px;border-bottom:1px solid var(--uc-border);vertical-align:top;font-size:14px}
+    tbody tr:nth-child(odd){background:var(--table-alt)}
+    tbody tr:nth-child(even){background:var(--table-alt-2)}
+    .chip{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--uc-teal);color:#063341;font-weight:700;font-size:12px}
+
+    /* Rúbricas */
+    details.rubrica{border:1px dashed var(--uc-border);border-radius:12px;padding:10px;margin-top:10px;background:#fff}
+    details.rubrica[open]{background:#f9fdfc}
+    details.rubrica > summary{cursor:pointer;font-weight:700;color:var(--uc-blue)}
+    .rubrica-table{width:100%;border-collapse:collapse;margin-top:8px}
+    .rubrica-table th,.rubrica-table td{border:1px solid var(--uc-border);padding:8px;text-align:left}
+
+    /* Disposición */
+    .grid-2{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:960px){.grid-2{grid-template-columns:1fr 1fr}}
+
+    /* Impresión */
+    @page{margin:14mm}
+    @media print{
+      .actions,.btn,nav.toc{display:none !important}
+      a[href]:after{content:""}
+      .card{break-inside:avoid}
+      h2{page-break-after:avoid}
+      table{page-break-inside:auto}
+      tr{page-break-inside:avoid;page-break-after:auto}
+      details.rubrica:not([open]){display:none}
+    }
+    .logo-placeholder{width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.1);overflow:hidden}
+    .logo-placeholder .logo{width:40px;height:auto}
+  </style>
+</head>
+<body>
+  <!-- Barra de acciones e índice -->
+  <div class="actions">
+    <div class="container actions-inner">
+      <button class="btn" onclick="window.print()">Descargar PDF / Imprimir</button>
+      <nav class="toc" aria-label="Índice del documento">
+        <a href="#resumen">Resumen</a>
+        <a href="#objetivos">Objetivos</a>
+        <a href="#metodologia">Metodología</a>
+        <a href="#plan">Plan de estudio</a>
+        <a href="#actividades">Tipos de actividades</a>
+        <a href="#investigaciones">Investigaciones</a>
+        <a href="#evaluacion">Sistema de evaluación</a>
+        <a href="#bibliografia">Bibliografía</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Encabezado institucional -->
+  <header class="hero" id="resumen">
+    <div class="container brand">
+      <div class="logo-placeholder">
+        <!-- Espacio reservado para el logo -->
+        <img src="assets/logo-uc.png" alt="Universidad Central – Logotipo" class="logo" />
+      </div>
+      <div>
+        <h1>II-51 Programación Internet</h1>
+        <div class="meta small">
+          <div><b>Código:</b> II-51</div>
+          <div><b>Créditos:</b> 4</div>
+          <div><b>Duración:</b> 15 semanas</div>
+          <div><b>Modalidad:</b> Virtual</div>
+          <div><b>Docente:</b> Fabián Chinchilla Mayorga</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Objetivos -->
+    <section class="card" id="objetivos">
+      <h2>Objetivos</h2>
+      <h3>Objetivo general</h3>
+      <p>Proporcionar al estudiantado los conocimientos técnicos necesarios para el diseño y desarrollo de aplicaciones web, fomentando la aplicación de buenas prácticas y el uso pertinente de tecnologías actuales.</p>
+
+      <h3>Objetivos específicos</h3>
+      <ul>
+        <li>Definir los conceptos básicos de diseño web en distintas plataformas para la construcción de sitios.</li>
+        <li>Explicar el uso de herramientas de programación y diseño (HTML, CSS, JavaScript, PHP, entre otras) a través de proyectos guiados.</li>
+        <li>Demostrar, al cierre del curso, una visión concreta y aplicada sobre el desarrollo de proyectos web.</li>
+        <li>Analizar y aplicar de forma eficiente los conocimientos adquiridos en la resolución de problemas reales.</li>
+        <li>Evaluar la capacidad para concebir y desarrollar soluciones propias en contextos reales y comerciales.</li>
+      </ul>
+    </section>
+
+    <!-- Metodología -->
+    <section class="card" id="metodologia">
+      <h2>Metodología</h2>
+      <p>El curso se desarrolla bajo una modalidad <strong>teórico–práctica</strong>, privilegiando la participación activa y la construcción de conocimiento mediante tareas aplicadas y proyectos. Se articulan experiencias de aprendizaje <strong>sincrónicas</strong> y <strong>asincrónicas</strong> que propician el logro de las competencias del programa.</p>
+
+      <div class="grid-2">
+        <div>
+          <h3>Componentes</h3>
+          <ul>
+            <li><strong>Sesiones sincrónicas:</strong> exposición magistral breve, resolución de dudas, ejercicios guiados y trabajo colaborativo.</li>
+            <li><strong>Procesos asincrónicos:</strong> actividades previas y posteriores para preparar y consolidar contenidos, con realimentación formativa.</li>
+            <li><strong>Evaluación continua:</strong> laboratorios, investigaciones y proyectos con rúbricas específicas.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Estrategia de aprendizaje</h3>
+          <ul>
+            <li>Avance incremental desde estructuras básicas hacia desarrollos más complejos.</li>
+            <li>Trabajo individual y en equipo para promover el análisis crítico, la creatividad y la innovación.</li>
+            <li>Énfasis en la aplicación práctica, la documentación y la presentación de resultados.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Plan de estudio -->
+    <section class="card" id="plan">
+      <h2>Plan de estudio (15 semanas)</h2>
+      <table aria-label="Plan de estudio semana a semana">
+        <thead>
+          <tr>
+            <th style="width:10%">Semana</th>
+            <th style="width:25%">Tema</th>
+            <th style="width:65%">Contenido / Práctica</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Introducción y UML</td><td>OO y modelado (casos de uso, modelo conceptual). <a href="#lab1"><i>Lab#1</i></a></td></tr>
+          <tr><td>2</td><td>HTML básico</td><td>Estructura, texto, tablas, links, imágenes, meta. <a href="#lab2"><i>Lab#2</i></a></td></tr>
+          <tr><td>3</td><td>HTML avanzado</td><td>Formularios, validación, semántica HTML5. <a href="#lab3"><i>Lab#3</i></a></td></tr>
+          <tr><td>4</td><td>CSS básico</td><td>Modelo de caja, selectores, clases, pseudoclases/pseudoelementos. <a href="#lab4"><i>Lab#4</i></a></td></tr>
+          <tr><td>5</td><td>CSS avanzado</td><td>Sombras, combinaciones, animaciones y transiciones; Flexbox y Grid. <span class="chip">Inicio Portafolio (sin entrega)</span> · <span class="chip">Entrega Investigación 1 (video ≤10 min)</span></td></tr>
+          <tr><td>6</td><td>Frameworks CSS</td><td>Bootstrap y responsive. <a href="#lab5"><i>Lab#5</i></a> – <strong>Entrega Portafolio consolidado (CSS + Bootstrap)</strong></td></tr>
+          <tr><td>7</td><td>JavaScript esencial</td><td>Funciones, DOM y eventos. <b>Parcial 1.</b></td></tr>
+          <tr><td>8</td><td>JavaScript avanzado</td><td>Callbacks, Promesas, Fetch API. <a href="#lab6"><i>Lab#6</i></a></td></tr>
+          <tr><td>9</td><td>React I</td><td>JSX, componentes, props, estado (<code>useState</code>). <a href="#lab7"><i>Lab#7</i></a></td></tr>
+          <tr><td>10</td><td>React II</td><td>Eventos, renderizado condicional, formularios. <a href="#lab8"><i>Lab#8</i></a></td></tr>
+          <tr><td>11</td><td>React III</td><td><code>useEffect</code> y fetch de datos. <a href="#lab9"><i>Lab#9</i></a></td></tr>
+          <tr><td>12</td><td>React IV</td><td>Router y Context API. <i>Práctica:</i> app multipágina. <b>Parcial 2.</b></td></tr>
+          <tr><td>13</td><td>React V</td><td>Custom hooks; <code>useMemo</code>, <code>useCallback</code>, <code>useRef</code>. <span class="chip">Entrega Investigación 2 (video ≤10 min)</span></td></tr>
+          <tr><td>14</td><td>React VI</td><td>Integración con backend (CRUD REST/Supabase). Autenticación básica. <a href="#lab10"><i>Lab#10</i></a></td></tr>
+          <tr><td>15</td><td>Proyecto Final</td><td>Entrega y defensa de aplicación completa en React.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card" id="actividades">
+      <h2>Tipos de actividades (resumen por semana)</h2>
+      <table aria-label="Tipos de actividades con ejemplos por semana">
+        <thead>
+          <tr>
+            <th>Semana</th>
+            <th>Tipo de actividad</th>
+            <th>Ejemplo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1–2</td><td>Laboratorio guiado</td><td>UML básico; estructura HTML de una página institucional.</td></tr>
+          <tr><td>3–4</td><td>Laboratorio + tarea</td><td>Formulario accesible; estilos con selectores y pseudoclases.</td></tr>
+          <tr><td>5–6</td><td>Proyecto aplicado</td><td>Portafolio responsivo iniciado (S5) y <strong>entregado consolidado</strong> (S6) con Bootstrap.</td></tr>
+          <tr><td>7</td><td>Proyecto parcial 1</td><td>Landing con HTML/CSS/JS (validaciones y DOM).</td></tr>
+          <tr><td>8–11</td><td>Laboratorios React/JS</td><td>Fetch API; componentes, estado, formularios y <code>useEffect</code>.</td></tr>
+          <tr><td>12</td><td>Proyecto parcial 2</td><td>React Router + Context; app multipágina (sin laboratorio adicional).</td></tr>
+          <tr><td>13</td><td>Investigación</td><td>React avanzado (hooks, estado global) con defensa en video.</td></tr>
+          <tr><td>14</td><td>Laboratorio avanzado</td><td>CRUD con REST/Supabase + autenticación básica.</td></tr>
+          <tr><td>15</td><td>Proyecto final</td><td>Entrega, validación técnica y defensa.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Investigaciones -->
+    <section class="card" id="investigaciones">
+      <h2>Investigaciones</h2>
+
+      <h3>Investigación 1 — CSS Avanzado (Semana 5)</h3>
+      <ul>
+        <li><strong>Temas:</strong> sombras (<code>box-shadow</code>, <code>text-shadow</code>), transiciones y animaciones; integración al portafolio.</li>
+        <li><strong>Entregables:</strong> documento breve (2–4 páginas) + <strong>video de defensa</strong> (máx. 10 minutos) demostrando lo investigado y ejemplos prácticos.</li>
+        <li><strong>Validación:</strong> el video se usa para comprobar dominio del tema.</li>
+      </ul>
+
+      <h3>Investigación 2 — React Avanzado (Semana 13)</h3>
+      <ul>
+        <li><strong>Temas:</strong> hooks (<code>useState</code>, <code>useEffect</code>, <code>useMemo</code>), estado global (Context API/Redux), escenarios de uso.</li>
+        <li><strong>Entregables:</strong> documento breve (2–4 páginas) + <strong>video de defensa</strong> (máx. 10 minutos) con explicación y demo de código.</li>
+        <li><strong>Nota:</strong> ejemplos de código en inglés; referencias confiables.</li>
+      </ul>
+
+      <p class="small">Los videos deben alojarse en un enlace accesible (Drive/YouTube no listado) e incluir en la portada del documento el vínculo correspondiente.</p>
+    </section>
+
+    <!-- Laboratorios -->
+    <section class="card" id="laboratorios">
+      <h2>Laboratorios</h2>
+      <table aria-label="Laboratorios">
+        <thead>
+          <tr>
+            <th>Semana</th>
+            <th>Tipo de actividad</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="lab1"><td>1</td><td>Lab #1</td><td><i>Práctica:</i> diagrama UML.</td></tr>
+          <tr id="lab2"><td>2</td><td>Lab #2</td><td><i>Práctica:</i> página personal.</td></tr>
+          <tr id="lab3"><td>3</td><td>Lab #3</td><td><i>Práctica:</i> formulario de registro.</td></tr>
+          <tr id="lab4"><td>4</td><td>Lab #4</td><td><i>Práctica:</i> estilos del registro.</td></tr>
+          <tr id="lab5"><td>6</td><td>Lab #5</td><td><i>Práctica:</i> <strong>Portafolio consolidado</strong> (CSS + Bootstrap).</td></tr>
+          <tr id="lab6"><td>8</td><td>Lab #6</td><td>Consumo de API pública con Fetch (listar y filtrar).</td></tr>
+          <tr id="lab7"><td>9</td><td>Lab #7</td><td>Práctica: contador y lista.</td></tr>
+          <tr id="lab8"><td>10</td><td>Lab #8</td><td>Práctica: formulario controlado.</td></tr>
+          <tr id="lab9"><td>11</td><td>Lab #9</td><td>Práctica: consumo de API con <code>useEffect</code>.</td></tr>
+          <tr id="lab10"><td>14</td><td>Lab #10</td><td>Práctica: CRUD con Supabase + autenticación básica.</td></tr>
+        </tbody>
+      </table>
+      <p class="small">Nota: No se programan laboratorios en <strong>Semana 7</strong> ni <strong>Semana 12</strong> (semanas de exámenes).</p>
+    </section>
+
+    <!-- Evaluación + Rúbricas (resumen) -->
+    <section class="card" id="evaluacion">
+      <h2>Sistema de evaluación</h2>
+      <table aria-label="Sistema de evaluación">
+        <thead><tr><th>Actividad</th><th>Porcentaje</th></tr></thead>
+        <tbody>
+          <tr><td>Laboratorios</td><td>25%</td></tr>
+          <tr><td>Investigaciones (con defensa en video)</td><td>10%</td></tr>
+          <tr><td>Proyecto Parcial 1</td><td>15%</td></tr>
+          <tr><td>Proyecto Parcial 2</td><td>20%</td></tr>
+          <tr><td>Proyecto Final</td><td>30%</td></tr>
+        </tbody>
+      </table>
+
+      <details class="rubrica">
+        <summary>Ver rúbrica – Investigaciones (video ≤10 min)</summary>
+        <table class="rubrica-table">
+          <thead><tr><th>Criterio</th><th>Descripción</th><th>Peso</th></tr></thead>
+          <tbody>
+            <tr><td>Entrega y formato</td><td>Documento 2–4 págs. con portada institucional y referencias; enlace al video.</td><td>20%</td></tr>
+            <tr><td>Dominio conceptual</td><td>Explica con claridad conceptos clave y sustenta con fuentes confiables.</td><td>30%</td></tr>
+            <tr><td>Demostración práctica</td><td>Muestra ejemplos funcionales y los explica durante el video.</td><td>30%</td></tr>
+            <tr><td>Comunicación</td><td>Claridad, estructura, tiempo y cierre (recomendaciones).</td><td>20%</td></tr>
+          </tbody>
+        </table>
+      </details>
+
+      <details class="rubrica">
+        <summary>Ver rúbrica – Laboratorios</summary>
+        <table class="rubrica-table">
+          <thead><tr><th>Criterio</th><th>Descripción</th><th>Peso</th></tr></thead>
+          <tbody>
+            <tr><td>Entrega y cumplimiento</td><td>Entrega oportuna y requisitos mínimos cubiertos.</td><td>20%</td></tr>
+            <tr><td>Calidad técnica</td><td>Uso correcto de HTML/CSS/JS/React según la semana.</td><td>35%</td></tr>
+            <tr><td>Buenas prácticas</td><td>Estructura, nomenclatura y legibilidad del código.</td><td>25%</td></tr>
+            <tr><td>Presentación</td><td>Demostración clara y documentación breve.</td><td>20%</td></tr>
+          </tbody>
+        </table>
+      </details>
+
+      <details class="rubrica">
+        <summary>Ver rúbrica – Proyecto Final</summary>
+        <table class="rubrica-table">
+          <thead><tr><th>Criterio</th><th>Descripción</th><th>Peso</th></tr></thead>
+          <tbody>
+            <tr><td>Requisitos funcionales</td><td>Rutas, CRUD, autenticación básica.</td><td>40%</td></tr>
+            <tr><td>Integración backend</td><td>Consumo de API/Supabase y manejo de errores.</td><td>20%</td></tr>
+            <tr><td>Buenas prácticas React</td><td>Hooks, composición y organización del código.</td><td>20%</td></tr>
+            <tr><td>UI/UX y defensa</td><td>Consistencia visual, accesibilidad y sustentación.</td><td>20%</td></tr>
+          </tbody>
+        </table>
+      </details>
+    </section>
+
+    <!-- Bibliografía -->
+    <section class="card" id="bibliografia">
+      <h2>Bibliografía recomendada</h2>
+      <ul>
+        <li>Altadill, P. X. (2023). <i>React práctico</i>. Anaya Multimedia.</li>
+        <li>Madani, H. (2024). <i>React</i>. Ediciones ENI.</li>
+        <li>Azaustre, C. (2023). <i>Aprendiendo React</i>. Leanpub.</li>
+        <li>Documentación oficial de React – <span class="small">es.react.dev</span></li>
+        <li>MDN Web Docs; Microsoft Learn; freeCodeCamp (ES).</li>
+      </ul>
+      <p class="small">Se sugiere contrastar con los recursos disponibles en la biblioteca virtual institucional.</p>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const params = new URLSearchParams(location.search);
+      if(params.get('print')==='1'){ window.print(); }
+    })();
+  </script>
+</body>
+</html>
