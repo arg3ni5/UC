@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>II-46 Programación III (Visual Basic Avanzado)</title>
+  <style>
+    :root{
+      --uc-blue:#0b3c4d; --uc-teal:#58b5a6; --uc-ink:#0f172a; --uc-muted:#94a5bd;
+      --uc-bg:#ffffff; --uc-border:#e5e7eb; --table-alt:#f8fafc; --table-alt-2:#f3f4f6;
+      --link:#0f5e76; --link-hover:#58b5a6;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--uc-bg);color:var(--uc-ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,'Noto Sans',sans-serif;line-height:1.55}
+    a{color:var(--link);text-decoration:none} a:hover{color:var(--link-hover)}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    header.hero{border-bottom:4px solid var(--uc-teal);padding:16px 0;margin-bottom:0;background:linear-gradient(135deg,var(--uc-blue),#072b36);color:#fff}
+    .brand{display:flex;gap:14px;align-items:center}
+    .brand img{height:56px;width:auto;display:block}
+    .brand h1{margin:0;font-size:28px;letter-spacing:.2px}
+    .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:6px 16px;margin-top:6px;color:#e6f4f7}
+
+    /* Barra acciones + índice */
+    .actions{position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:saturate(1.2) blur(4px);border-bottom:1px solid var(--uc-border);z-index:60}
+    .actions-inner{display:grid;grid-template-columns:1fr;gap:10px;align-items:center}
+    .btn{appearance:none;border:1px solid var(--uc-blue);background:var(--uc-blue);color:white;border-radius:10px;padding:10px 14px;font-weight:600;font-size:14px;cursor:pointer}
+    nav.toc{overflow:auto;white-space:nowrap}
+    .toc a{display:inline-block;padding:8px 10px;border-radius:999px;border:1px solid var(--uc-border);background:#fff;margin:0 6px 6px 0;font-size:14px}
+
+    /* Tarjetas y tablas */
+    .card{border:1px solid var(--uc-border);border-radius:14px;padding:18px;margin:16px 0;background:white}
+    h2{color:var(--uc-blue);margin:.1em 0 .4em}
+    h3{color:#0f5e76;margin:1em 0 .4em}
+    .small{font-size:13px;color:var(--uc-muted)}
+    table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--uc-border);border-radius:12px;overflow:hidden}
+    thead tr{background:var(--uc-blue);color:#fff}
+    th,td{padding:10px 12px;border-bottom:1px solid var(--uc-border);vertical-align:top;font-size:14px}
+    tbody tr:nth-child(odd){background:var(--table-alt)}
+    tbody tr:nth-child(even){background:var(--table-alt-2)}
+    .chip{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--uc-teal);color:#063341;font-weight:700;font-size:12px}
+
+    /* Rúbricas */
+    details.rubrica{border:1px dashed var(--uc-border);border-radius:12px;padding:10px;margin-top:10px;background:#fff}
+    details.rubrica[open]{background:#f9fdfc}
+    details.rubrica > summary{cursor:pointer;font-weight:700;color:var(--uc-blue)}
+    .rubrica-table{width:100%;border-collapse:collapse;margin-top:8px}
+    .rubrica-table th,.rubrica-table td{border:1px solid var(--uc-border);padding:8px;text-align:left}
+
+    /* Disposición */
+    .grid-2{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:960px){.grid-2{grid-template-columns:1fr 1fr}}
+
+    /* Impresión */
+    @page{margin:14mm}
+    @media print{
+      .actions,.btn,nav.toc{display:none !important}
+      a[href]:after{content:""}
+      .card{break-inside:avoid}
+      h2{page-break-after:avoid}
+      table{page-break-inside:auto}
+      tr{page-break-inside:avoid;page-break-after:auto}
+      details.rubrica:not([open]){display:none}
+    }
+    .logo-placeholder{width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.1);overflow:hidden}
+    .logo-placeholder .logo{width:40px;height:auto}
+  </style>
+</head>
+<body>
+  <!-- Barra de acciones e índice -->
+  <div class="actions">
+    <div class="container actions-inner">
+      <button class="btn" onclick="window.print()">Descargar PDF / Imprimir</button>
+      <nav class="toc" aria-label="Índice del documento">
+        <a href="#resumen">Resumen</a>
+        <a href="#objetivos">Objetivos</a>
+        <a href="#metodologia">Metodología</a>
+        <a href="#plan">Plan de estudio</a>
+        <a href="#casos">Casos prácticos</a>
+        <a href="#evaluacion">Sistema de evaluación</a>
+        <a href="#bibliografia">Bibliografía</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Encabezado institucional -->
+  <header class="hero" id="resumen">
+    <div class="container brand">
+      <div class="logo-placeholder">
+        <!-- Espacio reservado para el logo -->
+        <img src="assets/logo-uc.png" alt="Universidad Central – Logotipo" class="logo" />
+      </div>
+      <div>
+        <h1>II-46 Programación III (Visual Basic Avanzado)</h1>
+        <div class="meta small">
+          <div><b>Código:</b> II-46</div>
+          <div><b>Créditos:</b> 4</div>
+          <div><b>Duración:</b> 15 semanas</div>
+          <div><b>Modalidad:</b> Virtual</div>
+          <div><b>Docente:</b> Fabián Chinchilla Mayorga</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Objetivos -->
+    <section class="card" id="objetivos">
+      <h2>Objetivos</h2>
+      <h3>Objetivo general</h3>
+      <p>Desarrollar en el estudiante la capacidad de resolver cualquier problema de tipo algorítmico, utilizando la lógica de programación modular y estructurada y las herramientas de software que la computadora puede proporcionar, independientemente del lenguaje de programación que se utilice.</p>
+
+      <h3>Objetivos específicos</h3>
+      <ul>
+        <li>Capacitar al estudiante en el uso de controles ADO.</li>
+        <li>Capacitar al estudiante en el lenguaje estándar de consultas SQL.</li>
+        <li>Capacitar al estudiante en las técnicas de programación orientadas a aplicaciones abiertas.</li>
+        <li>Capacitar al estudiante en el uso de otros componentes de Visual Basic.</li>
+        <li>Capacitar al estudiante en el uso general de la herramienta.</li>
+      </ul>
+    </section>
+
+    <!-- Metodología -->
+    <section class="card" id="metodologia">
+      <h2>Metodología</h2>
+      <p>El curso se desarrolla bajo una modalidad <strong>teórico–práctica</strong>, con experiencias de aprendizaje sincrónicas y asincrónicas. Se articulan disertaciones, plenarias, modelaje docente, análisis de casos, resolución de problemas y experiencias de consolidación, según el cronograma oficial.</p>
+
+      <div class="grid-2">
+        <div>
+          <h3>Componentes</h3>
+          <ul>
+            <li><strong>Sesiones sincrónicas:</strong> exposición, resolución de dudas y ejercicios guiados.</li>
+            <li><strong>Procesos asincrónicos:</strong> lecturas y ejercicios de preparación o consolidación.</li>
+            <li><strong>Evaluación continua:</strong> casos prácticos, parciales y proyecto final con rúbricas.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Estrategia de aprendizaje</h3>
+          <ul>
+            <li>Demostraciones en vivo y enfoque de "aprendiendo haciendo".</li>
+            <li>Trabajo individual y en equipo para la integración conceptual y procedimental.</li>
+            <li>Énfasis en la aplicación práctica con ASP.NET (Web Forms) y acceso a datos.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Plan de estudio -->
+    <section class="card" id="plan">
+      <h2>Plan de estudio (15 semanas)</h2>
+      <table aria-label="Plan de estudio semana a semana">
+        <thead>
+          <tr>
+            <th style="width:10%">Semana</th>
+            <th style="width:25%">Tema</th>
+            <th style="width:65%">Contenido / Actividad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Introducción a ASP.NET y Visual Basic</td><td>Visual Studio; configuración del entorno; estructura básica de un proyecto ASP.NET.</td></tr>
+          <tr><td>2</td><td>Fundamentos de ASP.NET</td><td>Introducción a POO; arquitectura web cliente‑servidor; ciclo de vida de la página; controles Web.</td></tr>
+          <tr><td>3</td><td>Fundamentos de ASP.NET</td><td>Continuación de conceptos y ejercicios guiados con controles Web Forms.</td></tr>
+          <tr><td>4</td><td>Acceso a datos con VB y ASP.NET</td><td>ADO: conexión, comandos, CRUD; conexión a SQL Server; controles de datos Web Forms.</td></tr>
+          <tr><td>5</td><td>Acceso a datos con VB y ASP.NET</td><td>TableAdapter/DataSet; consultas parametrizadas; ejercicios aplicados.</td></tr>
+          <tr><td>6</td><td>Evaluación I</td><td>Evaluación práctica integrando semanas 1–5 (25%).</td></tr>
+          <tr><td>7</td><td>Desarrollo de aplicaciones Web con ASP.NET</td><td>Páginas dinámicas; validación de formularios; sesiones y estado; Master Pages y Themes.</td></tr>
+          <tr><td>8</td><td>Desarrollo de aplicaciones Web con ASP.NET</td><td>Continuación; ejercicios aplicados y lectura guiada.</td></tr>
+          <tr><td>9</td><td>Seguridad en aplicaciones ASP.NET</td><td>Autenticación y autorización; roles y perfiles; protección frente a inyección SQL, XSS y CSRF.</td></tr>
+          <tr><td>10</td><td>Seguridad en aplicaciones ASP.NET</td><td>Buenas prácticas de seguridad; ejercicios grupales (Análisis de Caso 10%).</td></tr>
+          <tr><td>11</td><td>Evaluación II</td><td>Evaluación práctica con acceso a datos (25%).</td></tr>
+          <tr><td>12</td><td>Despliegue de aplicaciones ASP.NET</td><td>Preparación para despliegue; IIS; despliegue en local y nube; seguridad y rendimiento.</td></tr>
+          <tr><td>13</td><td>Despliegue de aplicaciones ASP.NET</td><td>Continuación; ejercicios aplicados; lectura de host & deploy.</td></tr>
+          <tr><td>14</td><td>Servicios Web con ASP.NET y Visual Studio</td><td>Creación de servicios; contrato del servicio; configuración.</td></tr>
+          <tr><td>15</td><td>Evaluación III (Proyecto Final)</td><td>Presentación y defensa del proyecto final (30%).</td></tr>
+        </tbody>
+      </table>
+      <p class="small">Notas: Secuencia y actividades basadas en el cronograma oficial. Este curso no contempla laboratorios; se trabaja con <strong>casos prácticos</strong>.</p>
+    </section>
+
+    <!-- Casos prácticos (sustituyen laboratorios) -->
+    <section class="card" id="casos">
+      <h2>Casos prácticos</h2>
+      <h3>Caso práctico 1 — Login básico (ASP.NET Web Forms)</h3>
+      <ul>
+        <li><strong>Objetivo:</strong> autenticar usuarios contra base de datos con ADO.NET y consultas parametrizadas.</li>
+        <li><strong>Requisitos:</strong> formulario de ingreso, validaciones, manejo de errores, cierre de sesión.</li>
+        <li><strong>Seguridad mínima:</strong> hashing + salting de contraseñas, bloqueo por intentos.</li>
+      </ul>
+
+      <h3>Caso práctico 2 — Login + Roles (mejorado)</h3>
+      <ul>
+        <li><strong>Gestión:</strong> CRUD de usuarios y roles; asignación de permisos por rol.</li>
+        <li><strong>Autorización en UI:</strong> habilitar/ocultar menús y acciones por rol.</li>
+        <li><strong>Auditoría:</strong> bitácora de accesos y cambios.</li>
+        <li><strong>Opcional:</strong> restablecimiento de contraseña.</li>
+      </ul>
+
+      <details class="rubrica">
+        <summary>Ver rúbrica – Casos prácticos</summary>
+        <table class="rubrica-table">
+          <thead><tr><th>Criterio</th><th>Descripción</th><th>Peso</th></tr></thead>
+          <tbody>
+            <tr><td>Correctitud técnica</td><td>Seguridad (hashing/parametrización), manejo de errores, flujo end‑to‑end.</td><td>35%</td></tr>
+            <tr><td>Arquitectura</td><td>Separación por capas (DTOs/Servicios), legibilidad y reutilización.</td><td>30%</td></tr>
+            <tr><td>Usabilidad</td><td>Validaciones, mensajes claros, controles y navegación.</td><td>20%</td></tr>
+            <tr><td>Documentación</td><td>README, manual breve y demostración.</td><td>15%</td></tr>
+          </tbody>
+        </table>
+      </details>
+    </section>
+
+    <!-- Evaluación + Rúbricas (resumen) -->
+    <section class="card" id="evaluacion">
+      <h2>Sistema de evaluación</h2>
+      <table aria-label="Sistema de evaluación">
+        <thead><tr><th>Actividad</th><th>Porcentaje</th></tr></thead>
+        <tbody>
+          <tr><td>Evaluación I</td><td>25%</td></tr>
+          <tr><td>Evaluación II</td><td>25%</td></tr>
+          <tr><td>Análisis de Caso</td><td>20%</td></tr>
+          <tr><td>Evaluación III (Proyecto Final)</td><td>30%</td></tr>
+        </tbody>
+      </table>
+
+      <details class="rubrica">
+        <summary>Ver rúbrica – Evaluaciones</summary>
+        <table class="rubrica-table">
+          <thead><tr><th>Criterio</th><th>Excelente</th><th>Adecuado</th><th>Inadecuado</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Manejo procedimental y sustento teórico</td>
+              <td>Dominio completo y criterios sustentados en la teoría.</td>
+              <td>Dominio adecuado con errores u omisiones menores.</td>
+              <td>Dominio deficiente y sin sustento teórico.</td>
+            </tr>
+            <tr>
+              <td>Comprensión conceptual</td>
+              <td>Aplicación excelente para reflexión y abordaje de casos.</td>
+              <td>Aplicación adecuada con errores menores.</td>
+              <td>Aplicación deficiente con frecuentes errores.</td>
+            </tr>
+            <tr>
+              <td>Integración de conocimientos</td>
+              <td>Utiliza conceptos y procedimientos diversos de las sesiones.</td>
+              <td>Utilización adecuada de conceptos de las sesiones.</td>
+              <td>Utilización escasa de conceptos de las sesiones.</td>
+            </tr>
+            <tr>
+              <td>Propuesta de soluciones</td>
+              <td>Soluciones factibles y pertinentes.</td>
+              <td>Soluciones con vacíos.</td>
+              <td>Soluciones inviables o nulas.</td>
+            </tr>
+            <tr>
+              <td>Entrega en tiempo y forma</td>
+              <td>Entrega puntual y en el formato solicitado.</td>
+              <td>Entrega en tiempo con errores menores de forma.</td>
+              <td>Entrega fuera de tiempo o en formato incorrecto.</td>
+            </tr>
+          </tbody>
+        </table>
+      </details>
+
+      <details class="rubrica">
+        <summary>Ver rúbrica – Análisis de Caso</summary>
+        <table class="rubrica-table">
+          <thead><tr><th>Criterio</th><th>Excelente</th><th>Adecuado</th><th>Inadecuado</th></tr></thead>
+          <tbody>
+            <tr><td>Manejo procedimental y sustento teórico</td><td>Dominio completo y criterios sustentados en teoría.</td><td>Dominio adecuado con omisiones menores.</td><td>Dominio insuficiente y sin sustento.</td></tr>
+            <tr><td>Comprensión conceptual</td><td>Aplicación excelente al caso.</td><td>Aplicación adecuada.</td><td>Aplicación deficiente.</td></tr>
+            <tr><td>Integración de conocimientos</td><td>Integra conceptos de sesiones actuales y previas.</td><td>Integración adecuada.</td><td>Integración escasa.</td></tr>
+            <tr><td>Propuesta de soluciones</td><td>Soluciones factibles y pertinentes.</td><td>Con vacíos.</td><td>Inviables o nulas.</td></tr>
+            <tr><td>Entrega</td><td>En tiempo y forma.</td><td>En tiempo con detalles menores.</td><td>Fuera de tiempo o formato.</td></tr>
+          </tbody>
+        </table>
+      </details>
+    </section>
+
+    <!-- Bibliografía -->
+    <section class="card" id="bibliografia">
+      <h2>Bibliografía</h2>
+      <h3>Obligatoria</h3>
+      <ul>
+        <li>Ceballos Sierra, J. (2015). Visual Basic.NET: lenguaje y aplicaciones (3a. ed.). RA‑MA Editorial.</li>
+        <li>Torres Remon, M. (2009). Normalización de base de datos. El Cid Editor.</li>
+        <li>Quintana, G. (2014). Aprende SQL. Universitat Jaume I.</li>
+        <li>Pérez, J. (2018). Desarrollo de Aplicaciones Web con ASP.NET y Visual Basic: Guía Práctica. Ediciones Díaz de Santos.</li>
+        <li>Gómez, L. (2019). ASP.NET Core MVC con Visual Basic: Desarrollo de Aplicaciones Web Modernas. Editorial Alfaomega.</li>
+      </ul>
+      <h3>Complementaria</h3>
+      <ul>
+        <li>Microsoft Learn: Normalización de base de datos.</li>
+        <li>Microsoft Learn: Crear bases de datos con ADO.NET y VB.NET.</li>
+        <li>Microsoft Docs: Agregar orígenes de datos en Visual Studio.</li>
+        <li>Microsoft Docs: DataView (System.Data).</li>
+        <li>Microsoft Docs: Objetos, propiedades, métodos y eventos (VBA, conceptos).</li>
+        <li>ASP.NET Web Forms: Acceso a datos (DataSource, SqlDataSource).</li>
+        <li>ASP.NET Web Forms: Controles de validación y control Calendar.</li>
+        <li>ASP.NET Core (host & deploy): IIS y despliegue.</li>
+      </ul>
+      <p class="small">Nota: Las lecturas semanales específicas (Microsoft Docs, eLibro y otros) se listan en el cronograma institucional.</p>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const params = new URLSearchParams(location.search);
+      if(params.get('print')==='1'){ window.print(); }
+    })();
+  </script>
+</body>
+</html>
