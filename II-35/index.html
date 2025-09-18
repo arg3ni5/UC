@@ -1,84 +1,364 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>II-35 Estructuras de Datos y Algoritmos</title>
   <style>
-    :root{
-      --uc-blue:#0b3c4d; --uc-teal:#58b5a6; --uc-ink:#0f172a; --uc-muted:#94a5bd;
-      --uc-bg:#ffffff; --uc-border:#e5e7eb; --table-alt:#f8fafc; --table-alt-2:#f3f4f6;
-      --link:#0f5e76; --link-hover:#58b5a6;
+    :root {
+      --uc-blue: #0b3c4d;
+      --uc-teal: #58b5a6;
+      --uc-ink: #0f172a;
+      --uc-muted: #94a5bd;
+      --uc-bg: #ffffff;
+      --uc-border: #e5e7eb;
+      --table-alt: #f8fafc;
+      --table-alt-2: #f3f4f6;
+      --link: #0f5e76;
+      --link-hover: #58b5a6;
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--uc-bg);color:var(--uc-ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,'Noto Sans',sans-serif;line-height:1.55}
-    a{color:var(--link);text-decoration:none} a:hover{color:var(--link-hover)}
-    .container{max-width:1100px;margin:0 auto;padding:24px}
-    header.hero{border-bottom:4px solid var(--uc-teal);padding:16px 0;margin-bottom:0;background:linear-gradient(135deg,var(--uc-blue),#072b36);color:#fff}
-    .brand{display:flex;gap:14px;align-items:center}
-    .brand img{height:56px;width:auto;display:block}
-    .brand h1{margin:0;font-size:28px;letter-spacing:.2px}
-    .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:6px 16px;margin-top:6px;color:#e6f4f7}
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--uc-bg);
+      color: var(--uc-ink);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+      line-height: 1.55
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none
+    }
+
+    a:hover {
+      color: var(--link-hover)
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px
+    }
+
+    header.hero {
+      border-bottom: 4px solid var(--uc-teal);
+      padding: 16px 0;
+      margin-bottom: 0;
+      background: linear-gradient(135deg, var(--uc-blue), #072b36);
+      color: #fff
+    }
+
+    .brand {
+      display: flex;
+      gap: 14px;
+      align-items: center
+    }
+
+    .brand img {
+      height: 56px;
+      width: auto;
+      display: block
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: .2px
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 6px 16px;
+      margin-top: 6px;
+      color: #e6f4f7
+    }
 
     /* Barra acciones + índice */
-    .actions{position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:saturate(1.2) blur(4px);border-bottom:1px solid var(--uc-border);z-index:60}
-    .actions-inner{display:grid;grid-template-columns:1fr;gap:10px;align-items:center}
-    .btn{appearance:none;border:1px solid var(--uc-blue);background:var(--uc-blue);color:white;border-radius:10px;padding:10px 14px;font-weight:600;font-size:14px;cursor:pointer}
-    nav.toc{overflow:auto;white-space:nowrap}
-    .toc a{display:inline-block;padding:8px 10px;border-radius:999px;border:1px solid var(--uc-border);background:#fff;margin:0 6px 6px 0;font-size:14px}
+    .actions {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, .96);
+      backdrop-filter: saturate(1.2) blur(4px);
+      border-bottom: 1px solid var(--uc-border);
+      z-index: 60
+    }
+
+    .actions-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      align-items: center
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid var(--uc-blue);
+      background: var(--uc-blue);
+      color: white;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer
+    }
+
+    nav.toc {
+      overflow: auto;
+      white-space: nowrap
+    }
+
+    .toc a {
+      display: inline-block;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--uc-border);
+      background: #fff;
+      margin: 0 6px 6px 0;
+      font-size: 14px
+    }
 
     /* Tarjetas y tablas */
-    .card{border:1px solid var(--uc-border);border-radius:14px;padding:18px;margin:16px 0;background:white}
-    h2{color:var(--uc-blue);margin:.1em 0 .4em}
-    h3{color:#0f5e76;margin:1em 0 .4em}
-    .small{font-size:13px;color:var(--uc-muted)}
-    table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--uc-border);border-radius:12px;overflow:hidden}
-    thead tr{background:var(--uc-blue);color:#fff}
-    th,td{padding:10px 12px;border-bottom:1px solid var(--uc-border);vertical-align:top;font-size:14px}
-    tbody tr:nth-child(odd){background:var(--table-alt)}
-    tbody tr:nth-child(even){background:var(--table-alt-2)}
-    .chip{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--uc-teal);color:#063341;font-weight:700;font-size:12px}
+    .card {
+      border: 1px solid var(--uc-border);
+      border-radius: 14px;
+      padding: 18px;
+      margin: 16px 0;
+      background: white
+    }
+
+    h2 {
+      color: var(--uc-blue);
+      margin: .1em 0 .4em
+    }
+
+    h3 {
+      color: #0f5e76;
+      margin: 1em 0 .4em
+    }
+
+    .small {
+      font-size: 13px;
+      color: var(--uc-muted)
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid var(--uc-border);
+      border-radius: 12px;
+      overflow: hidden
+    }
+
+    thead tr {
+      background: var(--uc-blue);
+      color: #fff
+    }
+
+    th,
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--uc-border);
+      vertical-align: top;
+      font-size: 14px
+    }
+
+    tbody tr:nth-child(odd) {
+      background: var(--table-alt)
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--table-alt-2)
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: var(--uc-teal);
+      color: #063341;
+      font-weight: 700;
+      font-size: 12px
+    }
 
     /* Rúbricas */
-    details.rubrica{border:1px dashed var(--uc-border);border-radius:12px;padding:10px;margin-top:10px;background:#fff}
-    details.rubrica[open]{background:#f9fdfc}
-    details.rubrica > summary{cursor:pointer;font-weight:700;color:var(--uc-blue)}
-    .rubrica-table{width:100%;border-collapse:collapse;margin-top:8px}
-    .rubrica-table th,.rubrica-table td{border:1px solid var(--uc-border);padding:8px;text-align:left}
+    details.rubrica {
+      border: 1px dashed var(--uc-border);
+      border-radius: 12px;
+      padding: 10px;
+      margin-top: 10px;
+      background: #fff
+    }
+
+    details.rubrica[open] {
+      background: #f9fdfc
+    }
+
+    details.rubrica>summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--uc-blue)
+    }
+
+    .rubrica-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px
+    }
+
+    .rubrica-table th,
+    .rubrica-table td {
+      border: 1px solid var(--uc-border);
+      padding: 8px;
+      text-align: left
+    }
 
     /* Disposición */
-    .grid-2{display:grid;grid-template-columns:1fr;gap:16px}
-    @media(min-width:960px){.grid-2{grid-template-columns:1fr 1fr}}
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px
+    }
+
+    @media(min-width:960px) {
+      .grid-2 {
+        grid-template-columns: 1fr 1fr
+      }
+    }
 
     /* Impresión */
-    @page{margin:14mm}
-    @media print{
-      .actions,.btn,nav.toc{display:none !important}
-      a[href]:after{content:""}
-      .card{break-inside:avoid}
-      h2{page-break-after:avoid}
-      table{page-break-inside:auto}
-      tr{page-break-inside:avoid;page-break-after:auto}
-      details.rubrica:not([open]){display:none}
+    @page {
+      margin: 14mm
     }
-    .logo-placeholder{width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.1);overflow:hidden}
-    .logo-placeholder .logo{width:40px;height:auto}
-    /* --- Bootstrap-lite (solo lo necesario para la galería de bibliografía) --- */
-.row{display:flex;flex-wrap:wrap;gap:16px;margin-left:-6px;margin-right:-6px}
-[class^="col-"], [class*=" col-"]{padding-left:6px;padding-right:6px}
-.col-sm{flex:1 1 260px;max-width:100%}
-@media(min-width:992px){.col-lg-4{flex:0 0 calc(33.333% - 12px);max-width:calc(33.333% - 12px)}}
-.card-img-top{width:100%;height:auto;object-fit:cover;border-bottom:1px solid var(--uc-border)}
-.card h6{margin:.25rem 0 .4rem;font-size:14px}
-.card p{margin:.25rem 0;font-size:13px;color:var(--uc-ink)}
-.card .card-body{padding:12px}
-.d-flex{display:flex}
-.align-top{align-self:flex-start}
-.flex-fill{flex:1 1 auto}
-.img-fluid{max-width:100%;height:auto}
 
+    @media print {
+
+      .actions,
+      .btn,
+      nav.toc {
+        display: none !important
+      }
+
+      a[href]:after {
+        content: ""
+      }
+
+      .card {
+        break-inside: avoid
+      }
+
+      h2 {
+        page-break-after: avoid
+      }
+
+      table {
+        page-break-inside: auto
+      }
+
+      tr {
+        page-break-inside: avoid;
+        page-break-after: auto
+      }
+
+      details.rubrica:not([open]) {
+        display: none
+      }
+    }
+
+    .logo-placeholder {
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
+      overflow: hidden
+    }
+
+    .logo-placeholder .logo {
+      width: 40px;
+      height: auto
+    }
+
+    /* --- Bootstrap-lite (solo lo necesario para la galería de bibliografía) --- */
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-left: -6px;
+      margin-right: -6px
+    }
+
+    [class^="col-"],
+    [class*=" col-"] {
+      padding-left: 6px;
+      padding-right: 6px
+    }
+
+    .col-sm {
+      flex: 1 1 260px;
+      max-width: 100%
+    }
+
+    @media(min-width:992px) {
+      .col-lg-4 {
+        flex: 0 0 calc(33.333% - 12px);
+        max-width: calc(33.333% - 12px)
+      }
+    }
+
+    .card-img-top {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-bottom: 1px solid var(--uc-border)
+    }
+
+    .card h6 {
+      margin: .25rem 0 .4rem;
+      font-size: 14px
+    }
+
+    .card p {
+      margin: .25rem 0;
+      font-size: 13px;
+      color: var(--uc-ink)
+    }
+
+    .card .card-body {
+      padding: 12px
+    }
+
+    .d-flex {
+      display: flex
+    }
+
+    .align-top {
+      align-self: flex-start
+    }
+
+    .flex-fill {
+      flex: 1 1 auto
+    }
+
+    .img-fluid {
+      max-width: 100%;
+      height: auto
+    }
   </style>
 </head>
+
 <body>
   <!-- Barra de acciones e índice -->
   <div class="actions">
@@ -123,12 +403,15 @@
     <section class="card" id="objetivos">
       <h2>Objetivos</h2>
       <h3>Objetivo general</h3>
-      <p>Proporcionar al estudiante los conocimientos de varios tipos de estructuras de datos para el manejo futuro de diferentes lenguajes de programación o problemas presentados en el quehacer de la programación.</p>
+      <p>Proporcionar al estudiante los conocimientos de varios tipos de estructuras de datos para el manejo futuro de
+        diferentes lenguajes de programación o problemas presentados en el quehacer de la programación.</p>
 
       <h3>Objetivos específicos</h3>
       <ul>
-        <li>Definir conceptos básicos y de programación de la herramienta a ver en clase para resolver diferentes casos.</li>
-        <li>Explicar el conocimiento utilizando un lenguaje como Java para expandir el pensamiento analítico ante un problema.</li>
+        <li>Definir conceptos básicos y de programación de la herramienta a ver en clase para resolver diferentes casos.
+        </li>
+        <li>Explicar el conocimiento utilizando un lenguaje como Java para expandir el pensamiento analítico ante un
+          problema.</li>
         <li>Demostrar el manejo de estructuras de datos útiles como guía profesional futura.</li>
         <li>Analizar la aplicación eficiente de los conocimientos adquiridos al finalizar el curso.</li>
         <li>Evaluar la capacidad de desarrollar estructuras de datos propias para aplicaciones reales.</li>
@@ -138,7 +421,9 @@
     <!-- Metodología -->
     <section class="card" id="metodologia">
       <h2>Metodología</h2>
-      <p>Curso <strong>teórico–práctico</strong> con ruta de aprendizaje por semana: actividades previas, desarrollo del tema en la sesión sincrónica y laboratorio posterior (trabajo práctico) mediante la plataforma institucional.</p>
+      <p>Curso <strong>teórico–práctico</strong> con ruta de aprendizaje por semana: actividades previas, desarrollo del
+        tema en la sesión sincrónica y laboratorio posterior (trabajo práctico) mediante la plataforma institucional.
+      </p>
       <div class="grid-2">
         <div>
           <h3>Componentes</h3>
@@ -160,36 +445,100 @@
     </section>
 
     <!-- Plan de estudio -->
-<section class="card" id="plan">
-  <h2>Plan de estudio (15 semanas)</h2>
-  <table aria-label="Plan de estudio semana a semana">
-    <thead>
-      <tr>
-        <th style="width:10%">Semana</th>
-        <th style="width:25%">Tema</th>
-        <th style="width:65%">Contenido / Práctica</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>1</td><td>¿Qué es Java?</td><td>Introducción; aspectos básicos y “estructuras básicas”. <i>Lab 1 (3%)</i>.</td></tr>
-      <tr><td>2</td><td>Ambiente de desarrollo</td><td>Ambientes de trabajo; estructura para seguir; clases/objetos; excepciones. <i>Lab 2 (3%)</i>.</td></tr>
-      <tr><td>3</td><td>Arreglos (I)</td><td>System…, interfaz <code>Collection</code>, clase <code>Collections</code>. <i>Lab 3 (3%)</i>.</td></tr>
-      <tr><td>4</td><td>Arreglos (II)</td><td><code>Arrays</code>, <code>ArrayList</code>, <code>Iterator</code>. (Sin lab p/contener a 10 en total).</td></tr>
-      <tr><td>5</td><td>Pilas (I)</td><td>Concepto y TDA de pila; push/pop/peek; notaciones infija/postfija/prefija. <i>Lab 4 (3%)</i>.</td></tr>
-      <tr><td>6</td><td>Pilas (II)</td><td>Prácticas y aplicaciones. <i>Lab 5 (3%)</i>.</td></tr>
-      <tr><td>7</td><td>Colas</td><td>Concepto y TDA de cola; operaciones y paquetes. <span class="chip">Entrega Proyecto 1 (15%)</span> · <i>Lab 6 (3%)</i>. </td></tr>
-      <tr><td>8</td><td>Nodos</td><td>¿Qué es un nodo? ¿Qué es una lista? TDA de lista; punteros. (Sin lab p/contener a 10 en total).</td></tr>
-      <tr><td>9</td><td>Listas simples (I)</td><td>Definición de clases; manejo de conjuntos de nodos. <i>Lab 7 (3%)</i>.</td></tr>
-      <tr><td>10</td><td>Listas simples (II)</td><td>Operaciones y prácticas con listas simples. <i>Lab 8 (3%)</i>.</td></tr>
-      <tr><td>11</td><td>Listas dobles y circulares</td><td>Estructura y manejo/definición. <span class="chip">Entrega Proyecto 2 (20%)</span>. <i>Sin lab</i> (semana de entrega). </td></tr>
-      <tr><td>12</td><td>Recursividad</td><td>Conceptos y métodos; <span class="chip">Investigación (10%)</span>. <i>Lab 9 (3%)</i> (prácticas de recursividad).</td></tr>
-      <tr><td>13</td><td>Árboles generales</td><td>Conceptos (raíz, hoja, nivel, rama, altura) y TDA de árbol. <i>Lab 10 (3%)</i>.</td></tr>
-      <tr><td>14</td><td>Árboles de búsqueda y grafos</td><td>ABB (conceptos y paquete básico) y grafo (vértices, arcos, manejo). <i>Sin lab</i> (cap de integración).</td></tr>
-      <tr><td>15</td><td>Proyecto 3 y cierre</td><td>Revisión/validación final. <span class="chip">Entrega Proyecto 3 (20%)</span>.</td></tr>
-    </tbody>
-  </table>
-  <p class="small">Las entregas y la investigación siguen el cronograma del programa oficial (P1 S7, <b>P2 S11</b>, P3 S15; labs 3% c/semana; investigación S12 10%).</p>
-</section>
+    <section class="card" id="plan">
+      <h2>Plan de estudio (15 semanas)</h2>
+      <table aria-label="Plan de estudio semana a semana">
+        <thead>
+          <tr>
+            <th style="width:10%">Semana</th>
+            <th style="width:25%">Tema</th>
+            <th style="width:65%">Contenido / Práctica</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>¿Qué es Java?</td>
+            <td>Introducción; aspectos básicos y “estructuras básicas”. <i>Lab 1 (3%)</i>.</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Ambiente de desarrollo</td>
+            <td>Ambientes de trabajo; estructura para seguir; clases/objetos; excepciones. <i>Lab 2 (3%)</i>.</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Arreglos (I)</td>
+            <td>System…, interfaz <code>Collection</code>, clase <code>Collections</code>. <i>Lab 3 (3%)</i>.</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Arreglos (II)</td>
+            <td><code>Arrays</code>, <code>ArrayList</code>, <code>Iterator</code>. (Sin lab p/contener a 10 en total).
+            </td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Pilas (I)</td>
+            <td>Concepto y TDA de pila; push/pop/peek; notaciones infija/postfija/prefija. <i>Lab 4 (3%)</i>.</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Pilas (II)</td>
+            <td>Prácticas y aplicaciones. <i>Lab 5 (3%)</i>.</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Colas</td>
+            <td>Concepto y TDA de cola; operaciones y paquetes. <span class="chip">Entrega Proyecto 1 (15%)</span> ·
+              <i>Lab 6 (3%)</i>. </td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Nodos</td>
+            <td>¿Qué es un nodo? ¿Qué es una lista? TDA de lista; punteros. (Sin lab p/contener a 10 en total).</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>Listas simples (I)</td>
+            <td>Definición de clases; manejo de conjuntos de nodos. <i>Lab 7 (3%)</i>.</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>Listas simples (II)</td>
+            <td>Operaciones y prácticas con listas simples. <i>Lab 8 (3%)</i>.</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>Listas dobles y circulares</td>
+            <td>Estructura y manejo/definición. <span class="chip">Entrega Proyecto 2 (20%)</span>. <i>Sin lab</i>
+              (semana de entrega). </td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>Recursividad</td>
+            <td>Conceptos y métodos; <span class="chip">Investigación (10%)</span>. <i>Lab 9 (3%)</i> (prácticas de
+              recursividad).</td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>Árboles generales</td>
+            <td>Conceptos (raíz, hoja, nivel, rama, altura) y TDA de árbol. <i>Lab 10 (3%)</i>.</td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>Árboles de búsqueda y grafos</td>
+            <td>ABB (conceptos y paquete básico) y grafo (vértices, arcos, manejo). <i>Sin lab</i> (cap de integración).
+            </td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td>Proyecto 3 y cierre</td>
+            <td>Revisión/validación final. <span class="chip">Entrega Proyecto 3 (20%)</span>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
 
     <section class="card" id="actividades">
@@ -203,13 +552,41 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>1–2</td><td>Laboratorio guiado</td><td>Configuración de entorno; ejercicios básicos con Java y estructuras iniciales.</td></tr>
-          <tr><td>3–4</td><td>Laboratorio + práctica</td><td>Uso de arreglos, ArrayList e iteradores con ejercicios de manipulación.</td></tr>
-          <tr><td>5–6</td><td>Laboratorio aplicado</td><td>Implementar pila (push/pop/peek) y evaluadores de expresiones.</td></tr>
-          <tr><td>7</td><td>Proyecto 1</td><td>Aplicación con pilas/colas (entrega del 15%).</td></tr>
-          <tr><td>8–11</td><td>Prácticas con listas</td><td>Listas simples, dobles y circulares (operaciones, casos de uso).</td></tr>
-          <tr><td>12</td><td>Investigación</td><td>Profundización temática (recursividad/algoritmos vinculados).</td></tr>
-          <tr><td>13–15</td><td>Proyecto 3 + cierre</td><td>Árboles y grafos; defensa/validación del proyecto (20%).</td></tr>
+          <tr>
+            <td>1–2</td>
+            <td>Laboratorio guiado</td>
+            <td>Configuración de entorno; ejercicios básicos con Java y estructuras iniciales.</td>
+          </tr>
+          <tr>
+            <td>3–4</td>
+            <td>Laboratorio + práctica</td>
+            <td>Uso de arreglos, ArrayList e iteradores con ejercicios de manipulación.</td>
+          </tr>
+          <tr>
+            <td>5–6</td>
+            <td>Laboratorio aplicado</td>
+            <td>Implementar pila (push/pop/peek) y evaluadores de expresiones.</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Proyecto 1</td>
+            <td>Aplicación con pilas/colas (entrega del 15%).</td>
+          </tr>
+          <tr>
+            <td>8–11</td>
+            <td>Prácticas con listas</td>
+            <td>Listas simples, dobles y circulares (operaciones, casos de uso).</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>Investigación</td>
+            <td>Profundización temática (recursividad/algoritmos vinculados).</td>
+          </tr>
+          <tr>
+            <td>13–15</td>
+            <td>Proyecto 3 + cierre</td>
+            <td>Árboles y grafos; defensa/validación del proyecto (20%).</td>
+          </tr>
         </tbody>
       </table>
     </section>
@@ -218,173 +595,247 @@
     <section class="card" id="investigaciones">
       <h2>Investigaciones</h2>
       <ul>
-        <li>Trabajos de índole investigativa para profundizar temas del curso; incluir referencias y, cuando corresponda, demostración breve.</li>
+        <li>Trabajos de índole investigativa para profundizar temas del curso; incluir referencias y, cuando
+          corresponda, demostración breve.</li>
         <li>Entrega en la plataforma institucional, según lineamientos comunicados en clase.</li>
       </ul>
       <p class="small">El programa contempla investigaciones como parte de la evaluación del curso.</p>
     </section>
 
     <!-- Laboratorios -->
-<section class="card" id="laboratorios">
-  <h2>Laboratorios</h2>
-  <table aria-label="Laboratorios">
-    <thead>
-      <tr>
-        <th>Semana</th>
-        <th>Lab</th>
-        <th>Descripción</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>1</td><td>Lab 1</td><td>POO – Parte 1: clases/objetos; estructuras básicas en Java.</td></tr>
-      <tr><td>2</td><td>Lab 2</td><td>Introducción a Java y entorno (manejo de excepciones).</td></tr>
-      <tr><td>3</td><td>Lab 3</td><td>Arreglos y <code>ArrayList</code>; utilidades <code>Collections</code>.</td></tr>
-      <tr><td>5</td><td>Lab 4</td><td>Pilas I: TDA y operaciones (push/pop/peek).</td></tr>
-      <tr><td>6</td><td>Lab 5</td><td>Pilas II: aplicaciones (evaluación de expresiones, etc.).</td></tr>
-      <tr><td>7</td><td>Lab 6</td><td>Colas (Persona): implementación y simulaciones.</td></tr>
-      <tr><td>9</td><td>Lab 7</td><td>Lista enlazada con Persona (Listas simples I).</td></tr>
-      <tr><td>10</td><td>Lab 8</td><td>Listas simples II: operaciones y pruebas.</td></tr>
-      <tr><td>12</td><td>Lab 9</td><td>Recursividad: ejercicios guiados y pruebas.</td></tr>
-      <tr><td>13</td><td>Lab 10</td><td>Árboles binarios (recorridos) o ABB (según avance).</td></tr>
-    </tbody>
-  </table>
-  <p class="small">Son 10 laboratorios de 3% cada uno (total 30%). Las semanas 4, 8, 11 y 14 se reservan para profundización/entrega/integración, manteniendo el total en 10 labs.</p>
-</section>
+    <section class="card" id="laboratorios">
+      <h2>Laboratorios</h2>
+      <table aria-label="Laboratorios">
+        <thead>
+          <tr>
+            <th>Semana</th>
+            <th>Lab</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Lab 1</td>
+            <td>POO – Parte 1: clases/objetos; estructuras básicas en Java.</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Lab 2</td>
+            <td>Introducción a Java y entorno (manejo de excepciones).</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Lab 3</td>
+            <td>Arreglos y <code>ArrayList</code>; utilidades <code>Collections</code>.</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Lab 4</td>
+            <td>Pilas I: TDA y operaciones (push/pop/peek).</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Lab 5</td>
+            <td>Pilas II: aplicaciones (evaluación de expresiones, etc.).</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Lab 6</td>
+            <td>Colas (Persona): implementación y simulaciones.</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>Lab 7</td>
+            <td>Lista enlazada con Persona (Listas simples I).</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>Lab 8</td>
+            <td>Listas simples II: operaciones y pruebas.</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>Lab 9</td>
+            <td>Recursividad: ejercicios guiados y pruebas.</td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>Lab 10</td>
+            <td>Árboles binarios (recorridos) o ABB (según avance).</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="small">Tipo de Dato Abstracto (TDA) se entiende como un modelo matemático/conceptual que describe un conjunto de datos y las operaciones válidas sobre ellos, independientemente de cómo se implementen.</p>
+      <p class="small">Son 10 laboratorios de 3% cada uno (total 30%). Las semanas 4, 8, 11 y 14 se reservan para
+        profundización/entrega/integración, manteniendo el total en 10 labs.</p>
+    </section>
 
 
     <!-- Evaluación -->
     <section class="card" id="evaluacion">
       <h2>Sistema de evaluación</h2>
       <table aria-label="Sistema de evaluación">
-        <thead><tr><th>Actividad</th><th>Porcentaje</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Actividad</th>
+            <th>Porcentaje</th>
+          </tr>
+        </thead>
         <tbody>
-          <tr><td>Proyecto 1</td><td>15%</td></tr>
-          <tr><td>Proyecto 2</td><td>20%</td></tr>
-          <tr><td>Proyecto 3</td><td>20%</td></tr>
-          <tr><td>Laboratorios</td><td>30%</td></tr>
-          <tr><td>Investigaciones</td><td>15%</td></tr>
+          <tr>
+            <td>Proyecto 1</td>
+            <td>15%</td>
+          </tr>
+          <tr>
+            <td>Proyecto 2</td>
+            <td>20%</td>
+          </tr>
+          <tr>
+            <td>Proyecto 3</td>
+            <td>20%</td>
+          </tr>
+          <tr>
+            <td>Laboratorios</td>
+            <td>30%</td>
+          </tr>
+          <tr>
+            <td>Investigaciones</td>
+            <td>15%</td>
+          </tr>
         </tbody>
       </table>
 
       <details class="rubrica">
         <summary>Lineamientos generales</summary>
         <ul>
-          <li>Los proyectos implementan soluciones a problemas propuestos, con funcionamiento correcto y criterios de evaluación comunicados en clase.</li>
-          <li>Los laboratorios semanalmente refuerzan lo visto en teoría y se entregan en la plataforma institucional.</li>
+          <li>Los proyectos implementan soluciones a problemas propuestos, con funcionamiento correcto y criterios de
+            evaluación comunicados en clase.</li>
+          <li>Los laboratorios semanalmente refuerzan lo visto en teoría y se entregan en la plataforma institucional.
+          </li>
           <li>Las investigaciones amplían tópicos del curso con referencias y síntesis técnica.</li>
         </ul>
       </details>
     </section>
 
     <!-- Bibliografía -->
-<section class="card" id="bibliografia">
-  <h2>Bibliografía recomendada</h2>
+    <section class="card" id="bibliografia">
+      <h2>Bibliografía recomendada</h2>
 
-  <!-- Lista textual (del programa oficial) -->
-  <ul>
-    <li>Blasco, F. (2019). <i>Programación orientada a objetos en Java</i>. Ediciones de la U. ISBN: 9789587921014, 9789587921007.</li>
-    <li>Zohonero Martínez, I.; Joyanes Aguilar, L. (2008). <i>Estructuras de datos en Java</i>. McGraw-Hill España. ISBN: 9788448173937, 9788448156312.</li>
-    <li>Ceballos Sierra, F. J. <i>Java 2: curso de programación</i> (4ª ed.). ISBN: 9788499640327, 9788494009020.</li>
-    <li>Fritelli, V.; Guzmán, A.; Tymoschuk, J. (2020). <i>Algoritmos y estructuras de datos</i> (2ª ed.). Jorge Sarmiento Editor – Universitas.</li>
-    <li>Ayala San Martín, G. (2020). <i>Algoritmos y programación: mejores prácticas</i>. Fundación UDLAP.</li>
-    <li>Ruiz Rodríguez, R. (2009). <i>Fundamentos de la programación orientada a objetos: una aplicación a las ED en Java</i>. El Cid Editor.</li>
-  </ul>
+      <!-- Lista textual (del programa oficial) -->
+      <ul>
+        <li>Blasco, F. (2019). <i>Programación orientada a objetos en Java</i>. Ediciones de la U. ISBN: 9789587921014,
+          9789587921007.</li>
+        <li>Zohonero Martínez, I.; Joyanes Aguilar, L. (2008). <i>Estructuras de datos en Java</i>. McGraw-Hill España.
+          ISBN: 9788448173937, 9788448156312.</li>
+        <li>Ceballos Sierra, F. J. <i>Java 2: curso de programación</i> (4ª ed.). ISBN: 9788499640327, 9788494009020.
+        </li>
+        <li>Fritelli, V.; Guzmán, A.; Tymoschuk, J. (2020). <i>Algoritmos y estructuras de datos</i> (2ª ed.). Jorge
+          Sarmiento Editor – Universitas.</li>
+        <li>Ayala San Martín, G. (2020). <i>Algoritmos y programación: mejores prácticas</i>. Fundación UDLAP.</li>
+        <li>Ruiz Rodríguez, R. (2009). <i>Fundamentos de la programación orientada a objetos: una aplicación a las ED en
+            Java</i>. El Cid Editor.</li>
+      </ul>
 
-  <h3 style="margin-top:1rem;color:#0f5e76">Portadas (vista tipo tarjeta)</h3>
-  <!-- Tu rejilla de tarjetas “tipo Bootstrap”, sin depender de Bootstrap -->
-  <div class="container" style="padding:0">
-    <div class="row">
-      <div class="col-sm d-flex">
-        <div class="card">
-          <img class="img-fluid align-top card-img-top" role="presentation"
-               src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Portada%20-%20Programaci%C3%B3n%20orientada%20a%20objetos%20en%20Java%2C%20Ed..jpeg"
-               alt="Programación orientada a objetos en Java, Ed." width="220" height="320">
-          <div class="card-body flex-fill">
-            <h6 class="card-title">Programación orientada a objetos en Java</h6>
-            <p class="card-text">Blasco, Francisco. Ediciones de la U.</p>
-            <p>ISBN: 9789587921014, 9789587921007 (2019)</p>
+      <h3 style="margin-top:1rem;color:#0f5e76">Portadas (vista tipo tarjeta)</h3>
+      <!-- Tu rejilla de tarjetas “tipo Bootstrap”, sin depender de Bootstrap -->
+      <div class="container" style="padding:0">
+        <div class="row">
+          <div class="col-sm d-flex">
+            <div class="card">
+              <img class="img-fluid align-top card-img-top" role="presentation"
+                src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Portada%20-%20Programaci%C3%B3n%20orientada%20a%20objetos%20en%20Java%2C%20Ed..jpeg"
+                alt="Programación orientada a objetos en Java, Ed." width="220" height="320">
+              <div class="card-body flex-fill">
+                <h6 class="card-title">Programación orientada a objetos en Java</h6>
+                <p class="card-text">Blasco, Francisco. Ediciones de la U.</p>
+                <p>ISBN: 9789587921014, 9789587921007 (2019)</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm d-flex">
+            <div class="card">
+              <img class="img-fluid align-top card-img-top" role="presentation"
+                src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Portada%20-%20Estructuras%20de%20datos%20en%20Java.jpeg"
+                alt="Estructuras de datos en Java." width="220" height="320">
+              <div class="card-body flex-fill">
+                <h6 class="card-title">Estructuras de datos en Java</h6>
+                <p class="card-text">Zohonero Martínez, Ignacio; Joyanes Aguilar, Luis. McGraw-Hill España.</p>
+                <p class="card-text">ISBN: 9788448173937, 9788448156312 (2008)</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm d-flex">
+            <div class="card">
+              <img class="img-fluid align-top card-img-top" role="presentation"
+                src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Portada%20-%20Java%202%20curso%20de%20programaci%C3%B3n%20%281%29.jpeg"
+                alt="Portada - Java 2: curso de programación" width="220" height="320">
+              <div class="card-body flex-fill">
+                <h6 class="card-title">Java 2: curso de programación (4ª ed.)</h6>
+                <p class="card-text">Fco. Javier Ceballos Sierra.</p>
+                <p class="card-text">ISBN: 9788499640327, 9788494009020</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p>&nbsp;</p>
+
+        <div class="row">
+          <div class="col-lg-4 d-flex align-items-stretch">
+            <div class="card">
+              <img class="img-fluid align-top card-img-top" role="presentation"
+                src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Algoritmos%20y%20estructuras%20de%20datos.jpeg"
+                alt="Algoritmos y estructuras de datos (2a. ed.)." width="220" height="320">
+              <div class="card-body">
+                <h6 class="card-title">Algoritmos y estructuras de datos (2ª ed.)</h6>
+                <p class="card-text">Fritelli, V.; Guzmán, A.; Tymoschuk, J. (2020). Jorge Sarmiento Editor –
+                  Universitas.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 d-flex align-items-stretch">
+            <div class="card">
+              <img class="img-fluid align-top card-img-top" role="presentation"
+                src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Algoritmos%20y%20programaci%C3%B3n%20mejores%20pr%C3%A1cticas.jpeg?time=1726684610759"
+                alt="Algoritmos y programación: mejores prácticas." width="220" height="320">
+              <div class="card-body">
+                <h6 class="card-title">Algoritmos y programación: mejores prácticas</h6>
+                <p class="card-text">Ayala San Martín, G. (2020). Fundación Universidad de las Américas Puebla (UDLAP).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 d-flex align-items-stretch">
+            <div class="card">
+              <img class="img-fluid align-top card-img-top" role="presentation"
+                src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Fundamentos%20de%20la%20programaci%C3%B3n%20orientada%20a%20objetos.jpeg"
+                alt="Fundamentos de la POO: aplicación a ED en Java." width="220" height="320">
+              <div class="card-body">
+                <h6 class="card-title">Fundamentos de la POO: ED en Java</h6>
+                <p class="card-text">Ruiz Rodríguez, R. (2009). El Cid Editor.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="col-sm d-flex">
-        <div class="card">
-          <img class="img-fluid align-top card-img-top" role="presentation"
-               src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Portada%20-%20Estructuras%20de%20datos%20en%20Java.jpeg"
-               alt="Estructuras de datos en Java." width="220" height="320">
-          <div class="card-body flex-fill">
-            <h6 class="card-title">Estructuras de datos en Java</h6>
-            <p class="card-text">Zohonero Martínez, Ignacio; Joyanes Aguilar, Luis. McGraw-Hill España.</p>
-            <p class="card-text">ISBN: 9788448173937, 9788448156312 (2008)</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm d-flex">
-        <div class="card">
-          <img class="img-fluid align-top card-img-top" role="presentation"
-               src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Portada%20-%20Java%202%20curso%20de%20programaci%C3%B3n%20%281%29.jpeg"
-               alt="Portada - Java 2: curso de programación" width="220" height="320">
-          <div class="card-body flex-fill">
-            <h6 class="card-title">Java 2: curso de programación (4ª ed.)</h6>
-            <p class="card-text">Fco. Javier Ceballos Sierra.</p>
-            <p class="card-text">ISBN: 9788499640327, 9788494009020</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <p>&nbsp;</p>
-
-    <div class="row">
-      <div class="col-lg-4 d-flex align-items-stretch">
-        <div class="card">
-          <img class="img-fluid align-top card-img-top" role="presentation"
-               src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Algoritmos%20y%20estructuras%20de%20datos.jpeg"
-               alt="Algoritmos y estructuras de datos (2a. ed.)." width="220" height="320">
-          <div class="card-body">
-            <h6 class="card-title">Algoritmos y estructuras de datos (2ª ed.)</h6>
-            <p class="card-text">Fritelli, V.; Guzmán, A.; Tymoschuk, J. (2020). Jorge Sarmiento Editor – Universitas.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4 d-flex align-items-stretch">
-        <div class="card">
-          <img class="img-fluid align-top card-img-top" role="presentation"
-               src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Algoritmos%20y%20programaci%C3%B3n%20mejores%20pr%C3%A1cticas.jpeg?time=1726684610759"
-               alt="Algoritmos y programación: mejores prácticas." width="220" height="320">
-          <div class="card-body">
-            <h6 class="card-title">Algoritmos y programación: mejores prácticas</h6>
-            <p class="card-text">Ayala San Martín, G. (2020). Fundación Universidad de las Américas Puebla (UDLAP).</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4 d-flex align-items-stretch">
-        <div class="card">
-          <img class="img-fluid align-top card-img-top" role="presentation"
-               src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Fundamentos%20de%20la%20programaci%C3%B3n%20orientada%20a%20objetos.jpeg"
-               alt="Fundamentos de la POO: aplicación a ED en Java." width="220" height="320">
-          <div class="card-body">
-            <h6 class="card-title">Fundamentos de la POO: ED en Java</h6>
-            <p class="card-text">Ruiz Rodríguez, R. (2009). El Cid Editor.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <p class="small">Las portadas son referenciales para orientación bibliográfica; revisa su disponibilidad en la Biblioteca Virtual UC.</p>
-</section>
+      <p class="small">Las portadas son referenciales para orientación bibliográfica; revisa su disponibilidad en la
+        Biblioteca Virtual UC.</p>
+    </section>
 
   </main>
 
   <script>
-    (function(){
+    (function () {
       const params = new URLSearchParams(location.search);
-      if(params.get('print')==='1'){ window.print(); }
+      if (params.get('print') === '1') { window.print(); }
     })();
   </script>
 </body>
+
 </html>
