@@ -63,6 +63,20 @@
     }
     .logo-placeholder{width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.1);overflow:hidden}
     .logo-placeholder .logo{width:40px;height:auto}
+    /* --- Bootstrap-lite (solo lo necesario para la galería de bibliografía) --- */
+.row{display:flex;flex-wrap:wrap;gap:16px;margin-left:-6px;margin-right:-6px}
+[class^="col-"], [class*=" col-"]{padding-left:6px;padding-right:6px}
+.col-sm{flex:1 1 260px;max-width:100%}
+@media(min-width:992px){.col-lg-4{flex:0 0 calc(33.333% - 12px);max-width:calc(33.333% - 12px)}}
+.card-img-top{width:100%;height:auto;object-fit:cover;border-bottom:1px solid var(--uc-border)}
+.card h6{margin:.25rem 0 .4rem;font-size:14px}
+.card p{margin:.25rem 0;font-size:13px;color:var(--uc-ink)}
+.card .card-body{padding:12px}
+.d-flex{display:flex}
+.align-top{align-self:flex-start}
+.flex-fill{flex:1 1 auto}
+.img-fluid{max-width:100%;height:auto}
+
   </style>
 </head>
 <body>
@@ -146,35 +160,37 @@
     </section>
 
     <!-- Plan de estudio -->
-    <section class="card" id="plan">
-      <h2>Plan de estudio (15 semanas)</h2>
-      <table aria-label="Plan de estudio semana a semana">
-        <thead>
-          <tr>
-            <th style="width:10%">Semana</th>
-            <th style="width:25%">Tema</th>
-            <th style="width:65%">Contenido / Práctica</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>¿Qué es Java?</td><td>Introducción, aspectos básicos y “estructuras básicas”. Laboratorio semanal (3%).</td></tr>
-          <tr><td>2</td><td>Ambiente de desarrollo</td><td>Ambientes de trabajo; estructura para seguir; manejo de clases/objetos; excepciones. Laboratorio (3%).</td></tr>
-          <tr><td>3</td><td>Arreglos (I)</td><td>Mensajes System…, interfaz Collection, clase Collections. Laboratorio (3%).</td></tr>
-          <tr><td>4</td><td>Arreglos (II)</td><td>Arrays, ArrayList, Iterator. Laboratorio (3%).</td></tr>
-          <tr><td>5</td><td>Pilas (I)</td><td>Concepto de pila; TDA de pila; operaciones básicas. Notaciones infija/postfija/prefija. Laboratorio (3%).</td></tr>
-          <tr><td>6</td><td>Pilas (II)</td><td>Prácticas de inserción/borrado/búsqueda; aplicaciones. Laboratorio (3%).</td></tr>
-          <tr><td>7</td><td>Colas</td><td>Concepto y TDA de cola; operaciones y paquetes de colas. <strong>Entrega Proyecto 1 (15%)</strong>. Laboratorio (3%).</td></tr>
-          <tr><td>8</td><td>Nodos</td><td>¿Qué es un nodo? ¿Qué es una lista? TDA de lista; punteros. Laboratorio (3%).</td></tr>
-          <tr><td>9</td><td>Listas simples (I)</td><td>Definición de clases; manejo de conjuntos de nodos. <strong>Anuncio/revisión Proyecto 2</strong>. Laboratorio (3%).</td></tr>
-          <tr><td>10</td><td>Listas simples (II)</td><td>Operaciones y prácticas con listas simples. Laboratorio (3%).</td></tr>
-          <tr><td>11</td><td>Listas dobles y circulares</td><td>Manejo y TDA de listas dobles y circulares. <strong>Entrega Proyecto 2 (20%)</strong>. Laboratorio (3%).</td></tr>
-          <tr><td>12</td><td>Recursividad</td><td>Conceptos y métodos para utilizarla. <strong>Investigación</strong> (según lineamientos del curso). Laboratorio (3%).</td></tr>
-          <tr><td>13</td><td>Árboles generales</td><td>Conceptos (raíz, hoja, nivel, rama, altura) y TDA de árbol. <strong>Entrega Proyecto 3 (20%)</strong>. Laboratorio (3%).</td></tr>
-          <tr><td>14</td><td>Árboles de búsqueda y grafos</td><td>Árbol binario de búsqueda (conceptos y paquete básico). Grafo: vértices, arcos y manejo. Laboratorio (3%).</td></tr>
-          <tr><td>15</td><td>Cierre</td><td>Revisión/validación final del Proyecto 3 y cierre del curso.</td></tr>
-        </tbody>
-      </table>
-    </section>
+<section class="card" id="plan">
+  <h2>Plan de estudio (15 semanas)</h2>
+  <table aria-label="Plan de estudio semana a semana">
+    <thead>
+      <tr>
+        <th style="width:10%">Semana</th>
+        <th style="width:25%">Tema</th>
+        <th style="width:65%">Contenido / Práctica</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>¿Qué es Java?</td><td>Introducción; aspectos básicos y “estructuras básicas”. <i>Lab 1 (3%)</i>.</td></tr>
+      <tr><td>2</td><td>Ambiente de desarrollo</td><td>Ambientes de trabajo; estructura para seguir; clases/objetos; excepciones. <i>Lab 2 (3%)</i>.</td></tr>
+      <tr><td>3</td><td>Arreglos (I)</td><td>System…, interfaz <code>Collection</code>, clase <code>Collections</code>. <i>Lab 3 (3%)</i>.</td></tr>
+      <tr><td>4</td><td>Arreglos (II)</td><td><code>Arrays</code>, <code>ArrayList</code>, <code>Iterator</code>. (Sin lab p/contener a 10 en total).</td></tr>
+      <tr><td>5</td><td>Pilas (I)</td><td>Concepto y TDA de pila; push/pop/peek; notaciones infija/postfija/prefija. <i>Lab 4 (3%)</i>.</td></tr>
+      <tr><td>6</td><td>Pilas (II)</td><td>Prácticas y aplicaciones. <i>Lab 5 (3%)</i>.</td></tr>
+      <tr><td>7</td><td>Colas</td><td>Concepto y TDA de cola; operaciones y paquetes. <span class="chip">Entrega Proyecto 1 (15%)</span> · <i>Lab 6 (3%)</i>. </td></tr>
+      <tr><td>8</td><td>Nodos</td><td>¿Qué es un nodo? ¿Qué es una lista? TDA de lista; punteros. (Sin lab p/contener a 10 en total).</td></tr>
+      <tr><td>9</td><td>Listas simples (I)</td><td>Definición de clases; manejo de conjuntos de nodos. <i>Lab 7 (3%)</i>.</td></tr>
+      <tr><td>10</td><td>Listas simples (II)</td><td>Operaciones y prácticas con listas simples. <i>Lab 8 (3%)</i>.</td></tr>
+      <tr><td>11</td><td>Listas dobles y circulares</td><td>Estructura y manejo/definición. <span class="chip">Entrega Proyecto 2 (20%)</span>. <i>Sin lab</i> (semana de entrega). </td></tr>
+      <tr><td>12</td><td>Recursividad</td><td>Conceptos y métodos; <span class="chip">Investigación (10%)</span>. <i>Lab 9 (3%)</i> (prácticas de recursividad).</td></tr>
+      <tr><td>13</td><td>Árboles generales</td><td>Conceptos (raíz, hoja, nivel, rama, altura) y TDA de árbol. <i>Lab 10 (3%)</i>.</td></tr>
+      <tr><td>14</td><td>Árboles de búsqueda y grafos</td><td>ABB (conceptos y paquete básico) y grafo (vértices, arcos, manejo). <i>Sin lab</i> (cap de integración).</td></tr>
+      <tr><td>15</td><td>Proyecto 3 y cierre</td><td>Revisión/validación final. <span class="chip">Entrega Proyecto 3 (20%)</span>.</td></tr>
+    </tbody>
+  </table>
+  <p class="small">Las entregas y la investigación siguen el cronograma del programa oficial (P1 S7, <b>P2 S11</b>, P3 S15; labs 3% c/semana; investigación S12 10%).</p>
+</section>
+
 
     <section class="card" id="actividades">
       <h2>Tipos de actividades (resumen por semana)</h2>
@@ -209,36 +225,32 @@
     </section>
 
     <!-- Laboratorios -->
-    <section class="card" id="laboratorios">
-      <h2>Laboratorios</h2>
-      <table aria-label="Laboratorios">
-        <thead>
-          <tr>
-            <th>Semana</th>
-            <th>Tipo de actividad</th>
-            <th>Descripción</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>Lab</td><td>Java básico y estructuras iniciales.</td></tr>
-          <tr><td>2</td><td>Lab</td><td>Ambiente de desarrollo y excepciones.</td></tr>
-          <tr><td>3</td><td>Lab</td><td>Colecciones (intro) y utilidades.</td></tr>
-          <tr><td>4</td><td>Lab</td><td>Arrays, ArrayList, Iterator.</td></tr>
-          <tr><td>5</td><td>Lab</td><td>Pilas (TDA y operaciones).</td></tr>
-          <tr><td>6</td><td>Lab</td><td>Pilas (aplicaciones).</td></tr>
-          <tr><td>7</td><td>Lab</td><td>Colas (TDA y operaciones) + entrega Proyecto 1.</td></tr>
-          <tr><td>8</td><td>Lab</td><td>Nodos, listas y punteros.</td></tr>
-          <tr><td>9</td><td>Lab</td><td>Listas simples (I) + revisión Proyecto 2.</td></tr>
-          <tr><td>10</td><td>Lab</td><td>Listas simples (II).</td></tr>
-          <tr><td>11</td><td>Lab</td><td>Listas dobles y circulares + entrega Proyecto 2.</td></tr>
-          <tr><td>12</td><td>Lab</td><td>Recursividad (prácticas).</td></tr>
-          <tr><td>13</td><td>Lab</td><td>Árboles generales + entrega Proyecto 3.</td></tr>
-          <tr><td>14</td><td>Lab</td><td>Árboles de búsqueda y grafos.</td></tr>
-          <tr><td>15</td><td>Lab</td><td>Cierre y validación final.</td></tr>
-        </tbody>
-      </table>
-      <p class="small">Cada semana contempla un laboratorio práctico, como se indica en el cronograma oficial.</p>
-    </section>
+<section class="card" id="laboratorios">
+  <h2>Laboratorios</h2>
+  <table aria-label="Laboratorios">
+    <thead>
+      <tr>
+        <th>Semana</th>
+        <th>Lab</th>
+        <th>Descripción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Lab 1</td><td>POO – Parte 1: clases/objetos; estructuras básicas en Java.</td></tr>
+      <tr><td>2</td><td>Lab 2</td><td>Introducción a Java y entorno (manejo de excepciones).</td></tr>
+      <tr><td>3</td><td>Lab 3</td><td>Arreglos y <code>ArrayList</code>; utilidades <code>Collections</code>.</td></tr>
+      <tr><td>5</td><td>Lab 4</td><td>Pilas I: TDA y operaciones (push/pop/peek).</td></tr>
+      <tr><td>6</td><td>Lab 5</td><td>Pilas II: aplicaciones (evaluación de expresiones, etc.).</td></tr>
+      <tr><td>7</td><td>Lab 6</td><td>Colas (Persona): implementación y simulaciones.</td></tr>
+      <tr><td>9</td><td>Lab 7</td><td>Lista enlazada con Persona (Listas simples I).</td></tr>
+      <tr><td>10</td><td>Lab 8</td><td>Listas simples II: operaciones y pruebas.</td></tr>
+      <tr><td>12</td><td>Lab 9</td><td>Recursividad: ejercicios guiados y pruebas.</td></tr>
+      <tr><td>13</td><td>Lab 10</td><td>Árboles binarios (recorridos) o ABB (según avance).</td></tr>
+    </tbody>
+  </table>
+  <p class="small">Son 10 laboratorios de 3% cada uno (total 30%). Las semanas 4, 8, 11 y 14 se reservan para profundización/entrega/integración, manteniendo el total en 10 labs.</p>
+</section>
+
 
     <!-- Evaluación -->
     <section class="card" id="evaluacion">
@@ -265,17 +277,107 @@
     </section>
 
     <!-- Bibliografía -->
-    <section class="card" id="bibliografia">
-      <h2>Bibliografía recomendada</h2>
-      <ul>
-        <li>Fco. Javier Ceballos Sierra. <i>Java 2: curso de programación</i> (4ª ed.).</li>
-        <li>Fritelli, V.; Guzmán, A.; Tymoschuk, J. (2020). <i>Algoritmos y estructuras de datos</i> (2ª ed.).</li>
-        <li>Ayala San Martín, G. (2020). <i>Algoritmos y programación: mejores prácticas</i>.</li>
-        <li>Ruiz Rodríguez, R. (2009). <i>Fundamentos de la POO: una aplicación a ED en Java</i>.</li>
-        <li>Zohonero M.; Joyanes A. (2008). <i>Estructuras de datos en Java</i>. (Clásico)</li>
-      </ul>
-      <p class="small">Fuentes alineadas al listado del programa oficial.</p>
-    </section>
+<section class="card" id="bibliografia">
+  <h2>Bibliografía recomendada</h2>
+
+  <!-- Lista textual (del programa oficial) -->
+  <ul>
+    <li>Blasco, F. (2019). <i>Programación orientada a objetos en Java</i>. Ediciones de la U. ISBN: 9789587921014, 9789587921007.</li>
+    <li>Zohonero Martínez, I.; Joyanes Aguilar, L. (2008). <i>Estructuras de datos en Java</i>. McGraw-Hill España. ISBN: 9788448173937, 9788448156312.</li>
+    <li>Ceballos Sierra, F. J. <i>Java 2: curso de programación</i> (4ª ed.). ISBN: 9788499640327, 9788494009020.</li>
+    <li>Fritelli, V.; Guzmán, A.; Tymoschuk, J. (2020). <i>Algoritmos y estructuras de datos</i> (2ª ed.). Jorge Sarmiento Editor – Universitas.</li>
+    <li>Ayala San Martín, G. (2020). <i>Algoritmos y programación: mejores prácticas</i>. Fundación UDLAP.</li>
+    <li>Ruiz Rodríguez, R. (2009). <i>Fundamentos de la programación orientada a objetos: una aplicación a las ED en Java</i>. El Cid Editor.</li>
+  </ul>
+
+  <h3 style="margin-top:1rem;color:#0f5e76">Portadas (vista tipo tarjeta)</h3>
+  <!-- Tu rejilla de tarjetas “tipo Bootstrap”, sin depender de Bootstrap -->
+  <div class="container" style="padding:0">
+    <div class="row">
+      <div class="col-sm d-flex">
+        <div class="card">
+          <img class="img-fluid align-top card-img-top" role="presentation"
+               src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Portada%20-%20Programaci%C3%B3n%20orientada%20a%20objetos%20en%20Java%2C%20Ed..jpeg"
+               alt="Programación orientada a objetos en Java, Ed." width="220" height="320">
+          <div class="card-body flex-fill">
+            <h6 class="card-title">Programación orientada a objetos en Java</h6>
+            <p class="card-text">Blasco, Francisco. Ediciones de la U.</p>
+            <p>ISBN: 9789587921014, 9789587921007 (2019)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm d-flex">
+        <div class="card">
+          <img class="img-fluid align-top card-img-top" role="presentation"
+               src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Portada%20-%20Estructuras%20de%20datos%20en%20Java.jpeg"
+               alt="Estructuras de datos en Java." width="220" height="320">
+          <div class="card-body flex-fill">
+            <h6 class="card-title">Estructuras de datos en Java</h6>
+            <p class="card-text">Zohonero Martínez, Ignacio; Joyanes Aguilar, Luis. McGraw-Hill España.</p>
+            <p class="card-text">ISBN: 9788448173937, 9788448156312 (2008)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm d-flex">
+        <div class="card">
+          <img class="img-fluid align-top card-img-top" role="presentation"
+               src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Portada%20-%20Java%202%20curso%20de%20programaci%C3%B3n%20%281%29.jpeg"
+               alt="Portada - Java 2: curso de programación" width="220" height="320">
+          <div class="card-body flex-fill">
+            <h6 class="card-title">Java 2: curso de programación (4ª ed.)</h6>
+            <p class="card-text">Fco. Javier Ceballos Sierra.</p>
+            <p class="card-text">ISBN: 9788499640327, 9788494009020</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="row">
+      <div class="col-lg-4 d-flex align-items-stretch">
+        <div class="card">
+          <img class="img-fluid align-top card-img-top" role="presentation"
+               src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Algoritmos%20y%20estructuras%20de%20datos.jpeg"
+               alt="Algoritmos y estructuras de datos (2a. ed.)." width="220" height="320">
+          <div class="card-body">
+            <h6 class="card-title">Algoritmos y estructuras de datos (2ª ed.)</h6>
+            <p class="card-text">Fritelli, V.; Guzmán, A.; Tymoschuk, J. (2020). Jorge Sarmiento Editor – Universitas.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 d-flex align-items-stretch">
+        <div class="card">
+          <img class="img-fluid align-top card-img-top" role="presentation"
+               src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Algoritmos%20y%20programaci%C3%B3n%20mejores%20pr%C3%A1cticas.jpeg?time=1726684610759"
+               alt="Algoritmos y programación: mejores prácticas." width="220" height="320">
+          <div class="card-body">
+            <h6 class="card-title">Algoritmos y programación: mejores prácticas</h6>
+            <p class="card-text">Ayala San Martín, G. (2020). Fundación Universidad de las Américas Puebla (UDLAP).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 d-flex align-items-stretch">
+        <div class="card">
+          <img class="img-fluid align-top card-img-top" role="presentation"
+               src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Fundamentos%20de%20la%20programaci%C3%B3n%20orientada%20a%20objetos.jpeg"
+               alt="Fundamentos de la POO: aplicación a ED en Java." width="220" height="320">
+          <div class="card-body">
+            <h6 class="card-title">Fundamentos de la POO: ED en Java</h6>
+            <p class="card-text">Ruiz Rodríguez, R. (2009). El Cid Editor.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="small">Las portadas son referenciales para orientación bibliográfica; revisa su disponibilidad en la Biblioteca Virtual UC.</p>
+</section>
+
   </main>
 
   <script>
