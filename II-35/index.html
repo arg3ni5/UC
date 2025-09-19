@@ -673,41 +673,20 @@
 
 
     <!-- Evaluación -->
-    <section class="card" id="evaluacion">
-      <h2>Sistema de evaluación</h2>
-      <table aria-label="Sistema de evaluación">
-        <thead>
-          <tr>
-            <th>Actividad</th>
-            <th>Porcentaje</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Proyecto 1</td>
-            <td>15%</td>
-          </tr>
-          <tr>
-            <td>Proyecto 2</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>Proyecto 3</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>Laboratorios</td>
-            <td>30%</td>
-          </tr>
-          <tr>
-            <td>Investigaciones</td>
-            <td>15%</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <details class="rubrica">
-        <summary>Lineamientos generales</summary>
+     <section class="card" id="evaluacion">
+  <h2>Sistema de evaluación</h2>
+  <table aria-label="Sistema de evaluación">
+    <thead>
+      <tr><th>Actividad</th><th>Porcentaje</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Laboratorios (10 x 3%)</td><td>30%</td></tr>
+      <tr><td>Proyecto 1 – Pilas/Colas</td><td>15%</td></tr>
+      <tr><td>Proyecto 2 – Listas</td><td>20%</td></tr>
+      <tr><td>Proyecto 3 – Árboles</td><td>20%</td></tr>
+      <tr><td>Investigación – Recursividad</td><td>15%</td></tr>
+    </tbody>
+    <summary>Lineamientos generales</summary>
         <ul>
           <li>Los proyectos implementan soluciones a problemas propuestos, con funcionamiento correcto y criterios de
             evaluación comunicados en clase.</li>
@@ -715,118 +694,180 @@
           </li>
           <li>Las investigaciones amplían tópicos del curso con referencias y síntesis técnica.</li>
         </ul>
-      </details>
-    </section>
+  </table>
+
+  <!-- Rubrica Investigación -->
+  <details class="rubrica">
+    <summary>Ver rúbrica – Investigación (15%)</summary>
+    <table class="rubrica-table">
+      <thead><tr><th>Criterio</th><th>Descripción</th><th>Peso</th></tr></thead>
+      <tbody>
+        <tr><td>Entrega y formato</td><td>Documento 2–4 págs. con portada y referencias, enlace al video.</td><td>20%</td></tr>
+        <tr><td>Dominio conceptual</td><td>Explica con claridad conceptos clave de recursividad, referencias confiables.</td><td>30%</td></tr>
+        <tr><td>Demostración práctica</td><td>Muestra ejemplos funcionales de recursividad en Java.</td><td>30%</td></tr>
+        <tr><td>Comunicación</td><td>Claridad, estructura y ajuste al tiempo (máx. 10 min).</td><td>20%</td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <!-- Rubrica Laboratorios -->
+  <details class="rubrica">
+    <summary>Ver rúbrica – Laboratorios (30%)</summary>
+    <table class="rubrica-table">
+      <thead><tr><th>Criterio</th><th>Descripción</th><th>Peso</th></tr></thead>
+      <tbody>
+        <tr><td>Entrega y cumplimiento</td><td>Entrega puntual y requisitos mínimos cubiertos.</td><td>20%</td></tr>
+        <tr><td>Calidad técnica</td><td>Uso correcto de Java, implementación del TDA y estructuras.</td><td>35%</td></tr>
+        <tr><td>Buenas prácticas</td><td>Estructura del código, nomenclatura, legibilidad y comentarios.</td><td>25%</td></tr>
+        <tr><td>Presentación</td><td>Explicación breve del funcionamiento y resultados obtenidos.</td><td>20%</td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <!-- Rubrica Proyectos -->
+  <details class="rubrica">
+    <summary>Ver rúbrica – Proyectos (P1 15%, P2 20%, P3 20%)</summary>
+    <table class="rubrica-table">
+      <thead><tr><th>Criterio</th><th>Descripción</th><th>Peso</th></tr></thead>
+      <tbody>
+        <tr><td>Requisitos funcionales</td><td>Implementa correctamente el TDA y la estructura solicitada (Pila, Lista, Árbol).</td><td>40%</td></tr>
+        <tr><td>Integración y casos de prueba</td><td>Incluye ejemplos completos y pruebas funcionales.</td><td>20%</td></tr>
+        <tr><td>Buenas prácticas de programación</td><td>Uso de POO, modularidad y claridad del código.</td><td>20%</td></tr>
+        <tr><td>Presentación y defensa</td><td>Claridad de la explicación, documentación y sustentación oral/escrita.</td><td>20%</td></tr>
+      </tbody>
+    </table>
+  </details>
+</section>
+
+
 
     <!-- Bibliografía -->
-    <section class="card" id="bibliografia">
-      <h2>Bibliografía recomendada</h2>
+<section class="card" id="bibliografia">
+  <h2>Bibliografía recomendada</h2>
 
-      <!-- Lista textual (del programa oficial) -->
-      <ul>
-        <li>Blasco, F. (2019). <i>Programación orientada a objetos en Java</i>. Ediciones de la U. ISBN: 9789587921014,
-          9789587921007.</li>
-        <li>Zohonero Martínez, I.; Joyanes Aguilar, L. (2008). <i>Estructuras de datos en Java</i>. McGraw-Hill España.
-          ISBN: 9788448173937, 9788448156312.</li>
-        <li>Ceballos Sierra, F. J. <i>Java 2: curso de programación</i> (4ª ed.). ISBN: 9788499640327, 9788494009020.
-        </li>
-        <li>Fritelli, V.; Guzmán, A.; Tymoschuk, J. (2020). <i>Algoritmos y estructuras de datos</i> (2ª ed.). Jorge
-          Sarmiento Editor – Universitas.</li>
-        <li>Ayala San Martín, G. (2020). <i>Algoritmos y programación: mejores prácticas</i>. Fundación UDLAP.</li>
-        <li>Ruiz Rodríguez, R. (2009). <i>Fundamentos de la programación orientada a objetos: una aplicación a las ED en
-            Java</i>. El Cid Editor.</li>
-      </ul>
+  <h3 style="color:#0f5e76">Obligatoria</h3>
+  <ul>
+    <li>
+      Blasco, F. (2019). <i>Programación orientada a objetos en Java</i>. Ediciones de la U.
+      ISBN: 9789587921014, 9789587921007.
+      <a href="https://elibro.net/es/lc/ucentral/titulos/127125" target="_blank">Acceder en eLibro</a>
+    </li>
+    <li>
+      Zohonero Martínez, I.; Joyanes Aguilar, L. (2008). <i>Estructuras de datos en Java</i>. McGraw-Hill España.
+      ISBN: 9788448173937, 9788448156312.
+      <a href="https://elibro.net/es/lc/ucentral/titulos/50117" target="_blank">Acceder en eLibro</a>
+    </li>
+    <li>
+      Ceballos Sierra, F. J. (2008). <i>Java 2: curso de programación</i> (4ª ed.).
+      ISBN: 9788499640327, 9788494009020.
+      <a href="https://elibro.net/es/lc/ucentral/titulos/59727" target="_blank">Acceder en eLibro</a>
+    </li>
+    <li>
+      Fritelli, V.; Guzmán, A.; Tymoschuk, J. (2020). <i>Algoritmos y estructuras de datos</i> (2ª ed.). Jorge Sarmiento Editor – Universitas.
+      <a href="https://elibro.net/es/ereader/ucentral/175249" target="_blank">Acceder en eLibro</a>
+    </li>
+    <li>
+      Ayala San Martín, G. (2020). <i>Algoritmos y programación: mejores prácticas</i>. Fundación Universidad de las Américas Puebla (UDLAP).
+      <a href="https://elibro.net/es/ereader/ucentral/180290" target="_blank">Acceder en eLibro</a>
+    </li>
+    <li>
+      Ruiz Rodríguez, R. (2009). <i>Fundamentos de la programación orientada a objetos: una aplicación a las estructuras de datos en Java</i>. El Cid Editor.
+      <a href="https://elibro.net/es/ereader/ucentral/34869" target="_blank">Acceder en eLibro</a>
+    </li>
+  </ul>
 
-      <h3 style="margin-top:1rem;color:#0f5e76">Portadas (vista tipo tarjeta)</h3>
-      <!-- Tu rejilla de tarjetas “tipo Bootstrap”, sin depender de Bootstrap -->
-      <div class="container" style="padding:0">
-        <div class="row">
-          <div class="col-sm d-flex">
-            <div class="card">
-              <img class="img-fluid align-top card-img-top" role="presentation"
-                src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Portada%20-%20Programaci%C3%B3n%20orientada%20a%20objetos%20en%20Java%2C%20Ed..jpeg"
-                alt="Programación orientada a objetos en Java, Ed." width="220" height="320">
-              <div class="card-body flex-fill">
-                <h6 class="card-title">Programación orientada a objetos en Java</h6>
-                <p class="card-text">Blasco, Francisco. Ediciones de la U.</p>
-                <p>ISBN: 9789587921014, 9789587921007 (2019)</p>
-              </div>
-            </div>
-          </div>
+  <h3 style="color:#0f5e76">Complementaria</h3>
+  <ul>
+    <li>
+      Mancilla Herrera, A. (2015). <i>Diseño y construcción de algoritmos</i>. Universidad del Norte.
+      <a href="https://elibro.net/es/ereader/ucentral/69931" target="_blank">Acceder en eLibro</a>
+    </li>
+  </ul>
 
-          <div class="col-sm d-flex">
-            <div class="card">
-              <img class="img-fluid align-top card-img-top" role="presentation"
-                src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Portada%20-%20Estructuras%20de%20datos%20en%20Java.jpeg"
-                alt="Estructuras de datos en Java." width="220" height="320">
-              <div class="card-body flex-fill">
-                <h6 class="card-title">Estructuras de datos en Java</h6>
-                <p class="card-text">Zohonero Martínez, Ignacio; Joyanes Aguilar, Luis. McGraw-Hill España.</p>
-                <p class="card-text">ISBN: 9788448173937, 9788448156312 (2008)</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm d-flex">
-            <div class="card">
-              <img class="img-fluid align-top card-img-top" role="presentation"
-                src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Portada%20-%20Java%202%20curso%20de%20programaci%C3%B3n%20%281%29.jpeg"
-                alt="Portada - Java 2: curso de programación" width="220" height="320">
-              <div class="card-body flex-fill">
-                <h6 class="card-title">Java 2: curso de programación (4ª ed.)</h6>
-                <p class="card-text">Fco. Javier Ceballos Sierra.</p>
-                <p class="card-text">ISBN: 9788499640327, 9788494009020</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <p>&nbsp;</p>
-
-        <div class="row">
-          <div class="col-lg-4 d-flex align-items-stretch">
-            <div class="card">
-              <img class="img-fluid align-top card-img-top" role="presentation"
-                src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Algoritmos%20y%20estructuras%20de%20datos.jpeg"
-                alt="Algoritmos y estructuras de datos (2a. ed.)." width="220" height="320">
-              <div class="card-body">
-                <h6 class="card-title">Algoritmos y estructuras de datos (2ª ed.)</h6>
-                <p class="card-text">Fritelli, V.; Guzmán, A.; Tymoschuk, J. (2020). Jorge Sarmiento Editor –
-                  Universitas.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 d-flex align-items-stretch">
-            <div class="card">
-              <img class="img-fluid align-top card-img-top" role="presentation"
-                src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Algoritmos%20y%20programaci%C3%B3n%20mejores%20pr%C3%A1cticas.jpeg?time=1726684610759"
-                alt="Algoritmos y programación: mejores prácticas." width="220" height="320">
-              <div class="card-body">
-                <h6 class="card-title">Algoritmos y programación: mejores prácticas</h6>
-                <p class="card-text">Ayala San Martín, G. (2020). Fundación Universidad de las Américas Puebla (UDLAP).
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 d-flex align-items-stretch">
-            <div class="card">
-              <img class="img-fluid align-top card-img-top" role="presentation"
-                src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Fundamentos%20de%20la%20programaci%C3%B3n%20orientada%20a%20objetos.jpeg"
-                alt="Fundamentos de la POO: aplicación a ED en Java." width="220" height="320">
-              <div class="card-body">
-                <h6 class="card-title">Fundamentos de la POO: ED en Java</h6>
-                <p class="card-text">Ruiz Rodríguez, R. (2009). El Cid Editor.</p>
-              </div>
-            </div>
+  <h3 style="margin-top:1rem;color:#0f5e76">Portadas (vista tipo tarjeta)</h3>
+  <div class="container" style="padding:0">
+    <div class="row">
+      <div class="col-sm d-flex">
+        <div class="card">
+          <img class="img-fluid align-top card-img-top"
+            src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Portada%20-%20Programaci%C3%B3n%20orientada%20a%20objetos%20en%20Java%2C%20Ed..jpeg"
+            alt="Programación orientada a objetos en Java" width="220" height="320">
+          <div class="card-body flex-fill">
+            <h6 class="card-title">Programación orientada a objetos en Java</h6>
+            <p class="card-text">Blasco, F. (2019). Ediciones de la U.</p>
+            <a href="https://elibro.net/es/lc/ucentral/titulos/127125" target="_blank">Enlace eLibro</a>
           </div>
         </div>
       </div>
+      <div class="col-sm d-flex">
+        <div class="card">
+          <img class="img-fluid align-top card-img-top"
+            src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Portada%20-%20Estructuras%20de%20datos%20en%20Java.jpeg"
+            alt="Estructuras de datos en Java" width="220" height="320">
+          <div class="card-body flex-fill">
+            <h6 class="card-title">Estructuras de datos en Java</h6>
+            <p class="card-text">Zohonero Martínez & Joyanes Aguilar. McGraw-Hill España.</p>
+            <a href="https://elibro.net/es/lc/ucentral/titulos/50117" target="_blank">Enlace eLibro</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm d-flex">
+        <div class="card">
+          <img class="img-fluid align-top card-img-top"
+            src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Portada%20-%20Java%202%20curso%20de%20programaci%C3%B3n%20%281%29.jpeg"
+            alt="Java 2 curso de programación" width="220" height="320">
+          <div class="card-body flex-fill">
+            <h6 class="card-title">Java 2: curso de programación</h6>
+            <p class="card-text">Ceballos Sierra, F. J.</p>
+            <a href="https://elibro.net/es/lc/ucentral/titulos/59727" target="_blank">Enlace eLibro</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fila 2 -->
+    <div class="row" style="margin-top:1rem">
+      <div class="col-lg-4 d-flex align-items-stretch">
+        <div class="card">
+          <img class="img-fluid align-top card-img-top"
+            src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Algoritmos%20y%20estructuras%20de%20datos.jpeg"
+            alt="Algoritmos y estructuras de datos" width="220" height="320">
+          <div class="card-body">
+            <h6 class="card-title">Algoritmos y estructuras de datos</h6>
+            <p class="card-text">Fritelli, Guzmán & Tymoschuk (2020).</p>
+            <a href="https://elibro.net/es/ereader/ucentral/175249" target="_blank">Enlace eLibro</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 d-flex align-items-stretch">
+        <div class="card">
+          <img class="img-fluid align-top card-img-top"
+            src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Algoritmos%20y%20programaci%C3%B3n%20mejores%20pr%C3%A1cticas.jpeg"
+            alt="Algoritmos y programación: mejores prácticas" width="220" height="320">
+          <div class="card-body">
+            <h6 class="card-title">Algoritmos y programación: mejores prácticas</h6>
+            <p class="card-text">Ayala San Martín, G. (2020).</p>
+            <a href="https://elibro.net/es/ereader/ucentral/180290" target="_blank">Enlace eLibro</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 d-flex align-items-stretch">
+        <div class="card">
+          <img class="img-fluid align-top card-img-top"
+            src="https://connect-campus.uc.ac.cr/draftfile.php/304710/user/draft/299332264/Fundamentos%20de%20la%20programaci%C3%B3n%20orientada%20a%20objetos.jpeg"
+            alt="Fundamentos de la POO: aplicación a ED en Java" width="220" height="320">
+          <div class="card-body">
+            <h6 class="card-title">Fundamentos de la POO en Java</h6>
+            <p class="card-text">Ruiz Rodríguez, R. (2009).</p>
+            <a href="https://elibro.net/es/ereader/ucentral/34869" target="_blank">Enlace eLibro</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-      <p class="small">Las portadas son referenciales para orientación bibliográfica; revisa su disponibilidad en la
-        Biblioteca Virtual UC.</p>
-    </section>
+  <p class="small">Enlaces activos a la Biblioteca Virtual UC (eLibro). Se recomienda verificar disponibilidad de acceso institucional.</p>
+</section>
+
 
   </main>
 
