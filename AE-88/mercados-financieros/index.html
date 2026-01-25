@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercados e Intermediarios Financieros - Guía Completa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .border-glow {
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Header / Hero -->
+    <header class="gradient-bg text-white py-24 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <span class="bg-blue-500/20 text-blue-300 py-1 px-4 rounded-full text-sm font-semibold mb-4 inline-block uppercase tracking-wider">Macroeconomía Aplicada</span>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">Mercados e Intermediarios</h1>
+            <p class="text-xl md:text-2xl opacity-80 max-w-2xl mx-auto font-light leading-relaxed">
+                El foro donde se captan y canalizan fondos hacia la actividad productiva mediante la negociación de activos financieros.
+            </p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sticky-nav shadow-sm py-4 px-6 border-b border-slate-200">
+        <div class="max-w-6xl mx-auto flex flex-wrap justify-center gap-6 text-xs md:text-sm font-bold uppercase tracking-widest text-slate-500">
+            <a href="#concepto" class="hover:text-blue-600 transition py-2 border-b-2 border-transparent hover:border-blue-600">Concepto</a>
+            <a href="#caracteristicas" class="hover:text-blue-600 transition py-2 border-b-2 border-transparent hover:border-blue-600">Pilares</a>
+            <a href="#intermediarios" class="hover:text-blue-600 transition py-2 border-b-2 border-transparent hover:border-blue-600">Instituciones</a>
+            <a href="#mercados" class="hover:text-blue-600 transition py-2 border-b-2 border-transparent hover:border-blue-600">Tipos de Mercado</a>
+            <a href="#ejemplos" class="hover:text-blue-600 transition py-2 border-b-2 border-transparent hover:border-blue-600">Instrumentos</a>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 py-16">
+
+        <!-- 1. Concepto y Funciones -->
+        <section id="concepto" class="mb-24">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <h2 class="text-4xl font-bold mb-8 text-slate-900 border-l-8 border-blue-600 pl-6">Definición y Funciones</h2>
+                    <p class="text-xl text-slate-600 leading-relaxed mb-8">
+                        Según la teoría macroeconómica, son un grupo de instituciones de intermediación que, mediante reglas establecidas, permiten realizar operaciones de inversión, financiamiento y cobertura.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="p-5 bg-white rounded-xl shadow-sm border-glow">
+                            <i class="fas fa-droplet text-blue-500 mb-3 block text-2xl"></i>
+                            <h4 class="font-bold text-slate-800">Liquidez</h4>
+                            <p class="text-sm text-slate-500">Transforman activos en dinero de forma eficiente.</p>
+                        </div>
+                        <div class="p-5 bg-white rounded-xl shadow-sm border-glow">
+                            <i class="fas fa-tag text-green-500 mb-3 block text-2xl"></i>
+                            <h4 class="font-bold text-slate-800">Fijación de Precios</h4>
+                            <p class="text-sm text-slate-500">Determinación del valor de los activos financieros.</p>
+                        </div>
+                        <div class="p-5 bg-white rounded-xl shadow-sm border-glow">
+                            <i class="fas fa-handshake text-purple-500 mb-3 block text-2xl"></i>
+                            <h4 class="font-bold text-slate-800">Contacto</h4>
+                            <p class="text-sm text-slate-500">Conectan a oferentes y demandantes de fondos.</p>
+                        </div>
+                        <div class="p-5 bg-white rounded-xl shadow-sm border-glow">
+                            <i class="fas fa-minus-circle text-red-500 mb-3 block text-2xl"></i>
+                            <h4 class="font-bold text-slate-800">Reducción de Costos</h4>
+                            <p class="text-sm text-slate-500">Minimizan costes de búsqueda e intermediación.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 bg-slate-900 p-1 rounded-3xl overflow-hidden shadow-2xl">
+                    <div class="bg-slate-800 p-12 text-center">
+                        <i class="fas fa-project-diagram text-8xl text-blue-500/50 mb-6"></i>
+                        <p class="text-blue-100 font-mono text-sm uppercase tracking-widest">Estructura del Mercado</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nueva Sección: Características -->
+        <section id="caracteristicas" class="mb-24 bg-blue-900 text-white p-12 rounded-3xl shadow-xl">
+            <h2 class="text-3xl font-bold mb-10 text-center">Características del Mercado Eficiente</h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
+                <div>
+                    <div class="text-3xl font-bold text-blue-400 mb-2 italic">Amplitud</div>
+                    <p class="text-xs opacity-70">Volumen elevado de activos negociados.</p>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-blue-400 mb-2 italic">Profundidad</div>
+                    <p class="text-xs opacity-70">Número de órdenes por cada activo.</p>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-blue-400 mb-2 italic">Libertad</div>
+                    <p class="text-xs opacity-70">Sin trabas para comprar o vender.</p>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-blue-400 mb-2 italic">Flexibilidad</div>
+                    <p class="text-xs opacity-70">Capacidad de reacción ante cambios.</p>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-blue-400 mb-2 italic">Transparencia</div>
+                    <p class="text-xs opacity-70">Información veraz y rápida sobre precios.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Intermediarios (Con la nueva clasificación) -->
+        <section id="intermediarios" class="mb-24">
+            <h2 class="text-4xl font-bold mb-6 text-slate-900 border-l-8 border-blue-600 pl-6">Clases de Intermediarios</h2>
+            <p class="mb-10 text-xl text-slate-600">Las instituciones se dividen según su naturaleza operativa:</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-10 rounded-2xl shadow-sm border border-slate-200 card-hover">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 text-2xl shadow-inner">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">Intermediarios Bancarios</h3>
+                    </div>
+                    <p class="text-slate-600 mb-4">Operan basados en <strong>contratos de crédito</strong>. Su función es captar recursos del público (depósitos) para prestarlos a terceros.</p>
+                    <ul class="text-sm text-slate-500 space-y-2">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Banca Comercial</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Banca de Desarrollo</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Sociedades de ahorro</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-10 rounded-2xl shadow-sm border border-slate-200 card-hover">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 text-2xl shadow-inner">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">No Bancarios</h3>
+                    </div>
+                    <p class="text-slate-600 mb-4">Están constituidos mayormente en la <strong>Bolsa de Valores</strong>. Facilitan la inversión directa en activos sin crear deuda bancaria tradicional.</p>
+                    <ul class="text-sm text-slate-500 space-y-2">
+                        <li><i class="fas fa-check text-blue-500 mr-2"></i> Casas de Bolsa</li>
+                        <li><i class="fas fa-check text-blue-500 mr-2"></i> Administradoras de Fondos</li>
+                        <li><i class="fas fa-check text-blue-500 mr-2"></i> Compañías de Seguros</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Tipos de Mercados (Expandido) -->
+        <section id="mercados" class="mb-24">
+            <h2 class="text-4xl font-bold mb-10 text-slate-900 border-l-8 border-blue-600 pl-6">Tipos de Mercado</h2>
+
+            <div class="flex flex-wrap gap-2 mb-10">
+                <button onclick="showTab('dinero')" class="tab-btn px-6 py-3 rounded-full font-bold transition-all text-slate-500 bg-white border border-slate-200 active-tab" id="btn-dinero">Mercado de Dinero</button>
+                <button onclick="showTab('capital')" class="tab-btn px-6 py-3 rounded-full font-bold transition-all text-slate-500 bg-white border border-slate-200" id="btn-capital">Capital / Valores</button>
+                <button onclick="showTab('deuda')" class="tab-btn px-6 py-3 rounded-full font-bold transition-all text-slate-500 bg-white border border-slate-200" id="btn-deuda">Deuda / Divisas</button>
+                <button onclick="showTab('derivados')" class="tab-btn px-6 py-3 rounded-full font-bold transition-all text-slate-500 bg-white border border-slate-200" id="btn-derivados">Futuros</button>
+                <button onclick="showTab('metales')" class="tab-btn px-6 py-3 rounded-full font-bold transition-all text-slate-500 bg-white border border-slate-200" id="btn-metales">Metales</button>
+            </div>
+
+            <!-- Tabs Content -->
+            <div id="dinero" class="tab-content active bg-white p-10 rounded-3xl shadow-sm border border-slate-200">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">Mercado de Dinero</h3>
+                <p class="text-lg text-slate-600 mb-6">Enfoque en activos de muy corto plazo y alta liquidez. Es el mercado para la gestión de excedentes de caja inmediata.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div class="p-4 bg-slate-50 rounded-xl"><strong>Primario:</strong> Venta directa de nuevos títulos por el emisor.</div>
+                    <div class="p-4 bg-slate-50 rounded-xl"><strong>Secundario:</strong> Negociación de títulos ya existentes entre inversores.</div>
+                </div>
+            </div>
+
+            <div id="capital" class="tab-content bg-white p-10 rounded-3xl shadow-sm border border-slate-200">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">Mercado de Capitales y Valores</h3>
+                <p class="text-lg text-slate-600 mb-6">Orientado a la inversión de largo plazo para capitalizar empresas o financiar proyectos estatales de envergadura.</p>
+                <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
+                    <h4 class="font-bold mb-2">Instrumentos representativos:</h4>
+                    <p class="text-sm">Acciones comunes y preferentes, Bonos industriales y Certificados de Participación.</p>
+                </div>
+            </div>
+
+            <div id="deuda" class="tab-content bg-white p-10 rounded-3xl shadow-sm border border-slate-200">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">Mercado de Deuda y Cambiario</h3>
+                <p class="text-lg text-slate-600 mb-6">Mecanismo donde se negocian promesas de pago y monedas extranjeras.</p>
+                <div class="flex flex-wrap gap-4">
+                    <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-bold">Forex</span>
+                    <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-bold">Letras del Tesoro</span>
+                    <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-bold">Cetes</span>
+                </div>
+            </div>
+
+            <div id="derivados" class="tab-content bg-white p-10 rounded-3xl shadow-sm border border-slate-200">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">Mercado de Futuros</h3>
+                <p class="text-lg text-slate-600 mb-6">Operaciones de cobertura donde se pactan precios hoy para transacciones en fechas futuras.</p>
+                <ul class="list-disc list-inside text-slate-600 space-y-2">
+                    <li>Contratos de Futuros sobre commodities.</li>
+                    <li>Opciones financieras sobre acciones.</li>
+                    <li>Swaps de tasas de interés.</li>
+                </ul>
+            </div>
+
+            <div id="metales" class="tab-content bg-white p-10 rounded-3xl shadow-sm border border-slate-200">
+                <h3 class="text-2xl font-bold mb-4 text-blue-800">Mercado de Metales</h3>
+                <p class="text-lg text-slate-600 mb-4">Negociación de metales preciosos como activos de refugio o industriales.</p>
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 font-bold text-amber-700">ORO</div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 font-bold text-slate-600">PLATA</div>
+                    <div class="bg-orange-50 p-4 rounded-xl border border-orange-200 font-bold text-orange-700">COBRE</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Casos de Estudio: Instrumentos Específicos del Libro -->
+        <section id="ejemplos" class="mb-24">
+            <h2 class="text-4xl font-bold mb-10 text-slate-900 border-l-8 border-blue-600 pl-6">Instrumentos de Inversión Reales</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Petrobonos -->
+                <div class="bg-slate-900 text-white p-8 rounded-2xl shadow-lg border-t-4 border-blue-500">
+                    <h3 class="text-xl font-bold mb-3">Petrobonos</h3>
+                    <p class="text-sm opacity-80 mb-4">Títulos de crédito emitidos por el gobierno federal a través de un fideicomiso de Nacional Financiera.</p>
+                    <div class="text-xs bg-white/10 p-3 rounded">
+                        <strong>Clave:</strong> Respaldados por barriles de petróleo. Plazo: 3 años. Cobertura cambiaria.
+                    </div>
+                </div>
+
+                <!-- Certificados de Participación -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 border-t-4 border-indigo-500">
+                    <h3 class="text-xl font-bold mb-3">Certificados de Participación</h3>
+                    <p class="text-sm text-slate-600 mb-4">Títulos nominativos que dan derecho a una parte proporcional de la titularidad de bienes muebles o inmuebles.</p>
+                    <div class="text-xs bg-slate-100 p-3 rounded text-slate-500 font-mono">
+                        Ejemplos: Carreteras, carteras de crédito, inmuebles expropiados.
+                    </div>
+                </div>
+
+                <!-- Bonos bancarios -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 border-t-4 border-green-500">
+                    <h3 class="text-xl font-bold mb-3">Bonos de Vivienda</h3>
+                    <p class="text-sm text-slate-600 mb-4">Títulos de crédito emitidos por instituciones crediticias para financiar la construcción de casas-habitación.</p>
+                    <div class="text-xs bg-green-50 p-3 rounded text-green-700">
+                        Función: Canalizar ahorro a largo plazo al sector inmobiliario.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-950 text-slate-500 py-16 px-6 text-center">
+        <div class="max-w-2xl mx-auto">
+            <h4 class="text-white font-bold text-xl mb-4 italic">"Los mercados financieros son el foro para el crecimiento económico."</h4>
+            <p class="text-sm mb-8 opacity-60">Basado en el texto: Tavera Camacho, I. (2020). Panorámica de la macroeconomía.</p>
+            <div class="flex justify-center gap-6 text-xl">
+                <i class="fab fa-university opacity-30"></i>
+                <i class="fas fa-microchip opacity-30"></i>
+                <i class="fas fa-globe opacity-30"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showTab(tabId) {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Resetear estilos de todos los botones
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white', 'border-blue-600', 'shadow-md');
+                btn.classList.add('bg-white', 'text-slate-500', 'border-slate-200');
+            });
+
+            // Mostrar contenido seleccionado
+            document.getElementById(tabId).classList.add('active');
+
+            // Estilizar botón activo
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.add('bg-blue-600', 'text-white', 'border-blue-600', 'shadow-md');
+            activeBtn.classList.remove('bg-white', 'text-slate-500', 'border-slate-200');
+        }
+
+        // Inicializar la primera pestaña
+        window.onload = () => showTab('dinero');
+    </script>
+</body>
+</html>
