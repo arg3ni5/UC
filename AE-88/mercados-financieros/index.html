@@ -364,39 +364,27 @@
     <footer class="bg-slate-950 text-slate-500 py-16 px-6 text-center">
         <div class="max-w-2xl mx-auto">
             <h4 class="text-white font-bold text-xl mb-4 italic">"Los mercados financieros son el foro para el crecimiento económico."</h4>
-            <p class="text-sm mb-4 opacity-60">Basado en el texto: Tavera Camacho, I. (2020). Panorámica de la macroeconomía.</p>
+            <p class="text-sm mb-4 opacity-60">Basado en el texto de Tavera Camacho (2020).</p>
             <div class="border-t border-slate-800 pt-8 mt-4">
-                <p class="text-sm text-slate-400 font-semibold mb-2">Realizado por:</p>
+                <p class="text-xs text-slate-400 font-bold mb-2 uppercase tracking-widest">Realizado por:</p>
                 <p class="text-slate-300">Fabian Chinchilla Mayorga</p>
                 <p class="text-slate-300">Jose Castro Fernandez</p>
-            </div>
-
-            <div class="flex justify-center gap-6 text-xl mt-8">
-                <i class="fab fa-university opacity-30"></i>
-                <i class="fas fa-microchip opacity-30"></i>
-                <i class="fas fa-globe opacity-30"></i>
             </div>
         </div>
     </footer>
 
     <script>
         function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('bg-blue-600', 'text-white', 'border-blue-600', 'shadow-md');
                 btn.classList.add('bg-white', 'text-slate-500', 'border-slate-200');
             });
-
             document.getElementById(tabId).classList.add('active');
-
             const activeBtn = document.getElementById('btn-' + tabId);
             activeBtn.classList.add('bg-blue-600', 'text-white', 'border-blue-600', 'shadow-md');
             activeBtn.classList.remove('bg-white', 'text-slate-500', 'border-slate-200');
         }
-
         window.onload = () => showTab('dinero');
     </script>
 </body>
