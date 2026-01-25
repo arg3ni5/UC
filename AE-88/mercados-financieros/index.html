@@ -181,7 +181,7 @@
             </div>
         </section>
 
-        <!-- 2. Intermediarios (Con la nueva clasificación) -->
+        <!-- 2. Intermediarios -->
         <section id="intermediarios" class="mb-24">
             <h2 class="text-4xl font-bold mb-6 text-slate-900 border-l-8 border-blue-600 pl-6">Clases de Intermediarios</h2>
             <p class="mb-10 text-xl text-slate-600">Las instituciones se dividen según su naturaleza operativa:</p>
@@ -219,7 +219,7 @@
             </div>
         </section>
 
-        <!-- 3. Tipos de Mercados (Expandido) -->
+        <!-- 3. Tipos de Mercados -->
         <section id="mercados" class="mb-24">
             <h2 class="text-4xl font-bold mb-10 text-slate-900 border-l-8 border-blue-600 pl-6">Tipos de Mercado</h2>
 
@@ -281,11 +281,10 @@
             </div>
         </section>
 
-        <!-- 4. Casos de Estudio: Instrumentos Específicos del Libro -->
+        <!-- 4. Instrumentos -->
         <section id="ejemplos" class="mb-24">
             <h2 class="text-4xl font-bold mb-10 text-slate-900 border-l-8 border-blue-600 pl-6">Instrumentos de Inversión Reales</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Petrobonos -->
                 <div class="bg-slate-900 text-white p-8 rounded-2xl shadow-lg border-t-4 border-blue-500">
                     <h3 class="text-xl font-bold mb-3">Petrobonos</h3>
                     <p class="text-sm opacity-80 mb-4">Títulos de crédito emitidos por el gobierno federal a través de un fideicomiso de Nacional Financiera.</p>
@@ -294,7 +293,6 @@
                     </div>
                 </div>
 
-                <!-- Certificados de Participación -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 border-t-4 border-indigo-500">
                     <h3 class="text-xl font-bold mb-3">Certificados de Participación</h3>
                     <p class="text-sm text-slate-600 mb-4">Títulos nominativos que dan derecho a una parte proporcional de la titularidad de bienes muebles o inmuebles.</p>
@@ -303,7 +301,6 @@
                     </div>
                 </div>
 
-                <!-- Bonos bancarios -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 border-t-4 border-green-500">
                     <h3 class="text-xl font-bold mb-3">Bonos de Vivienda</h3>
                     <p class="text-sm text-slate-600 mb-4">Títulos de crédito emitidos por instituciones crediticias para financiar la construcción de casas-habitación.</p>
@@ -336,27 +333,22 @@
 
     <script>
         function showTab(tabId) {
-            // Ocultar todos los contenidos
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
             });
 
-            // Resetear estilos de todos los botones
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('bg-blue-600', 'text-white', 'border-blue-600', 'shadow-md');
                 btn.classList.add('bg-white', 'text-slate-500', 'border-slate-200');
             });
 
-            // Mostrar contenido seleccionado
             document.getElementById(tabId).classList.add('active');
 
-            // Estilizar botón activo
             const activeBtn = document.getElementById('btn-' + tabId);
             activeBtn.classList.add('bg-blue-600', 'text-white', 'border-blue-600', 'shadow-md');
             activeBtn.classList.remove('bg-white', 'text-slate-500', 'border-slate-200');
         }
 
-        // Inicializar la primera pestaña
         window.onload = () => showTab('dinero');
     </script>
 </body>
