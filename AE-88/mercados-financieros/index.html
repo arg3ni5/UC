@@ -49,6 +49,41 @@
         .border-glow {
             border: 1px solid rgba(59, 130, 246, 0.2);
         }
+
+        /* Estilos específicos para Impresión */
+        @media print {
+            .sticky-nav, .tab-btn, footer, button, .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            main {
+                padding: 0;
+            }
+            .tab-content {
+                display: block !important; /* Muestra todas las secciones al imprimir */
+                margin-bottom: 2rem;
+                page-break-inside: avoid;
+                border: 1px solid #e2e8f0 !important;
+                box-shadow: none !important;
+            }
+            .gradient-bg {
+                background: #0f172a !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                padding: 2rem !important;
+            }
+            section {
+                page-break-inside: avoid;
+                margin-bottom: 3rem;
+            }
+            .bg-slate-900 {
+                background-color: #f1f5f9 !important;
+                color: black !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -63,12 +98,17 @@
 
     <!-- Navigation -->
     <nav class="sticky-nav shadow-sm py-4 px-6 border-b border-slate-200">
-        <div class="max-w-6xl mx-auto flex flex-wrap justify-center gap-6 text-xs md:text-sm font-bold uppercase tracking-widest text-slate-500">
-            <a href="#concepto" class="hover:text-blue-600 transition py-2 border-b-2 border-transparent hover:border-blue-600">Concepto</a>
-            <a href="#caracteristicas" class="hover:text-blue-600 transition py-2 border-b-2 border-transparent hover:border-blue-600">Pilares</a>
-            <a href="#intermediarios" class="hover:text-blue-600 transition py-2 border-b-2 border-transparent hover:border-blue-600">Instituciones</a>
-            <a href="#mercados" class="hover:text-blue-600 transition py-2 border-b-2 border-transparent hover:border-blue-600">Tipos de Mercado</a>
-            <a href="#ejemplos" class="hover:text-blue-600 transition py-2 border-b-2 border-transparent hover:border-blue-600">Instrumentos</a>
+        <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-4">
+            <div class="flex flex-wrap gap-6 text-xs md:text-sm font-bold uppercase tracking-widest text-slate-500">
+                <a href="#concepto" class="hover:text-blue-600 transition py-2 border-b-2 border-transparent hover:border-blue-600">Concepto</a>
+                <a href="#caracteristicas" class="hover:text-blue-600 transition py-2 border-b-2 border-transparent hover:border-blue-600">Pilares</a>
+                <a href="#intermediarios" class="hover:text-blue-600 transition py-2 border-b-2 border-transparent hover:border-blue-600">Instituciones</a>
+                <a href="#mercados" class="hover:text-blue-600 transition py-2 border-b-2 border-transparent hover:border-blue-600">Tipos de Mercado</a>
+                <a href="#ejemplos" class="hover:text-blue-600 transition py-2 border-b-2 border-transparent hover:border-blue-600">Instrumentos</a>
+            </div>
+            <button onclick="window.print()" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition flex items-center gap-2 text-sm font-bold shadow-lg shadow-blue-200">
+                <i class="fas fa-print"></i> IMPRIMIR GUÍA
+            </button>
         </div>
     </nav>
 
