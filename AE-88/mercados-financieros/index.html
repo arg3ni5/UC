@@ -68,42 +68,52 @@
                 justify-content: center !important;
                 page-break-after: always !important;
                 margin: 0 !important;
-                padding: 0 !important;
+                padding: 2rem !important;
             }
             main {
                 padding: 0;
+                margin: 0;
+                max-width: 100% !important;
             }
+            /* Forzar visualización de todos los contenidos de pestañas */
             .tab-content {
-                display: block !important; /* Muestra todas las secciones al imprimir */
-                margin-bottom: 2rem;
+                display: block !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                margin-bottom: 3rem;
                 page-break-inside: avoid;
                 border: 1px solid #e2e8f0 !important;
                 box-shadow: none !important;
+                padding: 2rem !important;
             }
             .gradient-bg {
                 background: #0f172a !important;
                 color: white !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
-                padding: 2rem !important;
             }
             section {
                 page-break-inside: avoid;
-                margin-bottom: 3rem;
+                margin-bottom: 4rem;
+                padding-top: 1rem;
             }
             .bg-slate-900 {
                 background-color: #f1f5f9 !important;
                 color: black !important;
+            }
+            h2 {
+                color: #1e40af !important;
+                border-left-color: #1e40af !important;
             }
         }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
-    <!-- Header / Hero -->
+    <!-- Header / Hero (Actúa como Portada en impresión) -->
     <header class="gradient-bg text-white py-24 px-6 text-center">
         <div class="max-w-4xl mx-auto">
-            <span class="bg-blue-500/20 text-blue-300 py-1 px-4 rounded-full text-sm font-semibold mb-4 inline-block uppercase tracking-wider">Macroeconomía Aplicada</span>
+            <span class="bg-blue-500/20 text-blue-300 py-1 px-4 rounded-full text-sm font-semibold mb-4 inline-block uppercase tracking-wider">AE-88 GRUPO 1</span>
             <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">Aspectos generales de los mercados e intermediarios financieros</h1>
         </div>
     </header>
