@@ -52,7 +52,7 @@
 
         /* Estilos específicos para Impresión */
         @media print {
-            .sticky-nav, .tab-btn, footer, button, .no-print {
+            .sticky-nav, .tab-btn, footer, button, .no-print, nav {
                 display: none !important;
             }
             body {
@@ -231,11 +231,11 @@
             </div>
         </section>
 
-        <!-- 3. Tipos de Mercados -->
+        <!-- 3. Tipos de Mercados (Se despliegan todos en impresión) -->
         <section id="mercados" class="mb-24">
             <h2 class="text-4xl font-bold mb-10 text-slate-900 border-l-8 border-blue-600 pl-6">Tipos de Mercado</h2>
 
-            <div class="flex flex-wrap gap-2 mb-10">
+            <div class="flex flex-wrap gap-2 mb-10 no-print">
                 <button onclick="showTab('dinero')" class="tab-btn px-6 py-3 rounded-full font-bold transition-all text-slate-500 bg-white border border-slate-200 active-tab" id="btn-dinero">Mercado de Dinero</button>
                 <button onclick="showTab('capital')" class="tab-btn px-6 py-3 rounded-full font-bold transition-all text-slate-500 bg-white border border-slate-200" id="btn-capital">Capital / Valores</button>
                 <button onclick="showTab('deuda')" class="tab-btn px-6 py-3 rounded-full font-bold transition-all text-slate-500 bg-white border border-slate-200" id="btn-deuda">Deuda / Divisas</button>
