@@ -1,0 +1,36 @@
+flowchart TB
+
+UI["Presentación
+ASPX / CodeBehind
+GridView / Form"]
+
+SVC["PersonaService
+Reglas y Validaciones"]
+
+REPO["PersonaDB
+CRUD Persona"]
+
+DBH["DbHelper
+ADO.NET
+Conexión y ejecución"]
+
+SQL[(SQL Server
+Tabla Persona)]
+
+SWAL["SwalUtils
+Mensajes SweetAlert"]
+
+UI --> SVC
+SVC --> REPO
+REPO --> DBH
+DBH --> SQL
+UI --> SWAL
+
+
+%% 🎨 Estilos por capa
+style UI fill:#0D47A1,stroke:#0B3C91,color:#ffffff
+style SVC fill:#2E7D32,stroke:#1B5E20,color:#ffffff
+style REPO fill:#8E24AA,stroke:#6A1B9A,color:#ffffff
+style DBH fill:#FB8C00,stroke:#EF6C00,color:#ffffff
+style SQL fill:#37474F,stroke:#263238,color:#ffffff
+style SWAL fill:#EC407A,stroke:#C2185B,color:#ffffff

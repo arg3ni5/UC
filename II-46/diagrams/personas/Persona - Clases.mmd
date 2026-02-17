@@ -1,0 +1,67 @@
+---
+title: Arquitectura en Capas - Gestión de Persona
+---
+
+classDiagram
+direction LR
+
+class Persona {
+  +Integer IdPersona
+  +String Nombre
+  +String Apellido
+  +Integer Edad
+}
+
+class DbHelper {
+  +SqlConnection GetConnection()
+  +Integer ExecuteNonQuery(sql, params)
+  +Object ExecuteScalar(sql, params)
+  +DataTable ExecuteDataTable(sql, params)
+}
+
+class PersonaDB {
+  -DbHelper _db
+  +DataTable GetAll()
+  +Persona GetById(id)
+  +Integer Insert(p)
+  +Boolean Update(p)
+  +Boolean Delete(id)
+}
+
+class PersonaService {
+  -PersonaDB _repo
+  +DataTable ObtenerTodos()
+  +Persona ObtenerPorId(id)
+  +Boolean Guardar(p)
+  +Boolean Eliminar(id)
+}
+
+class SwalUtils {
+  <<module>>
+  +Void ShowSwal(page, title, message, icon)
+  +Void ShowSwalError(page, title, message)
+  +Void ShowSwalMessage(page, title, message, icon)
+  +String ShowSwalScript(title, message, icon)
+}
+
+class FormPersona {
+  +Void btnGuardar_Click()
+  +Void gvPersonas_SelectedIndexChanged()
+  +Void CargarPersonaEnFormulario(id)
+}
+
+PersonaService --> PersonaDB : uses
+PersonaDB --> DbHelper : uses
+PersonaDB --> Persona : maps
+FormPersona --> PersonaService : calls
+FormPersona --> SwalUtils : shows
+FormPersona --> Persona : binds
+
+
+%% 🎨 Definición de colores por capa
+style Persona fill:#2962FF,color:#ffffff,stroke:#2962FF
+style PersonaService fill:#00C853,color:#ffffff,stroke:#00C853
+style PersonaDB fill:#AA00FF,color:#ffffff,stroke:#AA00FF
+style DbHelper fill:#FF6D00,color:#ffffff,stroke:#FF6D00
+style FormPersona fill:#0D47A1,stroke:#0B3C91,color:#ffffff
+style SwalUtils fill:#EC407A,stroke:#C2185B,color:#ffffff

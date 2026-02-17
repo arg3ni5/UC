@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Caso de ejemplo: CRUD Persona (Capas + Clases)</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Caso de ejemplo: CRUD de Persona <span class="tag">VB.NET + ADO.NET</span></h1>
+      <p>
+        Este ejercicio muestra una arquitectura simple en capas (UI → Service → Data → DB) y su diagrama de clases. Incluye los diagramas exportados y los archivos
+        <code class="inline">.mmd</code> para descarga.
+      </p>
+    </header>
+
+    <main class="wrap">
+      <section class="card">
+        <h2 style="margin: 0 0 8px; font-size: 18px">Pasos del ejercicio</h2>
+        <ol>
+          <li>Crear la entidad <code class="inline">Persona</code> (propiedades básicas).</li>
+          <li>Crear <code class="inline">DbHelper</code> para manejar conexión y ejecución de comandos (con parámetros).</li>
+          <li>Crear <code class="inline">PersonaDB</code> con CRUD (GetAll, GetById, Insert, Update, Delete).</li>
+          <li>Crear <code class="inline">PersonaService</code> para reglas/validaciones (no SQL, solo lógica).</li>
+          <li>En UI (Form / WebForm): cargar GridView, seleccionar registro, cargar en formulario y guardar.</li>
+          <li>Usar <code class="inline">SwalUtils</code> únicamente en la capa UI para mostrar errores/confirmaciones.</li>
+          <li>Probar: Insert → Listar → Editar → Eliminar, verificando que el ID se maneje con DataKeys / estado de edición.</li>
+        </ol>
+      </section>
+
+      <section class="grid">
+        <!-- Diagrama Capas -->
+        <section class="card">
+          <h2 style="margin: 0 0 6px; font-size: 18px">Diagrama 1: Arquitectura General</h2>
+
+          <figure>
+            <figcaption>Vista en SVG (recomendado)</figcaption>
+            <picture>
+              <source srcset="persona_layer_architecture.svg" type="image/svg+xml" />
+              <img src="persona_layer_architecture.png" alt="Arquitectura General CRUD Persona" />
+            </picture>
+          </figure>
+
+          <div class="btns">
+            <a class="btn" href="persona_layer_architecture.svg" download>Descargar SVG</a>
+            <a class="btn" href="persona_layer_architecture.png" download>Descargar PNG</a>
+            <a class="btn" href="Persona - Capas.mmd" download>Descargar .mmd</a>
+          </div>
+        </section>
+
+        <!-- Diagrama Clases -->
+        <section class="card">
+          <h2 style="margin: 0 0 6px; font-size: 18px">Diagrama 2: Arquitectura en Capas (Layered)</h2>
+
+          <figure>
+            <figcaption>Vista en SVG (recomendado)</figcaption>
+            <picture>
+              <source srcset="persona_layered_arch.svg" type="image/svg+xml" />
+              <img src="persona_layered_arch.png" onclick="openModal(this)" style="cursor:pointer;"
+              alt="Arquitectura en Capas Persona" />
+            </picture>
+          </figure>
+
+          <div class="btns">
+            <a class="btn" href="persona_layered_arch.svg" download>Descargar SVG</a>
+            <a class="btn" href="persona_layered_arch.png" download>Descargar PNG</a>
+            <a class="btn" href="Persona - Clases.mmd" download>Descargar .mmd</a>
+          </div>
+        </section>
+      </section>
+
+      <div id="imgModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImg" />
+      </div>
+    </main>
+
+    <footer>
+      <p>Nota: SVG es ideal para diagramas (es vectorial). PNG sirve como alternativa si el visor no soporta SVG.</p>
+    </footer>
+    <script>
+      function openModal(img) {
+        document.getElementById("imgModal").style.display = "block";
+        document.getElementById("modalImg").src = img.src;
+      }
+
+      function closeModal() {
+        document.getElementById("imgModal").style.display = "none";
+      }
+    </script>
+  </body>
+</html>
