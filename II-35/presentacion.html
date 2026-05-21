@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>II-35 Estructuras de Datos y Algoritmos - Universidad Central</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ==========================================================================
+           1. CONFIGURACIÓN Y VARIABLES - NUEVA LÍNEA GRÁFICA UC
+           ========================================================================== */
+        :root {
+            --uc-teal: #008080;
+            --uc-dark-teal: #005a6b;
+            --uc-slate: #00424d;
+            --uc-white: #ffffff;
+            --uc-accent: #00ced1;
+            --primary-font: 'Montserrat', sans-serif;
+            --body-font: 'Open Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: #111; /* Fondo oscuro exterior */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+        }
+
+        /* ==========================================================================
+           2. CONTENEDOR DE DIAPOSITIVAS (PROPORCIÓN DE ASPECTO FIJA 16:9 HD)
+           ========================================================================== */
+        .slide-container {
+            display: none; /* Controlado por JS */
+            width: 1280px;
+            height: 720px;
+            background: linear-gradient(135deg, var(--uc-dark-teal), var(--uc-slate));
+            color: var(--uc-white);
+            font-family: var(--body-font);
+            position: relative;
+            overflow: hidden;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px 80px;
+            border-radius: 8px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            animation: slideFadeIn 0.4s ease-in-out;
+        }
+
+        /* Diapositiva Activa */
+        .slide-container.active {
+            display: flex;
+        }
+
+        @keyframes slideFadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Textura sutil de fibra de carbono de fondo */
+        .slide-container::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Formas decorativas orgánicas abstractas */
+        .bg-shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .bg-shape-1 { width: 500px; height: 500px; border: 1px solid rgba(255,255,255,0.06); top: -150px; right: -150px; }
+        .bg-shape-2 { width: 350px; height: 350px; border: 1px solid rgba(0,206,209,0.08); bottom: -80px; left: -80px; transform: rotate(15deg); }
+
+        .slide-container > * { position: relative; z-index: 2; }
+
+        /* ==========================================================================
+           3. TIPOGRAFÍA Y ESTILOS GLOBALES DE DISEÑO
+           ========================================================================== */
+        h1, h2, h3, h4 {
+            font-family: var(--primary-font);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 64px;
+            line-height: 1.15;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .slide-title {
+            font-size: 40px;
+            margin-bottom: 35px;
+            border-left: 8px solid var(--uc-accent);
+            padding-left: 20px;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        p, li {
+            font-size: 19px;
+            line-height: 1.5;
+        }
+
+        .highlight-accent {
+            color: var(--uc-accent);
+            font-weight: 700;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+            align-items: start;
+        }
+
+        /* Tarjetas de Contenedor (Tiles) */
+        .uc-tile {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 30px;
+            border-radius: 12px;
+            border-bottom: 4px solid var(--uc-accent);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        .uc-tile h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--uc-accent);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .uc-badge {
+            background: rgba(0, 206, 209, 0.15);
+            border: 1px solid var(--uc-accent);
+            color: var(--uc-accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: var(--primary-font);
+        }
+
+        /* ==========================================================================
+           4. COMPONENTES VISUALES AVANZADOS
+           ========================================================================== */
+
+        /* Gráfico de barras de evaluación */
+        .evaluation-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 30px;
+            height: 310px;
+            width: 100%;
+            padding: 10px 40px 0 40px;
+            margin-top: 15px;
+        }
+        .chart-bar-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            justify-content: flex-end;
+        }
+        .chart-bar-fill {
+            width: 100%;
+            background: linear-gradient(to top, var(--uc-slate), var(--uc-accent));
+            border-radius: 6px 6px 0 0;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 206, 209, 0.25);
+            animation: barGrow 1s ease-out forwards;
+            transform-origin: bottom;
+        }
+        @keyframes barGrow {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+        .bar-percentage {
+            position: absolute;
+            top: -35px;
+            width: 100%;
+            text-align: center;
+            font-family: var(--primary-font);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--uc-accent);
+        }
+        .bar-label {
+            margin-top: 15px;
+            font-family: var(--primary-font);
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        /* Tabla estilizada */
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .table-container th {
+            background: rgba(0, 206, 209, 0.15);
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 3px solid var(--uc-accent);
+            font-family: var(--primary-font);
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .table-container td {
+            padding: 14px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 15px;
+        }
+        .table-container tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Estilos Ilustrativos de los Bloques */
+        .block-visualization {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 250px;
+        }
+
+        /* Representación de un Nodo (Bloque III) */
+        .node-display {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: var(--primary-font);
+        }
+        .visual-node {
+            background: var(--uc-slate);
+            border: 2px solid var(--uc-accent);
+            border-radius: 6px;
+            display: flex;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 206, 209, 0.2);
+        }
+        .node-part {
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .node-part.info {
+            background: rgba(255,255,255,0.05);
+            border-right: 2px solid var(--uc-accent);
+        }
+        .node-part.pointer {
+            color: var(--uc-accent);
+        }
+        .node-arrow {
+            color: var(--uc-accent);
+            font-size: 24px;
+        }
+
+        /* Representación de Pilas/Colas (Bloque II) */
+        .queue-display {
+            display: flex;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-left: none;
+            border-right: none;
+            padding: 10px;
+            gap: 10px;
+            width: 80%;
+            justify-content: center;
+        }
+        .queue-item {
+            background: var(--uc-accent);
+            color: var(--uc-slate);
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-family: var(--primary-font);
+        }
+
+        /* Representación de Jerarquías/Árboles (Bloque IV) */
+        .tree-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+        }
+        .tree-level {
+            display: flex;
+            gap: 40px;
+        }
+        .tree-node {
+            width: 45px;
+            height: 45px;
+            background: var(--uc-slate);
+            border: 2px solid var(--uc-accent);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--primary-font);
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 206, 209, 0.3);
+        }
+
+        /* Línea de tiempo cronograma */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: 40px;
+            width: 100%;
+        }
+        .timeline::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.15);
+            z-index: 0;
+        }
+        .timeline-node {
+            width: 22%;
+            background: var(--uc-slate);
+            border: 2px solid var(--uc-accent);
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 1;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .timeline-node .week-tag {
+            font-family: var(--primary-font);
+            color: var(--uc-accent);
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .timeline-node p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Matriz de pruebas del proyecto final */
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .matrix-table th {
+            background: rgba(0, 206, 209, 0.1);
+            color: var(--uc-accent);
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            text-align: center;
+        }
+        .matrix-table td {
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            text-align: center;
+        }
+
+        /* ==========================================================================
+           5. INTERFAZ DE NAVEGACIÓN Y CONTROLES
+           ========================================================================== */
+        .progress-bar-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 10;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%; /* JS lo actualiza */
+            background: var(--uc-accent);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--uc-accent);
+        }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding-top: 20px;
+            font-family: var(--primary-font);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.6;
+        }
+
+        .nav-controls {
+            position: fixed;
+            bottom: 30px;
+            right: 40px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: var(--uc-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .nav-btn:hover {
+            background: var(--uc-accent);
+            color: var(--uc-slate);
+            border-color: var(--uc-accent);
+            transform: scale(1.1);
+        }
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+
+        .user-hint {
+            position: fixed;
+            bottom: 30px;
+            left: 40px;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: var(--primary-font);
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MENÚ DE AYUDA Y CONTROLES FLOTANTES -->
+    <div class="user-hint">Navegar con: Flechas (← / →), Espacio, Enter o Botones Flotantes</div>
+
+    <div class="nav-controls">
+        <div class="nav-btn" id="prevBtn" title="Diapositiva Anterior"><i class="fa-solid fa-chevron-left"></i></div>
+        <div class="nav-btn" id="nextBtn" title="Siguiente Diapositiva"><i class="fa-solid fa-chevron-right"></i></div>
+    </div>
+
+    <!-- BARRA SUPERIOR DE PROGRESO DE LA PRESENTACIÓN -->
+    <div class="progress-bar-container">
+        <div class="progress-fill" id="progressBar"></div>
+    </div>
+
+    <!-- ==========================================================================
+       DIAPOSITIVA 1: PORTADA INSTITUCIONAL
+       ========================================================================== -->
+    <div class="slide-container active" id="slide1">
+        <div class="bg-shape bg-shape-1"></div>
+        <div class="bg-shape bg-shape-2"></div>
+
+        <div class="slide-content" style="justify-content: center;">
+            <div style="font-family: var(--primary-font); font-size: 30px; margin-bottom: 5px;">
+                <span style="font-weight:700; color:var(--uc-accent);">UC</span>
+                <span style="font-weight:400; letter-spacing: 2px;">UNIVERSIDAD CENTRAL</span>
+            </div>
+            <div style="font-family: var(--primary-font); font-size: 16px; font-weight:700; color:var(--uc-accent); letter-spacing:4px; margin-bottom: 50px;">
+                BACHILLERATO EN INGENIERÍA INFORMÁTICA
+            </div>
+
+            <div style="margin-bottom: 35px;">
+                <h1 style="font-size: 60px; font-weight: 700; line-height: 1.15; text-shadow: 0 4px 15px rgba(0,0,0,0.4);">
+                    ESTRUCTURAS DE DATOS<br>Y ALGORITMOS
+                </h1>
+                <div style="font-family: var(--primary-font); font-size: 24px; margin-top: 15px;">
+                    CÓDIGO DE ASIGNATURA: <span class="highlight-accent">II-35</span>
+                    <span class="uc-badge" style="margin-left: 15px;">4 CRÉDITOS</span>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 50px; font-size: 20px; opacity: 0.85;">
+                <i class="fa-solid fa-graduation-cap" style="color:var(--uc-accent); margin-right: 10px;"></i> Modalidad Virtual · Curso Cuatrimestral (15 Semanas) · Requisito: II-31
+            </div>
+
+            <div style="width: 150px; height: 2px; background-color: rgba(255,255,255,0.25); margin-bottom: 20px;"></div>
+            <div style="font-family: var(--primary-font); font-size: 19px; opacity: 0.95;">
+                <i class="fa-solid fa-user-tie" style="color:var(--uc-accent); margin-right: 10px;"></i> Docente: Fabian Chinchilla Mayorga
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <span>Universidad Central · Ingeniería Informática</span>
+            <span class="page-number"></span>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       DIAPOSITIVA 2: PRESENTACIÓN DEL PROFESOR Y BIENVENIDA
+       ========================================================================== -->
+    <div class="slide-container" id="slide2">
+        <div class="bg-shape bg-shape-2"></div>
+        <h2 class="slide-title">Conozcámonos</h2>
+
+        <div class="slide-content">
+            <div class="two-column">
+                <!-- Perfil del Docente (Corrección de formación UCR / UC) -->
+                <div class="uc-tile">
+                    <h3><i class="fa-solid fa-chalkboard-user"></i> Tu Profesor</h3>
+                    <p style="font-size: 24px; font-weight: 700; margin-bottom: 2px;">Fabian Chinchilla M.</p>
+                    <p style="font-size: 13px; text-transform: uppercase; color: var(--uc-accent); font-weight: 600; margin-bottom: 15px; letter-spacing: 1px;">
+                        Ingeniero Informático (UCR) & Analista de Sistemas
+                    </p>
+                    <p style="font-size: 15px; text-align: justify; opacity: 0.95; line-height: 1.55; margin-bottom: 15px;">
+                        Graduado de Bachillerato en Informática Empresarial de la <strong>Universidad de Costa Rica (UCR)</strong> y estudiante de Licenciatura en Ingeniería Informática en la Universidad Central. Profesional con más de 6 años de experiencia en el sector corporativo liderando desarrollo e integración de sistemas web empresariales (.NET, Java, SQL Server, Angular/React).
+                    </p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px; font-size: 13px; opacity: 0.9; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+                        <span><i class="fa-solid fa-code" style="color: var(--uc-accent);"></i> POO / Java Core</span>
+                        <span><i class="fa-solid fa-gears" style="color: var(--uc-accent);"></i> Arquitectura de Sistemas</span>
+                    </div>
+                </div>
+
+                <!-- Dinámica Rompehielos de Estudiantes -->
+                <div class="uc-tile" style="background: rgba(0, 206, 209, 0.04); border-left: 5px solid var(--uc-accent); border-bottom: none;">
+                    <h3><i class="fa-solid fa-comments"></i> Rompamos el Hielo</h3>
+                    <p style="font-size: 16px; font-style: italic; margin-bottom: 20px; opacity: 0.85;">
+                        Por favor, presentémonos de manera ordenada respondiendo lo siguiente:
+                    </p>
+                    <ul style="list-style: none; font-size: 17px;">
+                        <li style="margin-bottom: 12px;"><i class="fa-solid fa-id-card-clip" style="color: var(--uc-accent); width: 25px;"></i> <strong>Nombre</strong> y cómo prefieren que les llame.</li>
+                        <li style="margin-bottom: 12px;"><i class="fa-solid fa-map-pin" style="color: var(--uc-accent); width: 25px;"></i> <strong>¿De dónde son?</strong> (Ubicación de conexión).</li>
+                        <li style="margin-bottom: 12px;"><i class="fa-solid fa-briefcase" style="color: var(--uc-accent); width: 25px;"></i> <strong>¿Trabajan actualmente?</strong> ¿Es relacionado a TI?</li>
+                        <li style="margin-bottom: 12px;"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--uc-accent); width: 25px;"></i> <strong>¿Expectativa</strong> del curso II-35?</li>
+                        <li style="margin-bottom: 12px;"><i class="fa-solid fa-dice-five" style="color: var(--uc-accent); width: 25px;"></i> Un <strong>dato curioso</strong>, hobby o videojuego preferido.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <span>II-35 Estructuras de Datos y Algoritmos</span>
+            <span class="page-number"></span>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       DIAPOSITIVA 3: DESCRIPCIÓN Y OBJETIVOS DE LA MATERIA
+       ========================================================================== -->
+    <div class="slide-container" id="slide3">
+        <h2 class="slide-title">Descripción y Objetivos</h2>
+
+        <div class="slide-content">
+            <div class="two-column">
+                <div>
+                    <h3 style="font-family:var(--primary-font); font-size:18px; color:var(--uc-accent); margin-bottom:15px; text-transform:uppercase;">Descripción de Programa</h3>
+                    <p style="font-size: 17px; text-align: justify; line-height: 1.6; margin-bottom: 20px;">
+                        El curso capacita en el desarrollo de sistemas mediante la adecuada adopción de estructuras de datos, determinando cómo estas impactan la complejidad lógica, el consumo de memoria física y la rapidez de ejecución de los programas.
+                    </p>
+                    <div class="uc-tile" style="padding: 20px; background: rgba(0, 206, 209, 0.05); border-left: 4px solid var(--uc-accent); border-bottom: none;">
+                        <p style="font-size:15px; font-style:italic;">
+                            "Bajo una dinámica teórico-práctica se fomenta la construcción de estructuras usando <span class="highlight-accent">Java</span> para emular exigencias reales de computación en la nube."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="uc-tile" style="border-bottom: none; border-top: 4px solid var(--uc-accent);">
+                    <h3><i class="fa-solid fa-bullseye"></i> Objetivos del Curso</h3>
+                    <p style="font-size: 16px; font-weight: bold; margin-bottom: 10px; color: var(--uc-accent);">Objetivo General:</p>
+                    <p style="font-size: 15px; margin-bottom: 20px; text-align: justify;">
+                        Proporcionar conocimientos sobre múltiples tipos de estructuras de datos para resolver con solvencia problemas profesionales y adaptarse a cualquier lenguaje de programación.
+                    </p>
+                    <p style="font-size: 16px; font-weight: bold; margin-bottom: 10px; color: var(--uc-accent);">Metas Específicas:</p>
+                    <ul style="list-style: none; font-size: 14px;">
+                        <li style="margin-bottom: 8px;"><i class="fa-solid fa-angle-right" style="color:var(--uc-accent);"></i> Expandir el pensamiento lógico de abstracción mediante Java.</li>
+                        <li style="margin-bottom: 8px;"><i class="fa-solid fa-angle-right" style="color:var(--uc-accent);"></i> Codificar estructuras complejas desde cero.</li>
+                        <li><i class="fa-solid fa-angle-right" style="color:var(--uc-accent);"></i> Optimizar el uso de recursos y el rendimiento de CPU.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <span>II-35 Estructuras de Datos y Algoritmos</span>
+            <span class="page-number"></span>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       DIAPOSITIVA 4: BLOQUE I (FUNDAMENTOS Y REPASO DE JAVA)
+       ========================================================================== -->
+    <div class="slide-container" id="slide4">
+        <h2 class="slide-title">Bloque I: Fundamentos y Repaso de Java</h2>
+
+        <div class="slide-content">
+            <div class="two-column">
+                <div class="uc-tile" style="height: 100%;">
+                    <h3><i class="fa-solid fa-cubes"></i> Temas y Contenidos</h3>
+                    <ul style="list-style: none; font-size: 15px; line-height: 1.8;">
+                        <li style="margin-bottom: 15px;">
+                            <strong style="color: var(--uc-accent);">Tema I: Programación Orientada a Objetos en Java</strong><br>
+                            <span style="font-size:14px; opacity:0.9;">Conceptos clave de Clases, Objetos, Atributos y Métodos. Pilares fundamentales: Herencia, Polimorfismo, Encapsulamiento y Abstracción. Sobrecarga y Sobreescritura.</span>
+                        </li>
+                        <li>
+                            <strong style="color: var(--uc-accent);">Tema II: Gestión de Excepciones y Clases Base</strong><br>
+                            <span style="font-size:14px; opacity:0.9;">Uso robusto de try-catch-finally. Lanzamiento de excepciones y excepciones personalizadas. Clase Object, Clases Wrapper y Genéricos básicos.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="block-visualization">
+                    <p style="font-size: 14px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; color: var(--uc-accent);">Estructura de Objetos de Java</p>
+                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 6px; border: 1px solid rgba(0, 206, 209, 0.2); width: 80%; font-family: monospace; font-size: 13px;">
+                        <span style="color:#f87171;">class</span> ObjetoBase {<br>
+                        &nbsp;&nbsp;<span style="color:#60a5fa;">private</span> String estado;<br>
+                        &nbsp;&nbsp;<span style="color:#34d399;">public void</span> operar() {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#eab308;">// Lógica encapsulada</span><br>
+                        &nbsp;&nbsp;}<br>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <span>II-35 Estructuras de Datos y Algoritmos</span>
+            <span class="page-number"></span>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       DIAPOSITIVA 5: BLOQUE II (ESTRUCTURAS LINEALES Y COLECCIONES)
+       ========================================================================== -->
+    <div class="slide-container" id="slide5">
+        <h2 class="slide-title">Bloque II: Estructuras Lineales y Colecciones</h2>
+
+        <div class="slide-content">
+            <div class="two-column">
+                <div class="uc-tile" style="height: 100%;">
+                    <h3><i class="fa-solid fa-list-ol"></i> Temas y Contenidos</h3>
+                    <ul style="list-style: none; font-size: 15px; line-height: 1.7;">
+                        <li style="margin-bottom: 10px;">
+                            <strong style="color: var(--uc-accent);">Tema III: Java Collections Framework</strong><br>
+                            <span style="font-size:14px; opacity:0.9;">Interfaz Collection, List, Set y Map. Diferencias de rendimiento entre ArrayList y LinkedList. Uso de Iterator y comparadores.</span>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <strong style="color: var(--uc-accent);">Tema IV: TDA Pilas (Stack)</strong><br>
+                            <span style="font-size:14px; opacity:0.9;">Estructura LIFO. Operaciones de push, pop, peek. Aplicaciones prácticas y evaluación de algoritmos de notación postfija y prefija.</span>
+                        </li>
+                        <li>
+                            <strong style="color: var(--uc-accent);">Tema V: TDA Colas (Queue)</strong><br>
+                            <span style="font-size:14px; opacity:0.9;">Estructura FIFO. Operaciones de encolar y desencolar. Colas de prioridad y colas circulares estáticas basadas en arreglos.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="block-visualization">
+                    <p style="font-size: 14px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; color: var(--uc-accent);">Comportamiento FIFO (Cola)</p>
+                    <div class="queue-display">
+                        <div class="queue-item" style="opacity: 0.5;">Entrada</div>
+                        <div class="queue-item">Dato 3</div>
+                        <div class="queue-item">Dato 2</div>
+                        <div class="queue-item">Dato 1</div>
+                        <div class="queue-item" style="opacity: 0.5;">Salida</div>
+                    </div>
+                    <p style="font-size: 12px; margin-top: 15px; opacity: 0.8;">El primer elemento en ingresar (Dato 1) es el primero en ser procesado.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <span>II-35 Estructuras de Datos y Algoritmos</span>
+            <span class="page-number"></span>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       DIAPOSITIVA 6: BLOQUE III (ESTRUCTURAS DINÁMICAS - LISTAS)
+       ========================================================================== -->
+    <div class="slide-container" id="slide6">
+        <h2 class="slide-title">Bloque III: Estructuras Dinámicas (Listas)</h2>
+
+        <div class="slide-content">
+            <div class="two-column">
+                <div class="uc-tile" style="height: 100%;">
+                    <h3><i class="fa-solid fa-circle-nodes"></i> Temas y Contenidos</h3>
+                    <ul style="list-style: none; font-size: 14px; line-height: 1.6;">
+                        <li style="margin-bottom: 8px;">
+                            <strong style="color: var(--uc-accent);">Tema VI: El Concepto de Nodo y Punteros</strong><br>
+                            <span style="font-size:13px; opacity:0.9;">Asignación de memoria dinámica y estructuras de autoreferencia. Vinculación física de bloques.</span>
+                        </li>
+                        <li style="margin-bottom: 8px;">
+                            <strong style="color: var(--uc-accent);">Tema VII: Listas Enlazadas Simples</strong><br>
+                            <span style="font-size:13px; opacity:0.9;">Inserción al inicio, final e intermedia. Eliminación, recorrido secuencial y algoritmos de búsqueda.</span>
+                        </li>
+                        <li style="margin-bottom: 8px;">
+                            <strong style="color: var(--uc-accent);">Tema VIII: Listas Enlazadas Dobles</strong><br>
+                            <span style="font-size:13px; opacity:0.9;">Punteros anterior y siguiente. Operaciones de inserción, eliminación y recorridos bidireccionales eficientes.</span>
+                        </li>
+                        <li>
+                            <strong style="color: var(--uc-accent);">Tema IX: Listas Circulares</strong><br>
+                            <span style="font-size:13px; opacity:0.9;">Circularidad simple y doble. Manejo estricto de cabeza, cola y cursores activos para evitar bucles infinitos en navegación.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="block-visualization">
+                    <p style="font-size: 14px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; color: var(--uc-accent);">Enlace Físico de Nodos Dobles</p>
+                    <div class="node-display">
+                        <div class="visual-node">
+                            <div class="node-part info">Ant</div>
+                            <div class="node-part info">Dato A</div>
+                            <div class="node-part pointer">Sig</div>
+                        </div>
+                        <div class="node-arrow"><i class="fa-solid fa-right-left"></i></div>
+                        <div class="visual-node">
+                            <div class="node-part info">Ant</div>
+                            <div class="node-part info">Dato B</div>
+                            <div class="node-part pointer">Sig</div>
+                        </div>
+                    </div>
+                    <p style="font-size: 12px; margin-top: 15px; opacity: 0.8; text-align: center;">Los punteros permiten el recorrido hacia adelante o atrás.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <span>II-35 Estructuras de Datos y Algoritmos</span>
+            <span class="page-number"></span>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       DIAPOSITIVA 7: BLOQUE IV (RECURSIVIDAD Y ESTRUCTURAS NO LINEALES)
+       ========================================================================== -->
+    <div class="slide-container" id="slide7">
+        <h2 class="slide-title">Bloque IV: Recursividad y No Lineales</h2>
+
+        <div class="slide-content">
+            <div class="two-column">
+                <div class="uc-tile" style="height: 100%;">
+                    <h3><i class="fa-solid fa-sitemap"></i> Temas y Contenidos</h3>
+                    <ul style="list-style: none; font-size: 14px; line-height: 1.6;">
+                        <li style="margin-bottom: 8px;">
+                            <strong style="color: var(--uc-accent);">Tema X: Recursividad</strong><br>
+                            <span style="font-size:13px; opacity:0.9;">Caso base y paso recursivo. Análisis de pilas de llamadas y eficiencia vs. la iteración convencional.</span>
+                        </li>
+                        <li style="margin-bottom: 8px;">
+                            <strong style="color: var(--uc-accent);">Tema XI: Árboles</strong><br>
+                            <span style="font-size:13px; opacity:0.9;">Nodos raíz, hojas, altura y niveles. Árboles Binarios y Recorridos en profundidad (Preorden, Inorden, Postorden).</span>
+                        </li>
+                        <li style="margin-bottom: 8px;">
+                            <strong style="color: var(--uc-accent);">Tema XII: Árboles Binarios de Búsqueda (ABB)</strong><br>
+                            <span style="font-size:13px; opacity:0.9;">Inserción ordenada, eliminación compleja y optimización de búsquedas logarítmicas.</span>
+                        </li>
+                        <li>
+                            <strong style="color: var(--uc-accent);">Tema XIII: Grafos</strong><br>
+                            <span style="font-size:13px; opacity:0.9;">Vértices y Aristas. Representaciones (Matriz y Lista de adyacencia). Algoritmos de búsqueda DFS y BFS.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="block-visualization">
+                    <p style="font-size: 14px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--uc-accent);">Estructura Jerárquica (ABB)</p>
+                    <div class="tree-display">
+                        <div class="tree-node">15</div>
+                        <div style="display:flex; gap: 30px;">
+                            <div class="tree-arrow" style="transform:rotate(-30deg);"><i class="fa-solid fa-arrow-down"></i></div>
+                            <div class="tree-arrow" style="transform:rotate(30deg);"><i class="fa-solid fa-arrow-down"></i></div>
+                        </div>
+                        <div class="tree-level">
+                            <div class="tree-node">8</div>
+                            <div class="tree-node">20</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <span>II-35 Estructuras de Datos y Algoritmos</span>
+            <span class="page-number"></span>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       DIAPOSITIVA 8: CRONOGRAMA E HITOS CLAVE
+       ========================================================================== -->
+    <div class="slide-container" id="slide8">
+        <h2 class="slide-title">Cronograma e Hitos Clave</h2>
+
+        <div class="slide-content">
+            <p style="font-size: 16px; margin-bottom: 10px; opacity: 0.9;">
+                <i class="fa-solid fa-circle-nodes" style="color:var(--uc-accent); margin-right: 8px;"></i>
+                El curso se desarrolla en 15 semanas bajo un modelo que combina clases teóricas sincrónicas y laboratorios de programación autónoma:
+            </p>
+
+            <div class="timeline">
+                <div class="timeline-node">
+                    <div class="week-tag">Semanas 1-4</div>
+                    <p style="font-weight: bold; margin-bottom: 5px;">Bases de Java</p>
+                    <p>Entorno, manejo POO avanzado, Colecciones e Iterator.</p>
+                </div>
+                <div class="timeline-node">
+                    <div class="week-tag">Semanas 5-7</div>
+                    <p style="font-weight: bold; margin-bottom: 5px;">Lineales Clásicas</p>
+                    <p>Estructuras Pilas y Colas. <span class="highlight-accent">Entrega Proyecto 1 (Sem. 7)</span></p>
+                </div>
+                <div class="timeline-node">
+                    <div class="week-tag">Semanas 8-11</div>
+                    <p style="font-weight: bold; margin-bottom: 5px;">Estructuras de Nodos</p>
+                    <p>Punteros, Listas Simples, Dobles y Circulares. <span class="highlight-accent">Entrega Proyecto 2 (Sem. 11)</span></p>
+                </div>
+                <div class="timeline-node" style="border-color: #ff8c00;">
+                    <div class="week-tag" style="color: #ff8c00;">Semanas 12-15</div>
+                    <p style="font-weight: bold; margin-bottom: 5px;">Jerarquías y Cierre</p>
+                    <p>Recursividad, Árboles (ABB) y Grafos. <span class="highlight-accent">Proyecto Final (Sem. 15)</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <span>II-35 Estructuras de Datos y Algoritmos</span>
+            <span class="page-number"></span>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       DIAPOSITIVA 9: ESQUEMA DE EVALUACIÓN OFICIAL
+       ========================================================================== -->
+    <div class="slide-container" id="slide9">
+        <h2 class="slide-title">Esquema de Evaluación Oficial</h2>
+
+        <div class="slide-content">
+            <div class="two-column" style="grid-template-columns: 1.1fr 0.9fr; align-items: center;">
+                <!-- Gráfico dinámico -->
+                <div class="evaluation-chart">
+                    <div class="chart-bar-container">
+                        <div class="chart-bar-fill" style="height: 30%;"><div class="bar-percentage">30%</div></div>
+                        <div class="bar-label">Laboratorios</div>
+                    </div>
+                    <div class="chart-bar-container">
+                        <div class="chart-bar-fill" style="height: 15%;"><div class="bar-percentage">15%</div></div>
+                        <div class="bar-label">Proyecto I</div>
+                    </div>
+                    <div class="chart-bar-container">
+                        <div class="chart-bar-fill" style="height: 20%;"><div class="bar-percentage">20%</div></div>
+                        <div class="bar-label">Proyecto II</div>
+                    </div>
+                    <div class="chart-bar-container">
+                        <div class="chart-bar-fill" style="height: 20%;"><div class="bar-percentage">20%</div></div>
+                        <div class="bar-label">Proyecto III</div>
+                    </div>
+                    <div class="chart-bar-container">
+                        <div class="chart-bar-fill" style="height: 15%;"><div class="bar-percentage">15%</div></div>
+                        <div class="bar-label">Investigación</div>
+                    </div>
+                </div>
+
+                <!-- Desglose Tabular -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Evaluación</th>
+                                <th>Descripción de Trabajo</th>
+                                <th>Peso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Laboratorios</strong></td>
+                                <td>Ejercicios prácticos semanales.</td>
+                                <td><strong>30%</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Proyecto I</strong></td>
+                                <td>Práctica en Estructuras Lineales.</td>
+                                <td><strong>15%</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Proyecto II</strong></td>
+                                <td>Nodos, Enlaces y Listas.</td>
+                                <td><strong>20%</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Proyecto III (Final)</strong></td>
+                                <td>Proyecto de Gestión de Turnos.</td>
+                                <td><strong>20%</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Investigación</strong></td>
+                                <td>Estudio independiente de temas.</td>
+                                <td><strong>15%</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <span>II-35 Estructuras de Datos y Algoritmos</span>
+            <span class="page-number"></span>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       DIAPOSITIVA 10: PROYECTO FINAL - REQUERIMIENTOS Y CASOS DE PRUEBA
+       ========================================================================== -->
+    <div class="slide-container" id="slide10">
+        <h2 class="slide-title">Proyecto Final: Sistema de Gestión de Turnos</h2>
+
+        <div class="slide-content">
+            <div class="two-column" style="grid-template-columns: 0.95fr 1.05fr; gap: 30px;">
+                <!-- Requisitos técnicos -->
+                <div class="uc-tile">
+                    <h3 style="font-size: 17px; margin-bottom: 10px;"><i class="fa-solid fa-circle-nodes"></i> Requisitos del TDA</h3>
+                    <p style="font-size: 14px; margin-bottom: 15px;">
+                        Implementación de una <span class="highlight-accent">Lista Doblemente Enlazada Circular</span> genérica bajo Java + Swing, resolviendo los siguientes retos obligatorios:
+                    </p>
+                    <ul style="list-style: none; font-size: 13px; line-height: 1.6;">
+                        <li style="margin-bottom: 10px;"><i class="fa-solid fa-arrows-spin" style="color:var(--uc-accent);"></i> <strong>Circularidad Completa:</strong> Garantizar que la navegación sea infinita y libre de errores de puntero nulo (<code>null</code>) en memoria.</li>
+                        <li style="margin-bottom: 10px;"><i class="fa-solid fa-arrow-right-arrow-left" style="color:var(--uc-accent);"></i> <strong>Navegación Invertida:</strong> Inversión logicial del sentido de la dirección sin alterar los enlaces de la estructura en memoria.</li>
+                        <li><i class="fa-solid fa-list-ol" style="color:var(--uc-accent);"></i> <strong>Lista Rotativa:</strong> El visor <code>JTable</code> renderiza los elementos en pantalla comenzando por el puntero <code>actual</code>.</li>
+                    </ul>
+                </div>
+
+                <!-- Matriz de Aceptación -->
+                <div class="uc-tile" style="background: rgba(0, 206, 209, 0.02); border-left: 4px solid var(--uc-accent); border-bottom: none;">
+                    <h3 style="font-size: 17px; margin-bottom: 10px;"><i class="fa-solid fa-clipboard-check"></i> Matriz de Pruebas de Cátedra</h3>
+                    <p style="font-size: 13px; font-style: italic; margin-bottom: 10px; opacity: 0.9;">
+                        Estado de la JTable con la Lista: [10, 20, 30, 40] y Cursor en Actual = 30
+                    </p>
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th>Estado del Control</th>
+                                <th>Sentido Normal (Adelante)</th>
+                                <th>Sentido Invertido (Atrás)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Desde el Actual = OFF</strong><br><span style="font-size:11px; opacity:0.7;">Inicia en cabeza/cola</span></td>
+                                <td style="color:#a7f3d0; font-family:monospace; font-weight:700;">[10, 20, 30, 40]</td>
+                                <td style="color:#fca5a5; font-family:monospace; font-weight:700;">[40, 30, 20, 10]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Desde el Actual = ON</strong><br><span style="font-size:11px; opacity:0.7; color:var(--uc-accent)">Inicia en el actual (30)</span></td>
+                                <td style="color:#a7f3d0; font-family:monospace; font-weight:700; background:rgba(0,206,209,0.08);">[30, 40, 10, 20]</td>
+                                <td style="color:#fca5a5; font-family:monospace; font-weight:700; background:rgba(0,206,209,0.08);">[30, 20, 10, 40]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size: 12px; margin-top: 15px; opacity: 0.85;">
+                        <i class="fa-solid fa-info-circle" style="color:var(--uc-accent);"></i> <strong>Persistencia:</strong> Carga y guardado en <code>turnos.txt</code> de forma nativa (6-10 registros de prueba).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <span>II-35 Estructuras de Datos y Algoritmos</span>
+            <span class="page-number"></span>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       DIAPOSITIVA 11: CIERRE Y CANAL DE CONSULTAS (Q&A)
+       ========================================================================== -->
+    <div class="slide-container" id="slide11">
+        <div class="bg-shape bg-shape-1" style="opacity: 0.05;"></div>
+
+        <div class="slide-content" style="align-items: center; justify-content: center; text-align: center;">
+            <h1 style="font-size: 76px; color: var(--uc-accent); letter-spacing: 4px; text-shadow: 0 10px 25px rgba(0,0,0,0.4);">
+                ¿PREGUNTAS?
+            </h1>
+            <div style="width: 120px; height: 3px; background-color: var(--uc-white); margin: 25px 0; opacity: 0.4;"></div>
+
+            <p style="font-size: 24px; font-weight: 500; max-width: 800px; line-height: 1.5; margin-bottom: 40px;">
+                Aclaremos cualquier duda con respecto a la dinámica teórica, entrega de laboratorios, proyectos de programación o canales de atención virtual.
+            </p>
+
+            <div style="display: flex; gap: 40px; font-family: var(--primary-font); font-size: 16px;">
+                <div><i class="fa-solid fa-envelope" style="color:var(--uc-accent); margin-right: 8px;"></i> fb.argenis@gmail.com</div>
+                <div><i class="fa-solid fa-globe" style="color:var(--uc-accent); margin-right: 8px;"></i> campusvirtual.ucentral.edu.co</div>
+            </div>
+
+            <p style="margin-top: 50px; font-size: 14px; opacity: 0.5; text-transform: uppercase; letter-spacing: 2px;">
+                Universidad Central · Departamento de Ingeniería Informática
+            </p>
+        </div>
+
+        <div class="slide-footer" style="width: 100%;">
+            <span>II-35 Estructuras de Datos y Algoritmos</span>
+            <span class="page-number"></span>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       6. MOTOR INTERACTIVO DE JAVASCRIPT (NAVEGACIÓN DIRECTA)
+       ========================================================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide-container');
+            const progressBar = document.getElementById('progressBar');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            let currentSlideIndex = 0;
+
+            function updateSlideView(targetIndex) {
+                // Quitar clase activa del actual
+                slides[currentSlideIndex].classList.remove('active');
+
+                // Calcular índice con circularidad controlada (TDA Circular)
+                currentSlideIndex = (targetIndex + slides.length) % slides.length;
+
+                // Agregar clase activa al nuevo slide
+                slides[currentSlideIndex].classList.add('active');
+
+                // Actualizar barra de progreso superior
+                const progressPercentage = ((currentSlideIndex + 1) / slides.length) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+
+                // Actualizar numeración dinámica en el pie de página
+                const footerCounter = slides[currentSlideIndex].querySelector('.page-number');
+                if (footerCounter) {
+                    footerCounter.textContent = `Diapositiva ${currentSlideIndex + 1} de ${slides.length}`;
+                }
+            }
+
+            // Escuchadores para botones interactivos de mouse y pantallas táctiles
+            prevBtn.addEventListener('click', () => {
+                updateSlideView(currentSlideIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                updateSlideView(currentSlideIndex + 1);
+            });
+
+            // Escuchador global de eventos de teclado
+            window.addEventListener('keydown', (event) => {
+                if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'Enter') {
+                    event.preventDefault(); // Prevenir desplazamiento de barra espaciadora
+                    updateSlideView(currentSlideIndex + 1);
+                } else if (event.key === 'ArrowLeft') {
+                    event.preventDefault();
+                    updateSlideView(currentSlideIndex - 1);
+                }
+            });
+
+            // Inicializar la barra de progreso en la carga inicial
+            updateSlideView(0);
+        });
+    </script>
+</body>
+</html>
