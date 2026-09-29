@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Caso de ejemplo: CRUD Persona (Capas + Clases) - II-46</title>
+  <style>
+    :root {
+      --primary: #005b82;
+      --primary-dark: #003e59;
+      --accent: #00a3b4;
+      --bg: #f4f7f9;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --code-bg: #0f172a;
+      --code-text: #f8fafc;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: #fff;
+      padding: 32px 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 28px;
+    }
+
+    header p {
+      max-width: 800px;
+      margin: 0 auto;
+      opacity: 0.92;
+    }
+
+    .tag {
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 28px auto;
+      padding: 0 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--primary-dark);
+      font-size: 20px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    code.inline {
+      background: #e2e8f0;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: Consolas, monospace;
+      font-size: 0.9em;
+    }
+
+    /* Lista de pasos interactiva */
+    .steps-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .step-tab {
+      background: #e2e8f0;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+
+    .step-tab:hover {
+      background: #cbd5e1;
+    }
+
+    .step-tab.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .step-content {
+      display: none;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+
+    .step-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Bloques de código */
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1e293b;
+      color: #cbd5e1;
+      padding: 8px 16px;
+      border-radius: 8px 8px 0 0;
+      font-size: 13px;
+      font-family: Consolas, monospace;
+      margin-top: 16px;
+    }
+
+    .copy-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 4px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .copy-btn:hover {
+      opacity: 0.9;
+    }
+
+    pre {
+      margin: 0 0 16px;
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 16px;
+      border-radius: 0 0 8px 8px;
+      overflow-x: auto;
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    figure {
+      margin: 12px 0;
+      text-align: center;
+    }
+
+    figure img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    figcaption {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .btn {
+      text-decoration: none;
+      background: var(--primary);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Checklist */
+    .checklist label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      cursor: pointer;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .checklist input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      padding-top: 40px;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.85);
+    }
+
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 85vh;
+      background: #fff;
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Caso de ejemplo: CRUD de Persona <span class="tag">VB.NET + ADO.NET</span></h1>
+    <p>
+      Curso II-46: Programación III (Visual Basic Avanzado) — Arquitectura en capas (UI → Service → Data → DB), uso de objetos de conexión y comandos parametrizados hacia SQL Server.
+    </p>
+  </header>
+
+  <main class="wrap">
+    <!-- Resumen de pasos -->
+    <section class="card">
+      <h2>Resumen de los pasos del ejercicio</h2>
+      <ol>
+        <li><strong>Paso 0:</strong> Crear la tabla <code class="inline">Personas</code> en SQL Server y configurar <code class="inline">Web.config</code>.</li>
+        <li><strong>Paso 1:</strong> Crear la entidad <code class="inline">Persona</code> (propiedades básicas).</li>
+        <li><strong>Paso 2:</strong> Crear <code class="inline">DbHelper</code> para manejar conexión y ejecución de comandos (con parámetros).</li>
+        <li><strong>Paso 3:</strong> Crear <code class="inline">PersonaDB</code> con CRUD (GetAll, GetById, Insert, Update, Delete).</li>
+        <li><strong>Paso 4:</strong> Crear <code class="inline">PersonaService</code> para reglas/validaciones (no SQL, solo lógica).</li>
+        <li><strong>Paso 5:</strong> En UI (WebForm): cargar <code class="inline">GridView</code>, seleccionar registro, cargar en formulario y guardar.</li>
+        <li><strong>Paso 6:</strong> Usar <code class="inline">SwalUtils</code> únicamente en la capa UI para mostrar errores/confirmaciones.</li>
+        <li><strong>Paso 7:</strong> Probar: Insert → Listar → Editar → Eliminar, verificando que el ID se maneje con <code class="inline">DataKeys</code> / estado de edición.</li>
+      </ol>
+    </section>
+
+    <!-- Diagramas -->
+    <section class="grid">
+      <section class="card">
+        <h2>Diagrama 1: Arquitectura General</h2>
+        <figure>
+          <figcaption>Vista en SVG (clic en la imagen para ampliar)</figcaption>
+          <picture>
+            <source srcset="persona_layer_architecture.svg" type="image/svg+xml" />
+            <img src="persona_layer_architecture.png" onclick="openModal(this)" style="cursor:pointer;" alt="Arquitectura General CRUD Persona" />
+          </picture>
+        </figure>
+        <div class="btns">
+          <a class="btn" href="persona_layer_architecture.svg" download>Descargar SVG</a>
+          <a class="btn" href="persona_layer_architecture.png" download>Descargar PNG</a>
+          <a class="btn" href="Persona - Capas.mmd" download>Descargar .mmd</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Diagrama 2: Arquitectura en Capas (Layered)</h2>
+        <figure>
+          <figcaption>Vista en SVG (clic en la imagen para ampliar)</figcaption>
+          <picture>
+            <source srcset="persona_layered_arch.svg" type="image/svg+xml" />
+            <img src="persona_layered_arch.png" onclick="openModal(this)" style="cursor:pointer;" alt="Arquitectura en Capas Persona" />
+          </picture>
+        </figure>
+        <div class="btns">
+          <a class="btn" href="persona_layered_arch.svg" download>Descargar SVG</a>
+          <a class="btn" href="persona_layered_arch.png" download>Descargar PNG</a>
+          <a class="btn" href="Persona - Clases.mmd" download>Descargar .mmd</a>
+        </div>
+      </section>
+    </section>
+
+    <!-- Guía Interactiva Paso a Paso -->
+    <section class="card">
+      <h2>Guía Interactiva Paso a Paso (Código Fuente)</h2>
+      <p>Selecciona cada pestaña para visualizar las instrucciones y copiar el código correspondiente a cada capa:</p>
+
+      <div class="steps-nav">
+        <button class="step-tab active" onclick="showStep(0)">0. SQL + Web.config</button>
+        <button class="step-tab" onclick="showStep(1)">1. Entidad Persona</button>
+        <button class="step-tab" onclick="showStep(2)">2. DbHelper</button>
+        <button class="step-tab" onclick="showStep(3)">3. PersonaDB (CRUD)</button>
+        <button class="step-tab" onclick="showStep(4)">4. PersonaService</button>
+        <button class="step-tab" onclick="showStep(5)">5. UI (WebForm)</button>
+        <button class="step-tab" onclick="showStep(6)">6. SwalUtils</button>
+        <button class="step-tab" onclick="showStep(7)">7. Pruebas</button>
+      </div>
+
+      <!-- PASO 0 -->
+      <div class="step-content active" id="step-0">
+        <h3>Paso 0: Base de Datos en SQL Server y Cadena de Conexión</h3>
+        <p>Ejecuta este script en SQL Server Management Studio (SSMS) y agrega la cadena de conexión en tu archivo <code class="inline">Web.config</code>.</p>
+        <div class="code-header">
+          <span>SQL Server - Script de creación</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copiar código</button>
+        </div>
+        <pre><code>CREATE DATABASE CursoII46DB;
+GO
+USE CursoII46DB;
+GO
+
+CREATE TABLE Personas (
+    IdPersona INT IDENTITY(1,1) PRIMARY KEY,
+    Identificacion VARCHAR(20) NOT NULL,
+    Nombre VARCHAR(100) NOT NULL,
+    Apellidos VARCHAR(100) NOT NULL,
+    Correo VARCHAR(120) NOT NULL,
+    Edad INT NOT NULL
+);
+GO</code></pre>
+
+        <div class="code-header">
+          <span>Web.config</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copiar código</button>
+        </div>
+        <pre><code>&lt;configuration&gt;
+  &lt;connectionStrings&gt;
+    &lt;add name="DefaultConnection"
+         connectionString="Server=localhost;Database=CursoII46DB;Trusted_Connection=True;TrustServerCertificate=True;"
+         providerName="System.Data.SqlClient" /&gt;
+  &lt;/connectionStrings&gt;
+&lt;/configuration&gt;</code></pre>
+      </div>
+
+      <!-- PASO 1 -->
+      <div class="step-content" id="step-1">
+        <h3>Paso 1: Crear la entidad <code class="inline">Persona</code></h3>
+        <p>Crea la carpeta <code class="inline">Models</code> y agrega la clase <code class="inline">Persona.vb</code> con las propiedades básicas de la entidad.</p>
+        <div class="code-header">
+          <span>Models/Persona.vb</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copiar código</button>
+        </div>
+        <pre><code>Public Class Persona
+    Public Property IdPersona As Integer
+    Public Property Identificacion As String
+    Public Property Nombre As String
+    Public Property Apellidos As String
+    Public Property Correo As String
+    Public Property Edad As Integer
+
+    Public Sub New()
+    End Sub
+
+    Public Sub New(idPersona As Integer, identificacion As String, nombre As String, apellidos As String, correo As String, edad As Integer)
+        Me.IdPersona = idPersona
+        Me.Identificacion = identificacion
+        Me.Nombre = nombre
+        Me.Apellidos = apellidos
+        Me.Correo = correo
+        Me.Edad = edad
+    End Sub
+End Class</code></pre>
+      </div>
+
+      <!-- PASO 2 -->
+      <div class="step-content" id="step-2">
+        <h3>Paso 2: Crear <code class="inline">DbHelper</code> (Conexión y Comandos ADO.NET)</h3>
+        <p>Centraliza el uso de <code class="inline">SqlConnection</code>, <code class="inline">SqlCommand</code> y <code class="inline">SqlParameter</code> para evitar código repetitivo y prevenir inyección SQL.</p>
+        <div class="code-header">
+          <span>Data/DbHelper.vb</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copiar código</button>
+        </div>
+        <pre><code>Imports System.Configuration
+Imports System.Data
+Imports System.Data.SqlClient
+
+Public Class DbHelper
+    Private ReadOnly _connectionString As String
+
+    Public Sub New()
+        _connectionString = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
+    End Sub
+
+    Public Function GetConnection() As SqlConnection
+        Return New SqlConnection(_connectionString)
+    End Function
+
+    Public Function ExecuteNonQuery(query As String, Optional parameters As List(Of SqlParameter) = Nothing) As Integer
+        Using conn As SqlConnection = GetConnection()
+            Using cmd As New SqlCommand(query, conn)
+                If parameters IsNot Nothing Then
+                    cmd.Parameters.AddRange(parameters.ToArray())
+                End If
+                conn.Open()
+                Return cmd.ExecuteNonQuery()
+            End Using
+        End Using
+    End Function
+
+    Public Function ExecuteQuery(query As String, Optional parameters As List(Of SqlParameter) = Nothing) As DataTable
+        Dim dt As New DataTable()
+        Using conn As SqlConnection = GetConnection()
+            Using cmd As New SqlCommand(query, conn)
+                If parameters IsNot Nothing Then
+                    cmd.Parameters.AddRange(parameters.ToArray())
+                End If
+                Using adapter As New SqlDataAdapter(cmd)
+                    adapter.Fill(dt)
+                End Using
+            End Using
+        End Using
+        Return dt
+    End Function
+End Class</code></pre>
+      </div>
+
+      <!-- PASO 3 -->
+      <div class="step-content" id="step-3">
+        <h3>Paso 3: Crear <code class="inline">PersonaDB</code> con métodos CRUD</h3>
+        <p>Implementa <code class="inline">GetAll</code>, <code class="inline">GetById</code>, <code class="inline">Insert</code>, <code class="inline">Update</code> y <code class="inline">Delete</code> apoyándose en <code class="inline">DbHelper</code>.</p>
+        <div class="code-header">
+          <span>Data/PersonaDB.vb</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copiar código</button>
+        </div>
+        <pre><code>Imports System.Data
+Imports System.Data.SqlClient
+
+Public Class PersonaDB
+    Private ReadOnly _db As New DbHelper()
+
+    Public Function GetAll() As List(Of Persona)
+        Dim lista As New List(Of Persona)()
+        Dim query As String = "SELECT IdPersona, Identificacion, Nombre, Apellidos, Correo, Edad FROM Personas ORDER BY IdPersona DESC"
+        Dim dt As DataTable = _db.ExecuteQuery(query)
+
+        For Each row As DataRow In dt.Rows
+            lista.Add(MapRowToPersona(row))
+        Next
+        Return lista
+    End Function
+
+    Public Function GetById(id As Integer) As Persona
+        Dim query As String = "SELECT IdPersona, Identificacion, Nombre, Apellidos, Correo, Edad FROM Personas WHERE IdPersona = @IdPersona"
+        Dim params As New List(Of SqlParameter) From {
+            New SqlParameter("@IdPersona", id)
+        }
+        Dim dt As DataTable = _db.ExecuteQuery(query, params)
+        If dt.Rows.Count > 0 Then
+            Return MapRowToPersona(dt.Rows(0))
+        End If
+        Return Nothing
+    End Function
+
+    Public Function Insert(p As Persona) As Boolean
+        Dim query As String = "INSERT INTO Personas (Identificacion, Nombre, Apellidos, Correo, Edad) VALUES (@Identificacion, @Nombre, @Apellidos, @Correo, @Edad)"
+        Dim params As New List(Of SqlParameter) From {
+            New SqlParameter("@Identificacion", p.Identificacion),
+            New SqlParameter("@Nombre", p.Nombre),
+            New SqlParameter("@Apellidos", p.Apellidos),
+            New SqlParameter("@Correo", p.Correo),
+            New SqlParameter("@Edad", p.Edad)
+        }
+        Return _db.ExecuteNonQuery(query, params) > 0
+    End Function
+
+    Public Function Update(p As Persona) As Boolean
+        Dim query As String = "UPDATE Personas SET Identificacion = @Identificacion, Nombre = @Nombre, Apellidos = @Apellidos, Correo = @Correo, Edad = @Edad WHERE IdPersona = @IdPersona"
+        Dim params As New List(Of SqlParameter) From {
+            New SqlParameter("@IdPersona", p.IdPersona),
+            New SqlParameter("@Identificacion", p.Identificacion),
+            New SqlParameter("@Nombre", p.Nombre),
+            New SqlParameter("@Apellidos", p.Apellidos),
+            New SqlParameter("@Correo", p.Correo),
+            New SqlParameter("@Edad", p.Edad)
+        }
+        Return _db.ExecuteNonQuery(query, params) > 0
+    End Function
+
+    Public Function Delete(id As Integer) As Boolean
+        Dim query As String = "DELETE FROM Personas WHERE IdPersona = @IdPersona"
+        Dim params As New List(Of SqlParameter) From {
+            New SqlParameter("@IdPersona", id)
+        }
+        Return _db.ExecuteNonQuery(query, params) > 0
+    End Function
+
+    Private Function MapRowToPersona(row As DataRow) As Persona
+        Return New Persona() With {
+            .IdPersona = Convert.ToInt32(row("IdPersona")),
+            .Identificacion = row("Identificacion").ToString(),
+            .Nombre = row("Nombre").ToString(),
+            .Apellidos = row("Apellidos").ToString(),
+            .Correo = row("Correo").ToString(),
+            .Edad = Convert.ToInt32(row("Edad"))
+        }
+    End Function
+End Class</code></pre>
+      </div>
+
+      <!-- PASO 4 -->
+      <div class="step-content" id="step-4">
+        <h3>Paso 4: Crear <code class="inline">PersonaService</code> (Reglas de Negocio y Validaciones)</h3>
+        <p>Esta capa valida los datos antes de llamar a <code class="inline">PersonaDB</code>. No contiene código SQL ni controles de interfaz.</p>
+        <div class="code-header">
+          <span>Services/PersonaService.vb</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copiar código</button>
+        </div>
+        <pre><code>Public Class PersonaService
+    Private ReadOnly _personaDB As New PersonaDB()
+
+    Public Function ListarPersonas() As List(Of Persona)
+        Return _personaDB.GetAll()
+    End Function
+
+    Public Function ObtenerPorId(id As Integer) As Persona
+        If id &lt;= 0 Then
+            Throw New ArgumentException("El ID de la persona no es válido.")
+        End If
+        Return _personaDB.GetById(id)
+    End Function
+
+    Public Sub GuardarPersona(p As Persona)
+        ValidarPersona(p)
+        If p.IdPersona = 0 Then
+            _personaDB.Insert(p)
+        Else
+            _personaDB.Update(p)
+        End If
+    End Sub
+
+    Public Sub EliminarPersona(id As Integer)
+        If id &lt;= 0 Then
+            Throw New ArgumentException("Seleccione un registro válido para eliminar.")
+        End If
+        _personaDB.Delete(id)
+    End Sub
+
+    Private Sub ValidarPersona(p As Persona)
+        If p Is Nothing Then Throw New ArgumentException("Datos requeridos.")
+        If String.IsNullOrWhiteSpace(p.Identificacion) Then Throw New ArgumentException("La identificación es obligatoria.")
+        If String.IsNullOrWhiteSpace(p.Nombre) Then Throw New ArgumentException("El nombre es obligatorio.")
+        If String.IsNullOrWhiteSpace(p.Apellidos) Then Throw New ArgumentException("Los apellidos son obligatorios.")
+        If String.IsNullOrWhiteSpace(p.Correo) OrElse Not p.Correo.Contains("@") Then Throw New ArgumentException("Ingrese un correo válido.")
+        If p.Edad &lt; 0 OrElse p.Edad &gt; 120 Then Throw New ArgumentException("La edad debe estar entre 0 y 120 años.")
+    End Sub
+End Class</code></pre>
+      </div>
+
+      <!-- PASO 5 -->
+      <div class="step-content" id="step-5">
+        <h3>Paso 5: Capa UI en WebForm (<code class="inline">Personas.aspx</code> y <code class="inline">Personas.aspx.vb</code>)</h3>
+        <p>Carga el <code class="inline">GridView</code>, utiliza <code class="inline">DataKeyNames="IdPersona"</code> para identificar cada fila y gestiona el estado de edición en <code class="inline">ViewState</code>.</p>
+        <div class="code-header">
+          <span>Personas.aspx</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copiar código</button>
+        </div>
+        <pre><code>&lt;%@ Page Language="vb" AutoEventWireup="false" CodeBehind="Personas.aspx.vb" Inherits="TuProyecto.Personas" %&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head runat="server"&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;title&gt;CRUD Persona&lt;/title&gt;
+    &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" /&gt;
+    &lt;script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="bg-light"&gt;
+    &lt;form id="form1" runat="server" class="container py-4"&gt;
+        &lt;h2 class="mb-3"&gt;Gestión de Personas&lt;/h2&gt;
+        &lt;div class="card mb-4"&gt;
+            &lt;div class="card-header bg-primary text-white"&gt;
+                &lt;asp:Label ID="lblTituloForm" runat="server" Text="Nueva Persona" /&gt;
+            &lt;/div&gt;
+            &lt;div class="card-body row g-3"&gt;
+                &lt;div class="col-md-4"&gt;
+                    &lt;label&gt;Identificación&lt;/label&gt;
+                    &lt;asp:TextBox ID="txtIdentificacion" runat="server" CssClass="form-control" /&gt;
+                &lt;/div&gt;
+                &lt;div class="col-md-4"&gt;
+                    &lt;label&gt;Nombre&lt;/label&gt;
+                    &lt;asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" /&gt;
+                &lt;/div&gt;
+                &lt;div class="col-md-4"&gt;
+                    &lt;label&gt;Apellidos&lt;/label&gt;
+                    &lt;asp:TextBox ID="txtApellidos" runat="server" CssClass="form-control" /&gt;
+                &lt;/div&gt;
+                &lt;div class="col-md-6"&gt;
+                    &lt;label&gt;Correo&lt;/label&gt;
+                    &lt;asp:TextBox ID="txtCorreo" runat="server" CssClass="form-control" TextMode="Email" /&gt;
+                &lt;/div&gt;
+                &lt;div class="col-md-3"&gt;
+                    &lt;label&gt;Edad&lt;/label&gt;
+                    &lt;asp:TextBox ID="txtEdad" runat="server" CssClass="form-control" TextMode="Number" /&gt;
+                &lt;/div&gt;
+                &lt;div class="col-md-3 d-flex align-items-end gap-2"&gt;
+                    &lt;asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-success w-100" OnClick="btnGuardar_Click" /&gt;
+                    &lt;asp:Button ID="btnLimpiar" runat="server" Text="Cancelar" CssClass="btn btn-secondary w-100" OnClick="btnLimpiar_Click" /&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;asp:GridView ID="gvPersonas" runat="server" CssClass="table table-striped"
+            AutoGenerateColumns="False" DataKeyNames="IdPersona" OnRowCommand="gvPersonas_RowCommand"&gt;
+            &lt;Columns&gt;
+                &lt;asp:BoundField DataField="IdPersona" HeaderText="ID" /&gt;
+                &lt;asp:BoundField DataField="Identificacion" HeaderText="Identificación" /&gt;
+                &lt;asp:BoundField DataField="Nombre" HeaderText="Nombre" /&gt;
+                &lt;asp:BoundField DataField="Apellidos" HeaderText="Apellidos" /&gt;
+                &lt;asp:BoundField DataField="Correo" HeaderText="Correo" /&gt;
+                &lt;asp:BoundField DataField="Edad" HeaderText="Edad" /&gt;
+                &lt;asp:TemplateField HeaderText="Acciones"&gt;
+                    &lt;ItemTemplate&gt;
+                        &lt;asp:Button ID="btnSeleccionar" runat="server" Text="Editar" CommandName="Seleccionar" CommandArgument='&lt;%# Container.DataItemIndex %&gt;' CssClass="btn btn-sm btn-warning me-1" /&gt;
+                        &lt;asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='&lt;%# Container.DataItemIndex %&gt;' CssClass="btn btn-sm btn-danger" OnClientClick="return confirm('¿Eliminar este registro?');" /&gt;
+                    &lt;/ItemTemplate&gt;
+                &lt;/asp:TemplateField&gt;
+            &lt;/Columns&gt;
+        &lt;/asp:GridView&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        <div class="code-header">
+          <span>Personas.aspx.vb (Code-Behind)</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copiar código</button>
+        </div>
+        <pre><code>Public Class Personas
+    Inherits System.Web.UI.Page
+
+    Private ReadOnly _service As New PersonaService()
+
+    Private Property IdPersonaEditar As Integer
+        Get
+            Return If(ViewState("IdPersonaEditar") IsNot Nothing, Convert.ToInt32(ViewState("IdPersonaEditar")), 0)
+        End Get
+        Set(value As Integer)
+            ViewState("IdPersonaEditar") = value
+        End Set
+    End Property
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Not IsPostBack Then
+            CargarGrid()
+        End If
+    End Sub
+
+    Private Sub CargarGrid()
+        Try
+            gvPersonas.DataSource = _service.ListarPersonas()
+            gvPersonas.DataBind()
+        Catch ex As Exception
+            SwalUtils.ShowError(Me, "Error al cargar datos: " & ex.Message)
+        End Try
+    End Sub
+
+    Protected Sub btnGuardar_Click(sender As Object, e As EventArgs)
+        Try
+            Dim edadValor As Integer = 0
+            If Not Integer.TryParse(txtEdad.Text.Trim(), edadValor) Then
+                SwalUtils.ShowWarning(Me, "Ingrese una edad numérica válida.")
+                Return
+            End If
+
+            Dim p As New Persona() With {
+                .IdPersona = Me.IdPersonaEditar,
+                .Identificacion = txtIdentificacion.Text.Trim(),
+                .Nombre = txtNombre.Text.Trim(),
+                .Apellidos = txtApellidos.Text.Trim(),
+                .Correo = txtCorreo.Text.Trim(),
+                .Edad = edadValor
+            }
+
+            Dim esEdicion As Boolean = (Me.IdPersonaEditar > 0)
+            _service.GuardarPersona(p)
+
+            LimpiarFormulario()
+            CargarGrid()
+            SwalUtils.ShowSuccess(Me, If(esEdicion, "Registro actualizado.", "Registro insertado."))
+        Catch ex As Exception
+            SwalUtils.ShowError(Me, ex.Message)
+        End Try
+    End Sub
+
+    Protected Sub gvPersonas_RowCommand(sender As Object, e As GridViewCommandEventArgs)
+        If e.CommandName = "Seleccionar" OrElse e.CommandName = "Eliminar" Then
+            Try
+                Dim rowIndex As Integer = Convert.ToInt32(e.CommandArgument)
+                Dim idPersona As Integer = Convert.ToInt32(gvPersonas.DataKeys(rowIndex).Value)
+
+                If e.CommandName = "Seleccionar" Then
+                    Dim p As Persona = _service.ObtenerPorId(idPersona)
+                    If p IsNot Nothing Then
+                        Me.IdPersonaEditar = p.IdPersona
+                        txtIdentificacion.Text = p.Identificacion
+                        txtNombre.Text = p.Nombre
+                        txtApellidos.Text = p.Apellidos
+                        txtCorreo.Text = p.Correo
+                        txtEdad.Text = p.Edad.ToString()
+                        lblTituloForm.Text = $"Editando Persona (ID: {p.IdPersona})"
+                        btnGuardar.Text = "Actualizar"
+                    End If
+                ElseIf e.CommandName = "Eliminar" Then
+                    _service.EliminarPersona(idPersona)
+                    If Me.IdPersonaEditar = idPersona Then LimpiarFormulario()
+                    CargarGrid()
+                    SwalUtils.ShowSuccess(Me, "Registro eliminado correctamente.")
+                End If
+            Catch ex As Exception
+                SwalUtils.ShowError(Me, ex.Message)
+            End Try
+        End If
+    End Sub
+
+    Protected Sub btnLimpiar_Click(sender As Object, e As EventArgs)
+        LimpiarFormulario()
+    End Sub
+
+    Private Sub LimpiarFormulario()
+        Me.IdPersonaEditar = 0
+        txtIdentificacion.Text = ""
+        txtNombre.Text = ""
+        txtApellidos.Text = ""
+        txtCorreo.Text = ""
+        txtEdad.Text = ""
+        lblTituloForm.Text = "Nueva Persona"
+        btnGuardar.Text = "Guardar"
+    End Sub
+End Class</code></pre>
+      </div>
+
+      <!-- PASO 6 -->
+      <div class="step-content" id="step-6">
+        <h3>Paso 6: Usar <code class="inline">SwalUtils</code> en la capa UI</h3>
+        <p>Clase utilitaria exclusiva para la capa de presentación que inyecta alertas de SweetAlert2 mediante <code class="inline">ScriptManager</code>.</p>
+        <div class="code-header">
+          <span>Utils/SwalUtils.vb</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copiar código</button>
+        </div>
+        <pre><code>Imports System.Web.UI
+
+Public Class SwalUtils
+    Public Shared Sub ShowAlert(page As Page, title As String, message As String, icon As String)
+        Dim cleanMsg As String = message.Replace("'", "\'").Replace(vbCrLf, " ")
+        Dim script As String = $"Swal.fire({{ title: '{title}', text: '{cleanMsg}', icon: '{icon}' }});"
+        ScriptManager.RegisterStartupScript(page, page.GetType(), Guid.NewGuid().ToString(), script, True)
+    End Sub
+
+    Public Shared Sub ShowSuccess(page As Page, message As String)
+        ShowAlert(page, "¡Éxito!", message, "success")
+    End Sub
+
+    Public Shared Sub ShowError(page As Page, message As String)
+        ShowAlert(page, "Error", message, "error")
+    End Sub
+
+    Public Shared Sub ShowWarning(page As Page, message As String)
+        ShowAlert(page, "Atención", message, "warning")
+    End Sub
+End Class</code></pre>
+      </div>
+
+      <!-- PASO 7 -->
+      <div class="step-content" id="step-7">
+        <h3>Paso 7: Lista de Verificación de Pruebas</h3>
+        <p>Marca cada prueba conforme vayas verificando el funcionamiento de tu aplicación:</p>
+        <div class="checklist">
+          <label><input type="checkbox" /> <strong>Validación en Capa Service:</strong> Intentar guardar con campos vacíos y comprobar que <code class="inline">SwalUtils</code> muestra el error sin tocar la base de datos.</label>
+          <label><input type="checkbox" /> <strong>Insertar (Insert):</strong> Registrar una persona nueva (<code class="inline">IdPersonaEditar = 0</code>) y verificar el mensaje de confirmación.</label>
+          <label><input type="checkbox" /> <strong>Listar (GetAll):</strong> Confirmar que el <code class="inline">GridView</code> se actualiza inmediatamente después de insertar.</label>
+          <label><input type="checkbox" /> <strong>Seleccionar con DataKeys (GetById):</strong> Hacer clic en "Editar" y verificar que los datos se cargan en los <code class="inline">TextBox</code> y el botón cambia a "Actualizar".</label>
+          <label><input type="checkbox" /> <strong>Actualizar (Update):</strong> Modificar un dato del registro cargado y guardar (<code class="inline">IdPersonaEditar &gt; 0</code>).</label>
+          <label><input type="checkbox" /> <strong>Eliminar (Delete):</strong> Eliminar un registro desde el <code class="inline">GridView</code> y comprobar que desaparece de la tabla.</label>
+        </div>
+      </div>
+    </section>
+
+    <div id="imgModal" class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img class="modal-content" id="modalImg" />
+    </div>
+  </main>
+
+  <footer>
+    <p>Universidad Central — Curso II-46: Programación III (Visual Basic Avanzado) • Arquitectura en Capas con VB.NET y ADO.NET</p>
+  </footer>
+
+  <script>
+    function showStep(index) {
+      const tabs = document.querySelectorAll('.step-tab');
+      const contents = document.querySelectorAll('.step-content');
+      tabs.forEach((t, i) => t.classList.toggle('active', i === index));
+      contents.forEach((c, i) => c.classList.toggle('active', i === index));
+    }
+
+    function copyCode(btn) {
+      const pre = btn.parentElement.nextElementSibling;
+      const text = pre.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.innerText;
+        btn.innerText = '¡Copiado!';
+        setTimeout(() => btn.innerText = original, 1800);
+      });
+    }
+
+    function openModal(img) {
+      document.getElementById("imgModal").style.display = "block";
+      document.getElementById("modalImg").src = img.src;
+    }
+
+    function closeModal() {
+      document.getElementById("imgModal").style.display = "none";
+    }
+  </script>
+</body>
+</html>
